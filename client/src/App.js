@@ -1,8 +1,9 @@
 import './App.css';
-// import Dashboard from './Dashboard/Dashboard.js'
-// import LoginPage from './LoginPage/LoginPage.js'
-import CoursePage from './CoursePage/CoursePage.js'
+import Dashboard from './Dashboard/Dashboard.js';
+import LoginPage from './LoginPage/LoginPage.js';
+import CoursePage from './CoursePage/CoursePage.js';
 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 function App() {
@@ -45,7 +46,22 @@ function App() {
 ];
 
   return (
-    <CoursePage courseList={sampleClass} />
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Dashboard />
+        </Route>
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
+        <Route exact path="/coursepage">
+          <CoursePage />
+        </Route>
+        <Route exact path="/">
+          <Dashboard />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
