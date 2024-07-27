@@ -21,10 +21,32 @@
 }
 
 .itemHeader {
+    display: flex;
     font-weight: bold;
+    align-items: center;
     font-size: 2rem;
     margin-bottom: 10px;
 }
+
+.dropdownIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.dropdownIcon img {
+    max-width: 28px;
+    transition: background-color 0.3s ease;
+    padding: 8px;
+}
+
+.dropdownIcon img:hover {
+    background-color: #f1f1f1;
+}
+
 
 .itemList {
     list-style-type: none;
