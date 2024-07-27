@@ -4,13 +4,13 @@ function Sidebar() {
 
     return(
         <div className={styles.sidebar}>
-            <ul class={styles.menu}>
-                <li><i class={styles.icon}>H</i></li>
-                <li><i class={styles.icon}>📄</i></li>
-                <li><i class={styles.icon}>📤</i></li>
-                <li><i class={styles.icon}>📥</i></li>
-                <li><i class={styles.icon}>🔌</i></li>
-            </ul>
+            <div class={styles.menu}>
+                <div><i class={styles.icon}>H</i></div>
+                <div><i class={styles.icon}>📄</i></div>
+                <div><i class={styles.icon}>📤</i></div>
+                <div><i class={styles.icon}>📥</i></div>
+                <div className={styles.lastItem}><i class={styles.icon}>🔌</i></div>
+            </div>
         </div>
     );
 

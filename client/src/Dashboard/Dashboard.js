@@ -4,8 +4,12 @@ import styles from './Dashboard.module.css'
 function Dashboard() {
 
     return(
+        <body>
+
+        
         <div className={styles.container}>
             <Sidebar/>
+             
             <div class={styles.content}>
                 <div class={styles.item}>
                     <div class={styles.itemHeader} id="">ID124</div>
@@ -28,6 +32,7 @@ function Dashboard() {
 
             </div>
         </div>
+        </body>
     );
 
 }
