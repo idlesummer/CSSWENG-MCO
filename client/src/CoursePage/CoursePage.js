@@ -37,9 +37,9 @@ function CoursePage({ courseList }){
                             <input type="text"/>
                         </div>
                         <div className={styles.iconButtons}>
-                            <div className={`${styles.iconButton} ${styles.addIcon}`}></div>
-                            <div className={`${styles.iconButton} ${styles.editIcon}`}></div>
-                            <div className={`${styles.iconButton} ${styles.deleteIcon}`}></div>
+                            <div className={`${styles.iconButton} ${styles.addIcon}`}><img src="/img/icons/plus.png" alt="add"></img></div>
+                            <div className={`${styles.iconButton} ${styles.editIcon}`}><img src="/img/icons/edit.png" alt="edit"></img></div>
+                            <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>
                     </div>
                 
