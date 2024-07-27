@@ -2,6 +2,7 @@ import './App.css';
 import Dashboard from './Dashboard/Dashboard.js';
 import LoginPage from './LoginPage/LoginPage.js';
 import CoursePage from './CoursePage/CoursePage.js';
+import CourseOfferings from './CourseOfferings/CourseOfferings.js';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -57,8 +58,8 @@ function App() {
         <Route exact path="/coursepage">
           <CoursePage />
         </Route>
-        <Route exact path="/">
-          <Dashboard />
+        <Route exact path="/offeringspage">
+          <CourseOfferings />
         </Route>
       </Switch>
     </Router>
