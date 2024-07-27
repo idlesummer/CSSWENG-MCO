@@ -4,7 +4,7 @@ import LoginPage from './LoginPage/LoginPage.js';
 import CoursePage from './CoursePage/CoursePage.js';
 import CourseOfferings from './CourseOfferings/CourseOfferings.js';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 
 function App() {
@@ -48,20 +48,12 @@ function App() {
 
   return (
     <Router>
-      <Switch>
-        <Route exact path="/">
-          <Dashboard />
-        </Route>
-        <Route exact path="/login">
-          <LoginPage />
-        </Route>
-        <Route exact path="/coursepage">
-          <CoursePage />
-        </Route>
-        <Route exact path="/offeringspage">
-          <CourseOfferings />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/coursepage" element={<CoursePage />} />
+        <Route path="/offeringspage" element={<CourseOfferings />} />
+      </Routes>
     </Router>
   );
 }
