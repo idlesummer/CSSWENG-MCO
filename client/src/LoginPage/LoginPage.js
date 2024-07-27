@@ -15,7 +15,9 @@ function LoginPage() {
                         <button type="submit">Log In</button>
                     </form>
                 </div>
-                <div className={styles.imageSection}></div>
+                <div className={styles.imageSection}>
+                    
+                </div>
             </div>
     );
 

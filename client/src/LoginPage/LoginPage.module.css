@@ -45,6 +45,7 @@
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 10px;
+    color-scheme: none;
 }
 
 .loginForm button {
