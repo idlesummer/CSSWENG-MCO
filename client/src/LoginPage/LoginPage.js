@@ -16,7 +16,7 @@ function LoginPage() {
                     </form>
                 </div>
                 <div className={styles.imageSection}>
-                    
+                    <img src="/img/dlsu-pic.png" alt="DLSU"></img>
                 </div>
             </div>
     );
