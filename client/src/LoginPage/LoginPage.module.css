@@ -72,7 +72,7 @@
     background-size: cover;
     background-position: center;
     overflow: hidden;
-    background-color: #198754;
+    background-color: #1e9a60;
 }
 
 .imageSection img {
@@ -80,6 +80,4 @@
     height: 100%;
     top: 0;
     left: 0;
-    filter: opacity(50%)
-
 }

@@ -9,8 +9,10 @@ function Dashboard() {
         
         <div className={styles.container}>
             <Sidebar/>
-
             <div className={styles.content}>
+                <div className={styles.head}>
+                    <p> CCS </p>
+                </div>
                 <div className={styles.item}>
                     <div className={styles.itemHeader} id="">ID124</div>
                     <ul className={styles.itemList}>
