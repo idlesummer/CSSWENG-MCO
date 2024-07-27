@@ -65,6 +65,7 @@ h1 {
     cursor: pointer;
     background-color: #198754;
     background-size: cover;
+    border-style:hidden;
 }
 
 .iconButton img {

@@ -1,5 +1,7 @@
-import Sidebar from '../Sidebar/Sidebar.js'
-import styles from './CoursePage.module.css'
+import React, { useState } from 'react';
+import Sidebar from '../Sidebar/Sidebar.js';
+import styles from './CoursePage.module.css';
+import EditModal from '../Modals/EditModal.js';
 
 import PropTypes from 'prop-types'
 
@@ -25,6 +27,9 @@ function CoursePage({ courseList }){
           <td>{course.remarks}</td>
         </tr>
       ));
+
+    const [openModal, setOpenModal] = useState(false)
+
         
     return(
         <div className={styles.container}>
@@ -37,8 +42,9 @@ function CoursePage({ courseList }){
                             <input type="text"/>
                         </div>
                         <div className={styles.iconButtons}>
-                            <div className={`${styles.iconButton} ${styles.addIcon}`}><img src="/img/icons/plus.png" alt="add"></img></div>
-                            <div className={`${styles.iconButton} ${styles.editIcon}`}><img src="/img/icons/edit.png" alt="edit"></img></div>
+                            <button className={`${styles.iconButton} ${styles.addIcon}`}><img src="/img/icons/plus.png" alt="add"></img></button>
+                            <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
+                            {openModal && <EditModal closeModal={setOpenModal}/>}
                             <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>
                     </div>
