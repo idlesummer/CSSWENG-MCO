@@ -1,5 +1,5 @@
 import Sidebar from "../Sidebar/Sidebar.js";
-import styles from "./CourseOfferings.module.css";
+import styles from '../CoursePage/CoursePage.module.css'
 
 import PropTypes from 'prop-types'
 
@@ -30,7 +30,7 @@ function CourseOfferings({ courseList }){
         <div className={styles.container}>
             <Sidebar/>
             <div className={styles.content}>
-                <h1>ID124 / BSIET-AD</h1>
+                <h1>SIS Course Offerings for T3</h1>
                 <div className={styles.tableWrapper}>
                     <div className={styles.controls}>
                         <div className={styles.searchBar}>
@@ -39,6 +39,8 @@ function CourseOfferings({ courseList }){
                         <div className={styles.iconButtons}>
                             <div className={`${styles.iconButton} ${styles.addIcon}`}><img src="/img/icons/plus.png" alt="add"></img></div>
                             <div className={`${styles.iconButton} ${styles.editIcon}`}><img src="/img/icons/edit.png" alt="edit"></img></div>
+                            <div className={`${styles.iconButton} ${styles.mergeIcon}`}><img src="/img/icons/merge.png" alt="merge"></img></div>
+                            <div className={`${styles.iconButton} ${styles.splitIcon}`}><img src="/img/icons/split.png" alt="split"></img></div>
                             <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>
                     </div>

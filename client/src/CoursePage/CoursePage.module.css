@@ -63,23 +63,7 @@ h1 {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-}
-
-.iconButton.addIcon {
-    /* background-image: url('icons/add.png'); */
-    background-color: #208454;
-    background-size: cover;
-}
-
-.iconButton.editIcon {
-    /* background-image: url('icons/edit.png'); */
-    background-color: #208454;
-    background-size: cover;
-}
-
-.iconButton.deleteIcon {
-    /* background-image: url('icons/delete.png'); */
-    background-color: #208454;
+    background-color: #198754;
     background-size: cover;
 }
 
@@ -87,6 +71,9 @@ h1 {
     max-height: 60%;
 }
 
+.iconButton:hover {
+    background-color: #147447;
+}
 
 
 table {
