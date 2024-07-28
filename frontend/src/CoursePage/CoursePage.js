@@ -44,7 +44,7 @@ function CoursePage({ courseList }){
                             <input type="text"/>
                         </div>
                         <div className={styles.iconButtons}>
-                            <button className={`${styles.iconButton} ${styles.addIcon}`} onClick={() => {setOpenAddModal(true)}}><img src="/img/icons/plus.png" alt="add"></img></button>
+                            <div className={`${styles.iconButton} ${styles.addIcon}`} onClick={() => {setOpenAddModal(true)}}><img src="/img/icons/plus.png" alt="add"></img></div>
                             {openAddModal && <AddModal closeModal={setOpenAddModal}/>}
                             <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenEditModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
                             {openEditModal && <EditModal closeModal={setOpenEditModal}/>}

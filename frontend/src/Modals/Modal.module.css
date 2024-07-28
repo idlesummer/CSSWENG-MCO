@@ -98,7 +98,17 @@
   .formRow2 div:last-child {
     flex-grow: 1;
   }
-  
+
+  .formRow3 {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .formRow3 div:first-child {
+    flex-grow: 1;
+  }
+
   label {
     display: block;
     margin-bottom: 5px;

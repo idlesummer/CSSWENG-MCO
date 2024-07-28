@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from "../Sidebar/Sidebar.js";
 import styles from '../CoursePage/CoursePage.module.css';
 import EditModal from '../Modals/EditModal.js';
@@ -10,8 +10,18 @@ import AddModal from '../Modals/AddModal.js';
 import PropTypes from 'prop-types'
 
 function CourseOfferings({ courseList , takersList}){
+    const [courses, setCourses] = useState(courseList);
+    const [loading, setLoading] = useState(true);
 
-    const courses = courseList.map((course, index) => (
+    useEffect(() => {
+        // Simulate fetching data from the server
+        setTimeout(() => {
+            setCourses(courseList);
+            setLoading(false);
+        }, 2000); // Simulate a delay of 2 seconds
+    }, [courseList]);
+
+    const courseRows = courses.map((course, index) => (
         <tr key={index}>
           <td><input type="checkbox" /></td>
           <td>{course.code}</td>
@@ -37,7 +47,7 @@ function CourseOfferings({ courseList , takersList}){
     const [openSplitModal, setOpenSplitModal] = useState (false)
     const [openAddModal, setOpenAddModal] = useState(false)
 
-    console.log('takersList:', takersList);
+
         
     return(
         <div className={styles.container}>
@@ -61,32 +71,36 @@ function CourseOfferings({ courseList , takersList}){
                             <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>
                     </div>
-                
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Course Code</th>
-                                <th>Course Title</th>
-                                <th>Offered To</th>
-                                <th>Sect</th>
-                                <th>Faculty</th>
-                                <th>Day 1</th>
-                                <th>Begin 1</th>
-                                <th>End 1</th> 
-                                <th>Room 1</th> 
-                                <th>Day 2</th>
-                                <th>Begin 2</th>
-                                <th>End 2</th> 
-                                <th>Room 2</th> 
-                                <th>Enrll Cap</th> 
-                                <th>Remarks</th> 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {courses}
-                        </tbody>
-                    </table>
+
+                    {loading ? (
+                        <div className={styles.loading}>Loading...</div>
+                    ) : (
+                      <table>
+                          <thead>
+                              <tr>
+                                  <th></th>
+                                  <th>Course Code</th>
+                                  <th>Course Title</th>
+                                  <th>Offered To</th>
+                                  <th>Sect</th>
+                                  <th>Faculty</th>
+                                  <th>Day 1</th>
+                                  <th>Begin 1</th>
+                                  <th>End 1</th> 
+                                  <th>Room 1</th> 
+                                  <th>Day 2</th>
+                                  <th>Begin 2</th>
+                                  <th>End 2</th> 
+                                  <th>Room 2</th> 
+                                  <th>Enrll Cap</th> 
+                                  <th>Remarks</th> 
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {courseRows}
+                          </tbody>
+                      </table>
+                    )}
                 </div>
             </div>
         </div>
