@@ -41,7 +41,7 @@ h1 {
 }
 
 .searchBar input {
-    width: 250px;
+    width: 250px !important;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;

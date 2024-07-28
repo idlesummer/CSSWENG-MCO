@@ -1,25 +1,25 @@
-.modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .modalOverlay {
     position: fixed;
-    z-index: 1;
-    left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .modalContent {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 30px;
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s;
+    background-color: #FFFFFF;
+    padding-left: 47px;
+    padding-right: 47px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 10px;
+    width: 600px;
+    max-width: 90%;
+    position: relative;
   }
 
   .headers {
@@ -34,61 +34,86 @@
     color: #198754;
   }
 
-  .group1 {
+  .required::after {
+    content: ' *';
+    color: #D67171;
+  }
+  
+  h2 {
+    font-size: 32px;
+  }
+  
+  form {
     display: flex;
     flex-direction: column;
   }
+  
+  .formGroup {
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
 
-  .group1 > :nth-child(1) {
+  div.formGroup2 {
+    margin-top: auto;
+    margin-bottom: 15px;
+  }
+
+  .formRow {
     display: flex;
-    flex-direction: row;
-    margin-bottom: 0.5px;
-    line-height: 1px;
-  } 
-
-  .group1 p {
+    gap: 30px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
     font-weight: bold;
   }
-
-  .searchBar {
-    width: 100%;
-
-  }
-
-.searchBar input {
-    width: 100%; /* Full width of the .searchBar container */
+  
+  .inputText, select {
+    width: 126px; 
     box-sizing: border-box;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #A3B1CC;
+    border-radius: 7px;
+    text-align: center;
   }
 
-  .combo-box {
+  .inputText2 {
+    width: 100%; 
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #A3B1CC;
+    border-radius: 7px;
+  }
+
+  
+  .formButtons {
     display: flex;
-    align-items: center;
-    position: relative;
-    width: 300px; /* Adjust as needed */
+    justify-content: flex-end;
+    margin-top: 20px;
   }
   
-  .combo-box input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
+  button {
+    padding: 10px 20px;
     font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
   }
   
-  .combo-box select {
-    border: 1px solid #ccc;
-    border-left: none;
-    border-radius: 0 5px 5px 0;
-    padding: 10px;
-    font-size: 16px;
-    flex: none;
-    width: 150px; /* Adjust as needed */
+  .cancelButton {
+    background-color: #FFFFFF;
+    color: #9B9B9B;
+    font-weight: bold;
+    outline: 1px solid #A3B1CC;
   }
   
-  .combo-box select option {
-    padding: 10px;
+  .saveButton {
+    background-color: #198754;
+    color: #fff;
+    margin-left: 10px;
+    font-weight: bold;
   }
