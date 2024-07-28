@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from "../Sidebar/Sidebar.js";
 import styles from '../CoursePage/CoursePage.module.css';
 import EditModal from '../Modals/EditModal.js';
@@ -7,9 +7,18 @@ import SplitModal from '../Modals/SplitModal.js';
 import AddModal from '../Modals/AddModal.js';
 
 
-import PropTypes from 'prop-types'
-
 function CourseOfferings({ courseList , takersList}){
+
+    useEffect(() => {
+      const fetchOfferings = async () => {
+        const res = await fetch("http://localhost:4000/api/offerings");
+        const data = await res.json();
+
+        console.log(data);
+      }
+
+      fetchOfferings();
+    }, []);
 
     const courses = courseList.map((course, index) => (
         <tr key={index}>
@@ -28,7 +37,7 @@ function CourseOfferings({ courseList , takersList}){
           <td>{course.end2}</td>
           <td>{course.room2}</td>
           <td>{course.enrl_cap}</td>
-          <td>{course.remarks}</td>
+          <td>{course.remarks}</td> 
         </tr>
       ));
 
@@ -94,52 +103,5 @@ function CourseOfferings({ courseList , takersList}){
     );
 
 }
-
-CourseOfferings.propTypes = {
-    courseList: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        code: PropTypes.string,
-        title: PropTypes.string,
-        offered_to: PropTypes.string,
-        section: PropTypes.string,
-        faculty: PropTypes.string,
-        day1: PropTypes.string,
-        begin1: PropTypes.string,
-        end1: PropTypes.string,
-        room1: PropTypes.string,
-        day2: PropTypes.string,
-        begin2: PropTypes.string,
-        end2: PropTypes.string,
-        room2: PropTypes.string,
-        enrl_cap: PropTypes.string,
-        remarks: PropTypes.string
-      })
-    )
-  };
-  
-// not working
-CourseOfferings.defaultProps = {
-    courseList: [
-      {
-        id: 0,
-        code: "N/A",
-        title: "No Data",
-        offered_to: "N/A",
-        section: "N/A",
-        faculty: "N/A",
-        day1: "N/A",
-        begin1: "N/A",
-        end1: "N/A",
-        room1: "N/A",
-        day2: "N/A",
-        begin2: "N/A",
-        end2: "N/A",
-        room2: "N/A",
-        enrl_cap: "0",
-        remarks: "No Remarks"
-      }
-    ]
-  };
 
 export default CourseOfferings
