@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Multiselect} from 'multiselect-react-dropdown';
 import styles from './Modal.module.css';
 
@@ -9,12 +9,39 @@ function SplitModal ({closeModal, listOfTakers}) {
 
     console.log('takersList:', listOfTakers);
 
-    const [options, setOptions] = useState(
+    const [options] = useState(
         listOfTakers.map(taker => ({
           ...taker,
           display: `${taker.code} (${taker.takers})`
         }))
     );
+
+    const customStyles = {
+        searchBox: {
+            width: '100%',
+            boxSizing: 'border-box',
+            padding: '5px',
+            fontSize: '16px',
+            border: '1px solid #A3B1CC',
+            borderRadius: '7px'
+        },
+        option: {
+          color: '#151618',
+          padding: '5px 10px',
+        },
+        optionContainer: {
+          maxHeight: '200px',
+          overflowY: 'auto',
+        },
+        chips: {
+          backgroundColor: '#198754',
+          color: '#fff',
+          margin: '2px',
+          borderRadius: '10px',
+          fontSize: '11px',
+          fontWeight: 'bold'
+        }
+      };
 
     return(
         <div className={styles.modalOverlay}>
@@ -26,10 +53,14 @@ function SplitModal ({closeModal, listOfTakers}) {
           </div>
           <form>
             <div className={styles.formGroup}>
-                <div className={styles.tagsContainer}>
+                <span className={styles.radioContainer}>
                     <label> Takers </label>
-                    <Multiselect options ={options} displayValue="display" />
-                </div>
+                    <Multiselect 
+                        options ={options} 
+                        displayValue="display" 
+                        style={customStyles}
+                    />
+                </span>
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="faculty" className={styles.required}>Faculty</label>
