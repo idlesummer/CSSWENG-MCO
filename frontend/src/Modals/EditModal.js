@@ -17,8 +17,8 @@ function EditModal({closeModal}) {
               <input type="text" id="faculty" className={styles.inputText2}/>
             </div>
             <div class={styles.formGroup}>
-              <label htmlFor="faculty" className={styles.required}>Section</label>
-              <input type="text" id="faculty" className={styles.inputText3}/>
+              <label htmlFor="section" className={styles.required}>Section</label>
+              <input type="text" id="section" className={styles.inputText3}/>
             </div>
           </div>
           <div class={styles.formRow}>

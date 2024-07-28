@@ -65,9 +65,15 @@ function SplitModal ({closeModal, listOfTakers, courseList}) {
               </span>
             </div>
           </div>
-          <div className={styles.formGroup}>
-            <label htmlFor={`faculty-${index}`} className={styles.required}>Faculty</label>
-            <input type="text" id={`faculty-${index}`} className={styles.inputText2} value={course.faculty} readOnly />
+          <div class={styles.formRow3}>
+            <div className={styles.formGroup2}>
+              <label htmlFor={`faculty-${index}`} className={styles.required}>Faculty</label>
+              <input type="text" id={`faculty-${index}`} className={styles.inputText2} value={course.faculty} readOnly />
+            </div>
+            <div class={styles.formGroup}>
+              <label htmlFor="section" className={styles.required}>Section</label>
+              <input type="text" id="section" className={styles.inputText3}/>
+            </div>
           </div>
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
