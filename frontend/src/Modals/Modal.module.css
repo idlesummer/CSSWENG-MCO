@@ -139,7 +139,7 @@
   }
 
   .radioGroup label {
-    font-weight: normal; /* Or use 'lighter' */
+    font-weight: normal; 
   }
 
   .radioContainer {
@@ -147,3 +147,5 @@
     align-items: center;
     gap: 20px;
   }
+
+
