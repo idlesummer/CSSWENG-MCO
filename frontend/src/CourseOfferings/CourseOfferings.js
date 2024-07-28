@@ -4,6 +4,7 @@ import styles from '../CoursePage/CoursePage.module.css';
 import EditModal from '../Modals/EditModal.js';
 import MergeModal from '../Modals/MergeModal.js';
 import SplitModal from '../Modals/SplitModal.js';
+import AddModal from '../Modals/AddModal.js';
 
 
 import PropTypes from 'prop-types'
@@ -34,6 +35,7 @@ function CourseOfferings({ courseList , takersList}){
     const [openEditModal, setOpenEditModal] = useState(false)
     const [openMergeModal, setOpenMergeModal] = useState(false)
     const [openSplitModal, setOpenSplitModal] = useState (false)
+    const [openAddModal, setOpenAddModal] = useState(false)
 
     console.log('takersList:', takersList);
         
@@ -48,7 +50,8 @@ function CourseOfferings({ courseList , takersList}){
                             <input type="text"/>
                         </div>
                         <div className={styles.iconButtons}>
-                            <div className={`${styles.iconButton} ${styles.addIcon}`}><img src="/img/icons/plus.png" alt="add"></img></div>
+                            <div className={`${styles.iconButton} ${styles.addIcon}`}onClick={() => {setOpenAddModal(true)}}><img src="/img/icons/plus.png" alt="add"></img></div>
+                            {openAddModal && <AddModal closeModal={setOpenAddModal}/>}
                             <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenEditModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
                             {openEditModal && <EditModal closeModal={setOpenEditModal}/>}
                             <div className={`${styles.iconButton} ${styles.mergeIcon}`} onClick={() => {setOpenMergeModal(true)}}><img src="/img/icons/merge.png" alt="merge"></img></div>

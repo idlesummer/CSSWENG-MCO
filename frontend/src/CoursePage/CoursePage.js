@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar.js';
 import styles from './CoursePage.module.css';
 import EditModal from '../Modals/EditModal.js';
+import AddModal from '../Modals/AddModal.js';
 
 import PropTypes from 'prop-types'
 
@@ -28,7 +29,8 @@ function CoursePage({ courseList }){
         </tr>
       ));
 
-    const [openModal, setOpenEditModal] = useState(false)
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const [openAddModal, setOpenAddModal] = useState(false)
 
         
     return(
@@ -42,9 +44,10 @@ function CoursePage({ courseList }){
                             <input type="text"/>
                         </div>
                         <div className={styles.iconButtons}>
-                            <button className={`${styles.iconButton} ${styles.addIcon}`}><img src="/img/icons/plus.png" alt="add"></img></button>
+                            <button className={`${styles.iconButton} ${styles.addIcon}`} onClick={() => {setOpenAddModal(true)}}><img src="/img/icons/plus.png" alt="add"></img></button>
+                            {openAddModal && <AddModal closeModal={setOpenAddModal}/>}
                             <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenEditModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
-                            {openModal && <EditModal closeModal={setOpenEditModal}/>}
+                            {openEditModal && <EditModal closeModal={setOpenEditModal}/>}
                             <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>
                     </div>

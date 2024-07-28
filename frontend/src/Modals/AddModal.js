@@ -1,16 +1,28 @@
 import React from 'react';
 import styles from './Modal.module.css';
 
-function EditModal({closeModal}) {
-
-  return (
-    <div class={styles.modalOverlay}>
+function AddModal() {
+    return(
+        <div class={styles.modalOverlay}>
       <div class={styles.modalContent}>
         <div className={styles.headers}>
-          <h2>GEFTWEL</h2>
-          <h2>XX22</h2>
+          <h2>Add Class </h2>
         </div>
         <form>
+          <div class={styles.formRow1}>
+            <div class={styles.formGroup2}>
+                <label htmlFor="name" className={styles.required}>Course Code</label>
+                <input type="text" id="name" className={styles.inputText}/>
+            </div>
+            <div class={styles.formGroup}>
+                <label htmlFor="title" className={styles.required}>Course Title</label>
+                <input type="text" id="title" className={styles.inputText2}/>
+            </div>
+            <div class={styles.formGroup}>
+                <label htmlFor="section" className={styles.required}>Section</label>
+                <input type="text" id="section" className={styles.inputText3}/>
+            </div>
+          </div>
           <div class={styles.formGroup}>
             <label htmlFor="faculty" className={styles.required}>Faculty</label>
             <input type="text" id="faculty" className={styles.inputText2}/>
@@ -75,12 +87,12 @@ function EditModal({closeModal}) {
           </div>
           <div class={styles.formButtons}>
             <button type="submit" class={styles.cancelButton}>Cancel</button>
-            <button type="submit" class={styles.saveButton}>Save</button>
+            <button type="submit" class={styles.addButton}>Add Class</button>
           </div>
         </form>
       </div>
     </div>
-  );
-};
+    );
+}
 
-export default EditModal;
+export default AddModal

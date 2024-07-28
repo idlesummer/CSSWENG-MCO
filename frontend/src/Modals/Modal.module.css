@@ -71,6 +71,31 @@
   .formRow {
     display: flex;
     gap: 30px;
+    width: 100%;
+  }
+
+  .formRow1 {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .formRow1 div:last-child {
+    margin-left: auto;
+  }
+
+  .formRow1 > :nth-child(2) {
+    flex-grow: 1;
+  }
+
+  .formRow2 {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .formRow2 div:last-child {
+    flex-grow: 1;
   }
   
   label {
@@ -98,7 +123,15 @@
     border-radius: 7px;
   }
 
-  
+  .inputText3 {
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #A3B1CC;
+    border-radius: 7px;
+    width: 126px
+  }
+
   .formButtons {
     display: flex;
     justify-content: flex-end;
@@ -126,6 +159,14 @@
     color: #fff;
     margin-left: 10px;
     font-weight: bold;
+  }
+
+  .addButton {
+    background-color: #198754;
+    color: #fff;
+    margin-left: 10px;
+    font-weight: bold;
+    width: 160px;
   }
 
   .radioGroup {

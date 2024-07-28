@@ -72,7 +72,7 @@ function MergeModal({closeModal}) {
                 <input type="text" id="room2" className={styles.inputText}/>
               </div>
             </div>
-            <div class={styles.formRow}>
+            <div class={styles.formRow2}>
               <div class={styles.formGroup}>
                 <label htmlFor="enrlCap" className={styles.required}>Enrl Cap</label>
                 <select id="enrlCap" >

@@ -32,6 +32,7 @@ function SplitModal ({closeModal, listOfTakers}) {
         optionContainer: {
           maxHeight: '200px',
           overflowY: 'auto',
+          flexGrow: '1',
         },
         chips: {
           backgroundColor: '#198754',
@@ -52,15 +53,17 @@ function SplitModal ({closeModal, listOfTakers}) {
             </h2>
           </div>
           <form>
-            <div className={styles.formGroup}>
-                <span className={styles.radioContainer}>
-                    <label> Takers </label>
-                    <Multiselect 
-                        options ={options} 
-                        displayValue="display" 
-                        style={customStyles}
-                    />
-                </span>
+            <div className={styles.formRow2}>
+              <div className={styles.formGroup}>
+                  <span className={styles.radioContainer}>
+                      <label> Takers </label>
+                      <Multiselect 
+                          options ={options} 
+                          displayValue="display" 
+                          style={customStyles}
+                      />
+                  </span>
+              </div>
             </div>
             <div className={styles.formGroup}>
               <label htmlFor="faculty" className={styles.required}>Faculty</label>
@@ -112,7 +115,7 @@ function SplitModal ({closeModal, listOfTakers}) {
                 <input type="text" id="room2" className={styles.inputText}/>
               </div>
             </div>
-            <div className={styles.formRow}>
+            <div className={styles.formRow2}>
               <div className={styles.formGroup}>
                 <label htmlFor="enrlCap" className={styles.required}>Enrl Cap</label>
                 <select id="enrlCap" >
