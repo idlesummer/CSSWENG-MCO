@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* flex-direction:column; if may sumabog sa ibang modals most likely eto yon */
   }
   
   .modalContent {
@@ -189,4 +190,88 @@
     gap: 20px;
   }
 
+  .tabs {
+    justify-self: flex-start;
+    display: flex;
+    
+  }
 
+  .tab {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    transition: background-color 0.3s;
+    border-radius: 10px 10px 0px 0px;
+    overflow: hidden;
+    max-width:120px;
+    max-height: 50px;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align:center;
+  }
+
+  .tab:hover {
+    background-color: #ddd;
+  }
+
+  .tab.active {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+    max-width:none;
+    transform: translateY(-10%);
+    box-shadow: 0 -8px 0 #fff inset;
+    border-top: 0px #198754 solid;
+  }
+
+  .tab.active::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: calc(100% + 2px);
+    height: 5px;
+    background: #198754; 
+  }
+
+  .contentTabs {
+    background-color: #FFFFFF;
+    padding-left: 47px;
+    padding-right: 47px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-top-right-radius: 10px;
+    border-radius: 0px 10px 10px; 
+    width: 600px;
+    max-width: 90%;
+    position: relative;
+  }
+
+  .activeTabs {
+    background: white;
+    border-bottom: 1px solid transparent;
+  }
+
+  .activeTabs::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    width: calc(100% + 2px);
+    height: 5px;
+    background: #198754; 
+  }
+
+  .content {
+    display: none;
+  }
+  
+  .activeContent {
+    display: block;
+  }

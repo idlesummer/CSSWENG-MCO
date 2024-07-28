@@ -5,15 +5,15 @@ import styles from './Modal.module.css';
 import PropTypes from 'prop-types'
 
 
-function SplitModal ({closeModal, listOfTakers}) {
+function SplitModal ({closeModal, listOfTakers, courseList}) {
 
     console.log('takersList:', listOfTakers);
 
     const [options] = useState(
-        listOfTakers.map(taker => ({
-          ...taker,
-          display: `${taker.code} (${taker.takers})`
-        }))
+      courseList.map(taker => ({
+        ...taker,
+        display: `${taker.program}-${taker.batch} (${taker.taker})`
+      }))
     );
 
     const customStyles = {
@@ -44,94 +44,109 @@ function SplitModal ({closeModal, listOfTakers}) {
         }
       };
 
-    return(
-        <div className={styles.modalOverlay}>
-        <div className={styles.modalContent}>
-          <div className={styles.headers}>
-            <h2>
-             <span className={styles.lightText}>Merge</span> <span className={styles.boldText}>GEFTWEL XX22</span> <span className={styles.lightText}>and</span> <span className={styles.boldText}> GEFTWEL XXE1</span>
-            </h2>
+    const [toggleState, setToggleState] = useState(1);
+
+    const toggleTab = (index) => {
+      setToggleState(index);
+    }
+
+    const tabContent = courseList.map((course, index) => (
+      <div className={`${toggleState === index ? styles.activeContent : styles.content}`}>
+        <form key={index}>
+          <div className={styles.formRow2}>
+            <div className={styles.formGroup}>
+              <span className={styles.radioContainer}>
+                <label>Takers</label>
+                <Multiselect 
+                  options={options} 
+                  displayValue="display" 
+                  style={customStyles}
+                />
+              </span>
+            </div>
           </div>
-          <form>
-            <div className={styles.formRow2}>
-              <div className={styles.formGroup}>
-                  <span className={styles.radioContainer}>
-                      <label> Takers </label>
-                      <Multiselect 
-                          options ={options} 
-                          displayValue="display" 
-                          style={customStyles}
-                      />
-                  </span>
-              </div>
+          <div className={styles.formGroup}>
+            <label htmlFor={`faculty-${index}`} className={styles.required}>Faculty</label>
+            <input type="text" id={`faculty-${index}`} className={styles.inputText2} value={course.faculty} readOnly />
+          </div>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor={`day1-${index}`} className={styles.required}>Day 1</label>
+              <select id={`day1-${index}`} name="day1" value={course.day1} readOnly>
+                <option value="T">T</option>
+              </select>
+            </div>
+            <div className={styles.formGroup2} id="startTimeBox1">
+              <select id={`startTime1-${index}`} name="startTime1" value={course.begin1} readOnly>
+                <option value="1300">1300</option>
+              </select>
+            </div>
+            <div className={styles.formGroup2}>
+              <select id={`endTime1-${index}`} name="endTime1" value={course.end1} readOnly>
+                <option value="1500">1500</option>
+              </select>
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="faculty" className={styles.required}>Faculty</label>
-              <input type="text" id="faculty" className={styles.inputText2}/>
+              <label htmlFor={`room1-${index}`} className={styles.required}>Room1</label>
+              <input type="text" id={`room1-${index}`} className={styles.inputText} value={course.room1} readOnly />
             </div>
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="day1" className={styles.required}>Day 1</label>
-                <select id="day1" name="day1">
-                  <option value="T">T</option>
-                </select>
-              </div>
-              <div className={styles.formGroup2} id="startTimeBox1">
-                <select id="startTime1" name="startTime1">
-                  <option value="1300">1300</option>
-                </select>
-              </div>
-              <div className={styles.formGroup2}>
-                <select id="endTime1" name="endTime1">
-                  <option value="1500">1500</option>
-                </select>
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="room1" className={styles.required}>Room1</label>
-                <input type="text" id="room1" className={styles.inputText}/>
-              </div>
+          </div>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor={`day2-${index}`}>Day 2</label>
+              <select id={`day2-${index}`} name="day2" value={course.day2} readOnly>
+                <option value="F">F</option>
+              </select>
             </div>
-            <div className={styles.formRow}>
-              <div className={styles.formGroup}>
-                <label htmlFor="day2">Day 2</label>
-                <select id="day2" name="day2">
-                  <option value=""></option>
-                </select>
-              </div>
-              <div className={styles.formGroup2}>
-                <label htmlFor="startTime2"></label>
-                <select id="startTime2">
-                  <option value=""></option>
-                </select>
-              </div>
-              <div className={styles.formGroup2}>
-                <label htmlFor="endTime2"></label>
-                <select id="endTime2" >
-                  <option value=""></option>
-                </select>
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="room2">Room2</label>
-                <input type="text" id="room2" className={styles.inputText}/>
-              </div>
+            <div className={styles.formGroup2}>
+              <label htmlFor={`startTime2-${index}`}></label>
+              <select id={`startTime2-${index}`} value={course.begin2} readOnly>
+                <option value="1300">1300</option>
+              </select>
             </div>
-            <div className={styles.formRow2}>
-              <div className={styles.formGroup}>
-                <label htmlFor="enrlCap" className={styles.required}>Enrl Cap</label>
-                <select id="enrlCap" >
-                  <option value="40">40</option>
-                </select>
-              </div>
-              <div className={styles.formGroup}>
-                <label htmlFor="remarks">Remarks</label>
-                <input type="text" id="remarks" className={styles.inputText2}/>
-              </div>
+            <div className={styles.formGroup2}>
+              <label htmlFor={`endTime2-${index}`}></label>
+              <select id={`endTime2-${index}`} value={course.end2} readOnly>
+                <option value="1500">1500</option>
+              </select>
             </div>
-            <div className={styles.formButtons}>
-              <button type="submit" className={styles.cancelButton}>Cancel</button>
-              <button type="submit" className={styles.saveButton}>Save</button>
+            <div className={styles.formGroup}>
+              <label htmlFor={`room2-${index}`}>Room2</label>
+              <input type="text" id={`room2-${index}`} className={styles.inputText} value={course.room2} readOnly />
             </div>
-          </form>
+          </div>
+          <div className={styles.formRow2}>
+            <div className={styles.formGroup}>
+              <label htmlFor={`enrlCap-${index}`} className={styles.required}>Enrl Cap</label>
+              <select id={`enrlCap-${index}`} value={course.enrl_cap} readOnly>
+                <option value="40">40</option>
+              </select>
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor={`remarks-${index}`}>Remarks</label>
+              <input type="text" id={`remarks-${index}`} className={styles.inputText2} value={course.remarks} readOnly />
+            </div>
+          </div>
+          <div className={styles.formButtons}>
+            <button type="submit" className={styles.cancelButton} onClick={closeModal}>Cancel</button>
+            <button type="submit" className={styles.saveButton}>Save</button>
+          </div>
+        </form>
+      </div>
+    ));
+
+    console.log('tabContent:', tabContent);
+    return(
+      <div className={styles.modalOverlay}>
+        <div className={styles.modalDiv}>
+          <div class={styles.tabs}>
+            <div className={`${styles.tab} ${toggleState === 0 && styles.active}`} onClick={() =>toggleTab(0)} >GEFTWEL XX22</div>
+            <div className={`${styles.tab} ${toggleState === 1 && styles.active}`} onClick={() =>toggleTab(1)}>GEFTWEL SAMPLE</div>
+          </div>
+          
+          <div className={styles.contentTabs}>
+            {tabContent}
+          </div>  
         </div>
       </div>
 

@@ -57,7 +57,7 @@ function CourseOfferings({ courseList , takersList}){
                             <div className={`${styles.iconButton} ${styles.mergeIcon}`} onClick={() => {setOpenMergeModal(true)}}><img src="/img/icons/merge.png" alt="merge"></img></div>
                             {openMergeModal && <MergeModal closeModal={setOpenEditModal}/>}
                             <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
-                            {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} listOfTakers={takersList}/>)}
+                            {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} listOfTakers={takersList} courseList={courseList}/>)}
                             <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>
                     </div>
