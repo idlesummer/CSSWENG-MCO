@@ -38,9 +38,19 @@
     content: ' *';
     color: #D67171;
   }
+
+  .lightText {
+    font-weight: lighter;
+  }
+  
+  .boldText {
+    font-weight: bold;
+  }
+  
   
   h2 {
     font-size: 32px;
+    white-space: nowrap; 
   }
   
   form {
@@ -116,4 +126,24 @@
     color: #fff;
     margin-left: 10px;
     font-weight: bold;
+  }
+
+  .radioGroup {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .radioGroup input[type="radio"] {
+    margin-right: 5px;
+  }
+
+  .radioGroup label {
+    font-weight: normal; /* Or use 'lighter' */
+  }
+
+  .radioContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }

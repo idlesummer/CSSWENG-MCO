@@ -1,5 +1,9 @@
+import React, { useState } from 'react';
 import Sidebar from "../Sidebar/Sidebar.js";
-import styles from '../CoursePage/CoursePage.module.css'
+import styles from '../CoursePage/CoursePage.module.css';
+import EditModal from '../Modals/EditModal.js';
+import MergeModal from '../Modals/MergeModal.js';
+
 
 import PropTypes from 'prop-types'
 
@@ -25,6 +29,9 @@ function CourseOfferings({ courseList }){
           <td>{course.remarks}</td>
         </tr>
       ));
+
+    const [openEditModal, setOpenEditModal] = useState(false)
+    const [openMergeModal, setOpenMergeModal] = useState(false)
         
     return(
         <div className={styles.container}>
@@ -38,8 +45,10 @@ function CourseOfferings({ courseList }){
                         </div>
                         <div className={styles.iconButtons}>
                             <div className={`${styles.iconButton} ${styles.addIcon}`}><img src="/img/icons/plus.png" alt="add"></img></div>
-                            <div className={`${styles.iconButton} ${styles.editIcon}`}><img src="/img/icons/edit.png" alt="edit"></img></div>
-                            <div className={`${styles.iconButton} ${styles.mergeIcon}`}><img src="/img/icons/merge.png" alt="merge"></img></div>
+                            <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenEditModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
+                            {openEditModal && <EditModal closeModal={setOpenEditModal}/>}
+                            <div className={`${styles.iconButton} ${styles.mergeIcon}`} onClick={() => {setOpenMergeModal(true)}}><img src="/img/icons/merge.png" alt="merge"></img></div>
+                            {openMergeModal && <MergeModal closeModal={setOpenEditModal}/>}
                             <div className={`${styles.iconButton} ${styles.splitIcon}`}><img src="/img/icons/split.png" alt="split"></img></div>
                             <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>

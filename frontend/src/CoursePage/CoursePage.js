@@ -28,7 +28,7 @@ function CoursePage({ courseList }){
         </tr>
       ));
 
-    const [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenEditModal] = useState(false)
 
         
     return(
@@ -43,8 +43,8 @@ function CoursePage({ courseList }){
                         </div>
                         <div className={styles.iconButtons}>
                             <button className={`${styles.iconButton} ${styles.addIcon}`}><img src="/img/icons/plus.png" alt="add"></img></button>
-                            <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
-                            {openModal && <EditModal closeModal={setOpenModal}/>}
+                            <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenEditModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
+                            {openModal && <EditModal closeModal={setOpenEditModal}/>}
                             <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>
                     </div>
