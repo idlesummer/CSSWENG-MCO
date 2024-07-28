@@ -46,13 +46,26 @@ function App() {
   }    
 ];
 
+  const sampleTakers = [
+    {
+      id: 1,
+      code: "IET-ADS-122",
+      takers: 8
+    },
+    {
+      id: 2,
+      code: "IET-GDS-123",
+      takers: 10
+    }
+  ];
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/coursepage" element={<CoursePage />} />
-        <Route path="/offeringspage" element={<CourseOfferings />} />
+        <Route path="/coursepage" element={<CoursePage courseList={sampleClass} />} />
+        <Route path="/offeringspage" element={<CourseOfferings courseList={sampleClass} takersList={sampleTakers}/>} />
       </Routes>
     </Router>
   );

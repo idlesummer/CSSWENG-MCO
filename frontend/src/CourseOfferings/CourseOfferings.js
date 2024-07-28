@@ -3,11 +3,12 @@ import Sidebar from "../Sidebar/Sidebar.js";
 import styles from '../CoursePage/CoursePage.module.css';
 import EditModal from '../Modals/EditModal.js';
 import MergeModal from '../Modals/MergeModal.js';
+import SplitModal from '../Modals/SplitModal.js';
 
 
 import PropTypes from 'prop-types'
 
-function CourseOfferings({ courseList }){
+function CourseOfferings({ courseList , takersList}){
 
     const courses = courseList.map((course, index) => (
         <tr key={index}>
@@ -32,6 +33,9 @@ function CourseOfferings({ courseList }){
 
     const [openEditModal, setOpenEditModal] = useState(false)
     const [openMergeModal, setOpenMergeModal] = useState(false)
+    const [openSplitModal, setOpenSplitModal] = useState (false)
+
+    console.log('takersList:', takersList);
         
     return(
         <div className={styles.container}>
@@ -49,7 +53,8 @@ function CourseOfferings({ courseList }){
                             {openEditModal && <EditModal closeModal={setOpenEditModal}/>}
                             <div className={`${styles.iconButton} ${styles.mergeIcon}`} onClick={() => {setOpenMergeModal(true)}}><img src="/img/icons/merge.png" alt="merge"></img></div>
                             {openMergeModal && <MergeModal closeModal={setOpenEditModal}/>}
-                            <div className={`${styles.iconButton} ${styles.splitIcon}`}><img src="/img/icons/split.png" alt="split"></img></div>
+                            <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
+                            {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} listOfTakers={takersList}/>)}
                             <div className={`${styles.iconButton} ${styles.deleteIcon}`}><img src="/img/icons/trash.png" alt="delete"></img></div>
                         </div>
                     </div>
