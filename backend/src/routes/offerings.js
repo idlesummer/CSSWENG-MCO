@@ -5,7 +5,7 @@ const router = Router();
 
 // GET
 router.get('/', async (req, res) => {
-  const offerings = Courses.find({ }).sort({ createdAt: -1 });
+  const offerings = await Courses.find({ }).sort({ createdAt: -1 });
   res.status(200).json(offerings);
 });
 
