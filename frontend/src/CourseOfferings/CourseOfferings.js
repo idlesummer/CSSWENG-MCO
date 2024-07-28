@@ -14,43 +14,42 @@ function CourseOfferings({ courseList , takersList}){
     useEffect(() => {
       const fetchOfferings = async () => {
         const res = await fetch("http://localhost:4000/api/offerings");
-        const data = await res.json();
+        const courses = await res.json();
 
-        console.log(data);
+        setLoading(false);
+        setCourses(courses);
       }
 
       fetchOfferings();
     }, []);
 
     const courseRows = courses.map((course, index) => (
-        <tr key={index}>
-          <td><input type="checkbox" /></td>
-          <td>{course.code}</td>
-          <td>{course.title}</td>
-          <td>{course.offered_to}</td>
-          <td>{course.section}</td>
-          <td>{course.faculty}</td>
-          <td>{course.day1}</td>
-          <td>{course.begin1}</td>
-          <td>{course.end1}</td>
-          <td>{course.room1}</td>
-          <td>{course.day2}</td>
-          <td>{course.begin2}</td>
-          <td>{course.end2}</td>
-          <td>{course.room2}</td>
-          <td>{course.enrl_cap}</td>
-          <td>{course.remarks}</td> 
-        </tr>
-      ));
+      <tr key={index}>
+        <td><input type="checkbox" /></td>
+        <td>{course.code}</td>
+        <td>{course.title}</td>
+        <td>{course.offered_to}</td>
+        <td>{course.section}</td>
+        <td>{course.faculty}</td>
+        <td>{course.day1}</td>
+        <td>{course.begin1}</td>
+        <td>{course.end1}</td>
+        <td>{course.room1}</td>
+        <td>{course.day2}</td>
+        <td>{course.begin2}</td>
+        <td>{course.end2}</td>
+        <td>{course.room2}</td>
+        <td>{course.enrl_cap}</td>
+        <td>{course.remarks}</td> 
+      </tr>
+    ));
 
     const [openEditModal, setOpenEditModal] = useState(false)
     const [openMergeModal, setOpenMergeModal] = useState(false)
     const [openSplitModal, setOpenSplitModal] = useState (false)
     const [openAddModal, setOpenAddModal] = useState(false)
 
-
-        
-    return(
+    return (
         <div className={styles.container}>
             <Sidebar/>
             <div className={styles.content}>
