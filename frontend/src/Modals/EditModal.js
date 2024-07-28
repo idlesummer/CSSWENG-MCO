@@ -11,9 +11,15 @@ function EditModal({closeModal}) {
           <h2>XX22</h2>
         </div>
         <form>
-          <div class={styles.formGroup}>
-            <label htmlFor="faculty" className={styles.required}>Faculty</label>
-            <input type="text" id="faculty" className={styles.inputText2}/>
+          <div class={styles.formRow3}>
+            <div class={styles.formGroup2}>
+              <label htmlFor="faculty" className={styles.required}>Faculty</label>
+              <input type="text" id="faculty" className={styles.inputText2}/>
+            </div>
+            <div class={styles.formGroup}>
+              <label htmlFor="faculty" className={styles.required}>Section</label>
+              <input type="text" id="faculty" className={styles.inputText3}/>
+            </div>
           </div>
           <div class={styles.formRow}>
             <div class={styles.formGroup}>
