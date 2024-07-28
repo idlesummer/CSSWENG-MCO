@@ -1,7 +1,7 @@
 import Sidebar from '../Sidebar/Sidebar.js'
 import styles from './Dashboard.module.css'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // temporary dummy database entries
 const items = [
@@ -10,6 +10,16 @@ const items = [
 ];
 
 function Dashboard() {
+
+    useEffect(() => {
+        const fetchHome = async () => {
+            const res = await fetch('http://localhost:4000/api');
+            const data = await res.json();
+
+            console.log(data);
+        };
+        fetchHome();
+    }, []);
 
     const initialDropdownState = items.reduce((acc, item) => {
         acc[item.id] = false;

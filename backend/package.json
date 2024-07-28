@@ -19,5 +19,16 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
+  },
+  "imports": {
+    "#/*": "./*",
+    "#src/*": "./src/*",
+    "#config/*": "./src/config/*",
+    "#helpers/*": "./src/helpers/*",
+    "#middleware/*": "./src/middleware/*",
+    "#models/*": "./models/*",
+    "#routes/*": "./src/routes/*",
+    "#utils/*": "./src/utils/*",
+    "#views/*": "./views/*"
   }
 }

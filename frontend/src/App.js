@@ -60,14 +60,16 @@ function App() {
   ];
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/coursepage" element={<CoursePage courseList={sampleClass} />} />
-        <Route path="/offeringspage" element={<CourseOfferings courseList={sampleClass} takersList={sampleTakers}/>} />
-      </Routes>
-    </Router>
+    <div className="App">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/coursepage" element={<CoursePage courseList={sampleClass} />} />
+          <Route path="/offeringspage" element={<CourseOfferings courseList={sampleClass} takersList={sampleTakers}/>} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
