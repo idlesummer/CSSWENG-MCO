@@ -42,58 +42,48 @@ function Dashboard() {
     fetchHome();
   }, []);
 
-
-  if (Object.keys(batchLists).length) {
-    console.log('ksdljfh')
-    console.table(batchLists.batches[0])
-  }
-
-  
-
-  // console.log("batchLists.batchesAndPrograms", batchLists.batchesAndPrograms);
-
-  // console.log(items[0].code[2])
-
-  // console.log(batchLists.batches[0]);
   // const initialDropdownState = items.reduce((acc, item) => {
   //   acc[item.id] = false;
   //   return acc;
   // }, {});
 
-  //const [isDropdownOpen, setIsDropdownOpen] = useState(initialDropdownState);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(true);
 
-  // const toggleDropdown = (id) => {
-  //   setIsDropdownOpen(prevState => ({...prevState, [id]: !prevState[id]}));
-  // };
+  const toggleDropdown = (batch) => {
+    setIsDropdownOpen(prevState => ({...prevState, [batch]: !prevState[batch]}));
+  };
 
-  // const getProgramInfo = (divId, programName, programCode) => {
-  //   const program = { divId, programName, programCode };
-  //   console.log(program);
-  // }
+  const getProgramInfo = (batch, programName, programCode) => {
+    const program = { batch, programName, programCode };
+    console.log(program);
+  }
+  var programList = null
+  if(!isPending) {
+     programList = batchLists.batches.map(batch => (
+      <div className={styles.item} key={batch}>
+        <div className={styles.itemHeader} onClick={() => toggleDropdown(batch)}>
+          <div className={styles.dropdownIcon}><img src='/img/icons/dropdown.png' alt="dropdown icon"/></div>
+          <div>{batch}</div>
+        </div>
+        
+        {isDropdownOpen[batch] && (
+          <ul className={`${styles.itemList} ${isDropdownOpen[batch] ? styles.open : ''}`}>
+            {
+              batchLists.batchesAndPrograms[batch].map((programNameAndCode, index) => {
+                const programCode = programNameAndCode.split(' ')[0];
+                const programName = programNameAndCode
+                // const divId = item.id;
+                return (
+                  <li key={programCode} onClick={() => getProgramInfo(batch, programName, programCode)}>{programName}</li>
+                );
+              })
+            }
+          </ul>
+        )}
+      </div>
+    ));
+  }
 
-  // const programList = batchLists.map(batch => (
-  //   <div className={styles.item} key={batch.id}>
-  //     <div className={styles.itemHeader} onClick={() => toggleDropdown(item.id)}>
-  //       <div className={styles.dropdownIcon}><img src='/img/icons/dropdown.png' alt="dropdown icon"/></div>
-  //       <div>{item.label}</div>
-  //     </div>
-      
-  //     {isDropdownOpen[item.id] && (
-  //       <ul className={`${styles.itemList} ${isDropdownOpen[item.id] ? styles.open : ''}`}>
-  //         {
-  //           item.list.map((programName, index) => {
-  //             const programCode = item.code[index];
-  //             const divId = item.id;
-  //             return (
-  //               <li key={programCode} onClick={() => getProgramInfo(divId, programName, programCode)}>{programName}</li>
-  //             );
-  //           })
-  //         }
-  //       </ul>
-  //     )}
-  //   </div>
-  // ));
-    
   return (
     <div className={styles.container}>
       <Sidebar/>
@@ -101,7 +91,7 @@ function Dashboard() {
         <div className={styles.head}>
           <p> CCS </p>
         </div>
-        {/* {programList} */}
+        {programList}
       </div>
     </div>
   );
