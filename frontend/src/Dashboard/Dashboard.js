@@ -53,13 +53,21 @@ function Dashboard() {
     setIsDropdownOpen(prevState => ({...prevState, [batch]: !prevState[batch]}));
   };
 
-  const getProgramInfo = (batch, programName, programCode) => {
-    const program = { batch, programName, programCode };
-    console.log(program);
+  const getProgramInfo = async (batch, programName, programCode) => {
+    // const program = { batch, programName, programCode };
+    // console.log(program);
+
+    const query = { batch, program: programCode };
+    const params = new URLSearchParams(query);
+    const url = `/coursepage?${params}`;
+
+    console.log(url);
   }
-  var programList = null
-  if(!isPending) {
-     programList = batchLists.batches.map(batch => (
+
+  let programList = null;
+
+  if (!isPending) {
+    programList = batchLists.batches.map(batch => (
       <div className={styles.item} key={batch}>
         <div className={styles.itemHeader} onClick={() => toggleDropdown(batch)}>
           <div className={styles.dropdownIcon}><img src='/img/icons/dropdown.png' alt="dropdown icon"/></div>
@@ -73,9 +81,7 @@ function Dashboard() {
                 const programCode = programNameAndCode.split(' ')[0];
                 const programName = programNameAndCode
                 // const divId = item.id;
-                return (
-                  <li key={programCode} onClick={() => getProgramInfo(batch, programName, programCode)}>{programName}</li>
-                );
+                return (<li key={programCode} onClick={() => getProgramInfo(batch, programName, programCode)}>{programName}</li>);
               })
             }
           </ul>
