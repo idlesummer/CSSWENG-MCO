@@ -31,28 +31,28 @@ function AddModal() {
   const [end2Options, setEnd2Options] = useState([]);
 
   const onCancel = (e) => {
-    setCode('');
-    setTitle('');
-    setSection('');
+    setCode("");
+    setTitle("");
+    setSection("");
+    
+    setFaculty("");
+    setTakers("");
 
-    setFaculty('');
-    setTakers('');
+    setDay1("");
+    setBegin1("");
+    setEnd1("");
+    setRoom1("");
 
-    setDay1('');
-    setBegin1('');
-    setEnd1('');
-    setRoom1('');
+    setDay2("");
+    setBegin2("");
+    setEnd2("");
+    setRoom2("");
 
-    setDay2('');
-    setBegin2('');
-    setEnd2('');
-    setRoom2('');
-
-    setEnrlCap('');
-    setRemarks('');
+    setEnrlCap("");
+    setRemarks("");
     
     // Close the modal and navigate to /offerings
-    navigate("/offerings");
+    navigate(0);
   }
 
   const onSubmit = async (e) => {
@@ -63,6 +63,7 @@ function AddModal() {
       title,
       section,
       faculty,
+      takers,
       day1,
       begin1,
       end1,
@@ -73,9 +74,9 @@ function AddModal() {
       room2,
       enrlCap,
       remarks,
-    }
+    };
 
-    const response = await fetch("http://localhost:4000/api/offerings", {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
       method: "POST",
       body: JSON.stringify(offering),
       headers: {
@@ -94,6 +95,7 @@ function AddModal() {
     setTitle("");
     setSection("");
     setFaculty("");
+    setTakers("");
     setDay1("");
     setBegin1("");
     setEnd1("");
@@ -106,7 +108,7 @@ function AddModal() {
     setRemarks("");
 
     // Close the modal and navigate to /offerings
-    navigate("/offerings");
+    navigate(0);
   };
 
   const timeMapping = useMemo(
@@ -207,7 +209,6 @@ function AddModal() {
               />
             </div>
           </div>
-
 
           <div className={styles.formRow}>
             <div className={styles.formGroup}>

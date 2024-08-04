@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import Sidebar from "../Sidebar/Sidebar.js";
 import styles from '../CoursePage/CoursePage.module.css';
 import EditModal from '../Modals/EditModal.js';
@@ -12,10 +14,13 @@ function CourseCourseOfferings(){
   const [checkedRows, setCheckedRows] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const [openEditModal, setOpenEditModal] = useState(false)
-  const [openMergeModal, setOpenMergeModal] = useState(false)
-  const [openSplitModal, setOpenSplitModal] = useState (false)
-  const [openAddModal, setOpenAddModal] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openMergeModal, setOpenMergeModal] = useState(false);
+  const [openSplitModal, setOpenSplitModal] = useState (false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+
+  const navigate = useNavigate();
+  
 
   const handleCheckboxChange = (index) => {
     setCheckedRows((prevCheckedRows) =>({
@@ -62,20 +67,21 @@ function CourseCourseOfferings(){
     if (!checkedCourseOfferings.length)
       return;
 
-    const response = await fetch("http://localhost:4000/api/course-offerings", {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(checkedCourseOfferings),
     });
     
-    const json = response.json();
+    const json = await response.json();
 
     console.table(json);
+    navigate(0);
   }
 
   useEffect(() => {
     const fetchCourseOfferings = async () => {
-      const res = await fetch("http://localhost:4000/api/course-offerings");
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`);
       const courseOfferings = await res.json();     
 
       setLoading(false);
@@ -120,29 +126,29 @@ function CourseCourseOfferings(){
           { 
             loading ? (<div className={styles.loading }>Loading...</div>) : (
               <table>
-                  <thead>
-                      <tr>
-                          <th></th>
-                          <th>Course Code</th>
-                          <th>Course Title</th>
-                          <th>Offered To</th>
-                          <th>Sect</th>
-                          <th>Faculty</th>
-                          <th>Day 1</th>
-                          <th>Begin 1</th>
-                          <th>End 1</th> 
-                          <th>Room 1</th> 
-                          <th>Day 2</th>
-                          <th>Begin 2</th>
-                          <th>End 2</th> 
-                          <th>Room 2</th> 
-                          <th>Enrll Cap</th> 
-                          <th>Remarks</th> 
-                      </tr>
-                  </thead>
-                  <tbody>
-                      { courseOfferingRows }
-                  </tbody>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Course Code</th>
+                    <th>Course Title</th>
+                    <th>Offered To</th>
+                    <th>Sect</th>
+                    <th>Faculty</th>
+                    <th>Day 1</th>
+                    <th>Begin 1</th>
+                    <th>End 1</th> 
+                    <th>Room 1</th> 
+                    <th>Day 2</th>
+                    <th>Begin 2</th>
+                    <th>End 2</th> 
+                    <th>Room 2</th> 
+                    <th>Enrll Cap</th> 
+                    <th>Remarks</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  { courseOfferingRows }
+                </tbody>
               </table>
             )
           }
