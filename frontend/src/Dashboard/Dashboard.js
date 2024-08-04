@@ -40,7 +40,7 @@ function Dashboard() {
     };
 
     fetchHome();
-  }, []);
+  }, []); 
 
 
   if (Object.keys(batchLists).length) {
