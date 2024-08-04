@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import styles from './Modal.module.css';
@@ -27,6 +27,8 @@ function AddModal() {
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
+  const [end1Options, setEnd1Options] = useState([]);
+  const [end2Options, setEnd2Options] = useState([]);
 
   const onCancel = (e) => {
     setCode('');
@@ -107,6 +109,32 @@ function AddModal() {
     navigate("/offerings");
   };
 
+  const timeMapping = useMemo(
+    () => ({
+      "0730": ["0900", "1045"],
+      "0915": ["1045", "1230"],
+      "1100": ["1230", "1415"],
+      "1245": ["1415", "1600"],
+      "1430": ["1600", "1745"],
+      "1615": ["1745", "1930"],
+      "1800": ["1930"],
+    }),
+    []
+  );
+
+  useEffect(() => {
+    
+    setEnd1("");
+    setEnd1Options(timeMapping[begin1] || []);
+
+    return () => {}
+  }, [begin1, timeMapping]);
+
+  useEffect(() => {
+    setEnd2("");
+    setEnd2Options(timeMapping[begin2] || []);
+    return () => {}
+  }, [begin2, timeMapping]);
 
   return (
     <div className={styles.modalOverlay}>
@@ -230,15 +258,21 @@ function AddModal() {
                 onChange={e => setEnd1(e.target.value)}
                 value={end1}
                 required
+                disabled={!begin1}
               >
                 <option key="none" value="" disabled></option>
-                <option key="0900" value="0900">0900</option>
+                {end1Options.map((time) => (
+                  <option key={time} value={time}>
+                    {time}
+                  </option>
+                ))}
+                {/* <option key="0900" value="0900">0900</option>
                 <option key="1045" value="1045">1045</option>
                 <option key="1230" value="1230">1230</option>
                 <option key="1415" value="1415">1415</option>
                 <option key="1600" value="1600">1600</option>
                 <option key="1745" value="1745">1745</option>
-                <option key="1930" value="1930">1930</option>
+                <option key="1930" value="1930">1930</option> */}
               </select>
             </div>
 
@@ -303,13 +337,11 @@ function AddModal() {
                 value={end2}
               >
                 <option key="none" value=""></option>
-                <option key="0900" value="0900">0900</option>
-                <option key="1045" value="1045">1045</option>
-                <option key="1230" value="1230">1230</option>
-                <option key="1415" value="1415">1415</option>
-                <option key="1600" value="1600">1600</option>
-                <option key="1745" value="1745">1745</option>
-                <option key="1930" value="1930">1930</option>
+                {end2Options.map((time) => (
+                  <option key={time} value={time}>
+                    {time}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -355,6 +387,8 @@ function AddModal() {
               type="button" 
               className={styles.cancelButton}
               onClick={onCancel}
+              
+              
             >Cancel</button>
 
             <button type="submit" className={styles.addButton}>Add Class</button>
