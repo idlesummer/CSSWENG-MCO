@@ -107,6 +107,9 @@ th {
     font-weight: bold;
 }
 
+tr {
+    transition: background-color 0.25s ease;
+}
 tbody tr:hover {
     background-color: #f5f5f5;
     cursor:pointer;
@@ -123,5 +126,13 @@ thead {
     position:sticky;
     top:0;
     background-color: #e0e0e0;
+}
+
+.checkedRow{
+    background-color: rgba(4, 128, 0, 0.274);
+}
+
+.checkedRow:hover{
+    background-color: rgba(4, 128, 0, 0.315);
 }
 

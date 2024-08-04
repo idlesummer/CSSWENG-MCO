@@ -34,6 +34,7 @@ function CourseCourseOfferings(){
 
   const courseOfferingRows = courseOfferings.map((courseOffering, index) => (
     <tr key={index}
+        className={checkedRows[index] ? styles.checkedRow : ''}
         onClick={() => handleCheckboxChange(index)} 
     >
       <td>
