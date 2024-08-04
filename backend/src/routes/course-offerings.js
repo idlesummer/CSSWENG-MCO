@@ -1,12 +1,12 @@
 const { Router } = require('express');
 
-const Courses = require('#src/models/CourseOfferings.js');
+const Courses = require('#models/CourseOfferings.js');
 const {
   getCourseOfferings,
   createCourseOffering,
   deleteCourseOfferings,
   updateCourseOffering,
-} = require("#controllers/CourseOfferingsController.js");
+} = require('#controllers/CourseOfferingsController.js');
 
 
 const router = Router();

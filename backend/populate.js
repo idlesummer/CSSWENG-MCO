@@ -7,7 +7,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 124,
       count: 12,
     }],
@@ -33,7 +34,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 124,
       count: 14,
     }],
@@ -59,7 +61,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 124,
       count: 12,
     }],
@@ -85,7 +88,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 124,
       count: 12,
     }],
@@ -111,7 +115,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 124,
       count: 12,
     }],
@@ -141,7 +146,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 124,
       count: 15,
     }],
@@ -167,7 +173,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 124,
       count: 15,
     }],
@@ -193,7 +200,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 124,
       count: 15,
     }],
@@ -219,7 +227,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 124,
       count: 15,
     }],
@@ -245,7 +254,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 124,
       count: 15,
     }],
@@ -276,7 +286,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 124,
       count: 25,
     }],
@@ -302,7 +313,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 124,
       count: 25,
     }],
@@ -328,7 +340,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 124,
       count: 25,
     }],
@@ -354,7 +367,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 124,
       count: 25,
     }],
@@ -380,7 +394,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 124,
       count: 25,
     }],
@@ -411,7 +426,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 124,
       count: 30,
     }],
@@ -437,7 +453,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 124,
       count: 30,
     }],
@@ -463,7 +480,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 124,
       count: 30,
     }],
@@ -489,7 +507,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 124,
       count: 30,
     }],
@@ -515,7 +534,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 124,
       count: 30,
     }],
@@ -546,7 +566,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 123,
       count: 5,
     }],
@@ -572,7 +593,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 123,
       count: 5,
     }],
@@ -598,7 +620,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 123,
       count: 5,
     }],
@@ -624,7 +647,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 123,
       count: 5,
     }],
@@ -650,7 +674,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-AD",
+      programCode: "BSIET-AD",
+      programName: "BS Interactive Entertainment major in Game Design",
       batch: 123,
       count: 5,
     }],
@@ -681,7 +706,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 123,
       count: 10,
     }],
@@ -707,7 +733,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 123,
       count: 10,
     }],
@@ -733,7 +760,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 123,
       count: 10,
     }],
@@ -759,7 +787,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 123,
       count: 10,
     }],
@@ -785,7 +814,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIET-GD",
+      programCode: "BSIET-GD",
+      programName:"BS Interactive Entertainment major in Game Development",
       batch: 123,
       count: 10,
     }],
@@ -816,7 +846,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 123,
       count: 25,
     }],
@@ -842,7 +873,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 123,
       count: 25,
     }],
@@ -868,7 +900,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 123,
       count: 25,
     }],
@@ -894,7 +927,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 123,
       count: 25,
     }],
@@ -920,7 +954,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSIS",
+      programCode: "BSIS",
+      programName: "BS Information Systems",
       batch: 123,
       count: 25,
     }],
@@ -951,7 +986,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
 
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 123,
       count: 30,
     }],
@@ -977,7 +1013,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 123,
       count: 30,
     }],
@@ -1003,7 +1040,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 123,
       count: 30,
     }],
@@ -1029,7 +1067,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 123,
       count: 30,
     }],
@@ -1055,7 +1094,8 @@ mongoose.connect(process.env.MONGO_URI).then(_ => {
   
   Courses.create({ 
     takers: [{
-      program: "BSCS-ST",
+      programCode: "BSCS-ST",
+      programName: "Computer Science major in Software Technology",
       batch: 123,
       count: 30,
     }],

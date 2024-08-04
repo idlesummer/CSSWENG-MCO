@@ -1,9 +1,15 @@
-const CourseOfferings = require('#src/models/CourseOfferings.js');
+const CourseOfferings = require('#models/CourseOfferings.js');
+
 
 // Get all course offerings
 async function getCourseOfferings(req, res) {
-  const courseOfferings = await CourseOfferings.find({ }).sort({ createdAt: -1 });
-  res.status(200).json(courseOfferings);
+  try {
+    const courseOfferings = await CourseOfferings.find({ }).sort({ createdAt: -1 });
+    res.status(200).json(courseOfferings);
+
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 }
 
 
@@ -68,6 +74,7 @@ async function deleteCourseOfferings(req, res) {
 }
 
 
+// Update/edit a course offering
 async function updateCourseOffering(req, res) {
   res.status(200).json({
     mssg: "UPDATE request on course offering",

@@ -2,7 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const courseOfferingSchema = new Schema({
   takers: [{
-    program: { type: String, required: true }, // BSCS-ST
+    programCode: { type: String, required: true }, // BSCS-ST
+    programName: { type: String, required: true }, // BSCS-ST
     batch: { type: Number, required: true },   // 122
     count: { type: Number, required: true },  // student count
   }],
