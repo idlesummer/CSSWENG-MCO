@@ -33,12 +33,17 @@ function CourseCourseOfferings(){
   const getCheckedCourseOfferings = () => courseOfferings.filter((courseOffering, index) => checkedRows[index]);
 
   const courseOfferingRows = courseOfferings.map((courseOffering, index) => (
-    <tr key={index}>
+    <tr key={index}
+        onClick={() => handleCheckboxChange(index)} 
+    >
       <td>
         <input 
           type="checkbox"
           checked={checkedRows[index] || false}
-          onChange={() => handleCheckboxChange(index)} 
+          onChange={(e) => {
+            e.stopPropagation(); 
+            handleCheckboxChange(index);
+          }} 
         />
       </td>
 
@@ -97,6 +102,8 @@ function CourseCourseOfferings(){
   const checkedCourse = checkedCourseOfferings.length > 0;
   const checkedOneCourse = checkedCourseOfferings.length == 1;
   const checkedTwoCourses = checkedCourseOfferings.length == 2;
+
+  console.log(checkedCourseOfferings);
 
   return (
     <div className={styles.container}>

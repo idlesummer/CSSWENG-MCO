@@ -37,14 +37,29 @@ function Dashboard() {
     };
 
     fetchHome();
+
   }, []);
 
-  const initialDropdownState = items.reduce((acc, item) => {
-    acc[item.id] = false;
-    return acc;
-  }, {});
+  console.table("batchLists", batchLists);
+  // console.log("batchLists.batches", Array.isArray(batchLists.batches));
+  // console.log("batchLists.batches", batchLists?.batches[0]);
+  if(batchLists){
+    console.log(batchLists.batches[0]);
+  }
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(initialDropdownState);
+  
+
+  // console.log("batchLists.batchesAndPrograms", batchLists.batchesAndPrograms);
+
+  // console.log(items[0].code[2])
+
+  // console.log(batchLists.batches[0]);
+  // const initialDropdownState = items.reduce((acc, item) => {
+  //   acc[item.id] = false;
+  //   return acc;
+  // }, {});
+
+  //const [isDropdownOpen, setIsDropdownOpen] = useState(initialDropdownState);
 
   const toggleDropdown = (id) => {
     setIsDropdownOpen(prevState => ({...prevState, [id]: !prevState[id]}));
@@ -55,28 +70,28 @@ function Dashboard() {
     console.log(program);
   }
 
-  const programList = items.map(item => (
-    <div className={styles.item} key={item.id}>
-      <div className={styles.itemHeader} onClick={() => toggleDropdown(item.id)}>
-        <div className={styles.dropdownIcon}><img src='/img/icons/dropdown.png' alt="dropdown icon"/></div>
-        <div>{item.label}</div>
-      </div>
+  // const programList = batchLists.map(batch => (
+  //   <div className={styles.item} key={batch.id}>
+  //     <div className={styles.itemHeader} onClick={() => toggleDropdown(item.id)}>
+  //       <div className={styles.dropdownIcon}><img src='/img/icons/dropdown.png' alt="dropdown icon"/></div>
+  //       <div>{item.label}</div>
+  //     </div>
       
-      {isDropdownOpen[item.id] && (
-        <ul className={`${styles.itemList} ${isDropdownOpen[item.id] ? styles.open : ''}`}>
-          {
-            item.list.map((programName, index) => {
-              const programCode = item.code[index];
-              const divId = item.id;
-              return (
-                <li key={programCode} onClick={() => getProgramInfo(divId, programName, programCode)}>{programName}</li>
-              );
-            })
-          }
-        </ul>
-      )}
-    </div>
-  ));
+  //     {isDropdownOpen[item.id] && (
+  //       <ul className={`${styles.itemList} ${isDropdownOpen[item.id] ? styles.open : ''}`}>
+  //         {
+  //           item.list.map((programName, index) => {
+  //             const programCode = item.code[index];
+  //             const divId = item.id;
+  //             return (
+  //               <li key={programCode} onClick={() => getProgramInfo(divId, programName, programCode)}>{programName}</li>
+  //             );
+  //           })
+  //         }
+  //       </ul>
+  //     )}
+  //   </div>
+  // ));
     
   return (
     <div className={styles.container}>
@@ -85,7 +100,7 @@ function Dashboard() {
         <div className={styles.head}>
           <p> CCS </p>
         </div>
-        {programList}
+        {/* {programList} */}
       </div>
     </div>
   );

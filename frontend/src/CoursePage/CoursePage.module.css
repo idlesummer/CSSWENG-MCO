@@ -66,6 +66,7 @@ h1 {
     background-color: #198754;
     background-size: cover;
     border-style:hidden;
+    transition: background-color 0.3s ease;
 }
 
 .iconButton img {
@@ -73,13 +74,14 @@ h1 {
 }
 
 .iconButton:hover {
-    background-color: #147447;
+    background-color: #126840;
 }
 
 .iconButton.disabled {
     background-color: rgba(128, 128, 128, 0.247);
     pointer-events: none;
     cursor: not-allowed;
+
 }
 
 table {
@@ -107,6 +109,7 @@ th {
 
 tbody tr:hover {
     background-color: #f5f5f5;
+    cursor:pointer;
 }
 
 .loading {
