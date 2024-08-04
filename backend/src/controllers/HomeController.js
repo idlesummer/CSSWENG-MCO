@@ -3,7 +3,7 @@ const getBatchesAndPrograms = require('#utils/getBatchesAndPrograms.js');
 
 
 // Get all batch lists
-async function getBatchLists(req, res) {
+async function getBatchLists(req, res) {  
   try {
     const courseOfferings = await CourseOfferings.find({ });
     const batchesAndPrograms = getBatchesAndPrograms(courseOfferings);
@@ -24,8 +24,12 @@ async function getBatchLists(req, res) {
 // Get a batch list (or get course page)
 async function getCoursePage(req, res) {
   try {
+    console.log(req.originalUrl)
     const { batch, code } = req.query;
     const courseOfferings = await CourseOfferings.find({ takers: { $elemMatch: { batch, programCode: code }}});
+    
+    console.log(courseOfferings)
+    
     res.status(200).json(courseOfferings);
 
   } catch (err) {

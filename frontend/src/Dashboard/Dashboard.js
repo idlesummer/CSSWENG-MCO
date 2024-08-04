@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react'
+import { createSearchParams, useNavigate } from 'react-router-dom';
+
 import Sidebar from '../Sidebar/Sidebar.js'
 import styles from './Dashboard.module.css'
 
-import { useEffect, useState } from 'react'
 
 // const items = [
 //     { id: '124', 
@@ -29,7 +31,7 @@ import { useEffect, useState } from 'react'
 function Dashboard() {
   const [batchLists, setBatchLists] = useState({});
   const [isPending, setIsPending] = useState(true);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHome = async () => {
@@ -56,12 +58,13 @@ function Dashboard() {
   const getProgramInfo = async (batch, programName, programCode) => {
     // const program = { batch, programName, programCode };
     // console.log(program);
+    const params = createSearchParams({ batch, code: programCode }).toString();
+    navigate({pathname: '/coursepage', search: params});
 
-    const query = { batch, program: programCode };
-    const params = new URLSearchParams(query);
-    const url = `/coursepage?${params}`;
-
-    console.log(url);
+    // const response = await fetch(`${process.env.REACT_APP_API_URL}/api/${url}`);
+    // const batchProgramOfferings = await response.json();
+    // console.log(url);
+    // console.log(batchProgramOfferings);
   }
 
   let programList = null;
