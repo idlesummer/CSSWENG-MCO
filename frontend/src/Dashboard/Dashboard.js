@@ -40,7 +40,7 @@ function Dashboard() {
     };
 
     fetchHome();
-  }, []);
+  }, []); 
 
   // const initialDropdownState = items.reduce((acc, item) => {
   //   acc[item.id] = false;
