@@ -1,11 +1,13 @@
 const { Router } = require('express');
 const Courses = require('#models/CourseOfferings.js');
-const { getBatchLists } = require('#controllers/HomeController.js');
+const { getBatchLists, getCoursePage } = require('#controllers/HomeController.js');
 
 const router = Router();
 
 // GET
 router.get('/', getBatchLists);
+
+router.get('/coursepage', getCoursePage);
 
 // POST
 router.post('/', (req, res) => {

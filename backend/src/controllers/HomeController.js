@@ -21,4 +21,17 @@ async function getBatchLists(req, res) {
 }
 
 
-module.exports = { getBatchLists };
+// Get a batch list (or get course page)
+async function getCoursePage(req, res) {
+  try {
+    const { batch, code } = req.query;
+    const courseOfferings = await CourseOfferings.find({ takers: { $elemMatch: { batch, programCode: code }}});
+    res.status(200).json(courseOfferings);
+
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
+
+module.exports = { getBatchLists, getCoursePage };
