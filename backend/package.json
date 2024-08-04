@@ -23,7 +23,8 @@
   "imports": {
     "#/*": "./*",
     "#src/*": "./src/*",
-    "#config/*": "./src/config/*",
+    "#config/*": "./src/controllers/*",
+    "#controllers/*": "./src/controllers/*",
     "#helpers/*": "./src/helpers/*",
     "#middleware/*": "./src/middleware/*",
     "#models/*": "./src/models/*",

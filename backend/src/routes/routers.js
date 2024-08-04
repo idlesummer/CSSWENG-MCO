@@ -2,9 +2,9 @@ const { Router } = require('express');
 const router = Router();
 
 const home = require('./home.js');
-const offerings = require('./offerings.js');
+const courseOfferings = require('./course-offerings.js');
 
 router.use(home);
-router.use('/offerings', offerings);
+router.use('/course-offerings', courseOfferings);
 
 module.exports = router;

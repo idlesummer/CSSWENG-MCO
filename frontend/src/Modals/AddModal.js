@@ -24,20 +24,20 @@ function AddModal() {
   const [error, setError] = useState(null);
 
   const onCancel = (e) => {
-    setCode('');
-    setTitle('');
-    setSection('');
-    setFaculty('');
-    setDay1('');
-    setBegin1('');
-    setEnd1('');
-    setRoom1('');
-    setDay2('');
-    setBegin2('');
-    setEnd2('');
-    setRoom2('');
-    setEnrlCap('');
-    setRemarks('');
+    setCode("");
+    setTitle("");
+    setSection("");
+    setFaculty("");
+    setDay1("");
+    setBegin1("");
+    setEnd1("");
+    setRoom1("");
+    setDay2("");
+    setBegin2("");
+    setEnd2("");
+    setRoom2("");
+    setEnrlCap("");
+    setRemarks("");
     
     // Close the modal and navigate to /offerings
     navigate("/offerings");
@@ -68,7 +68,7 @@ function AddModal() {
       body: JSON.stringify(offering),
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
 
     const json = await response.json();
@@ -78,20 +78,20 @@ function AddModal() {
 
     console.table(json);
 
-    setCode('');
-    setTitle('');
-    setSection('');
-    setFaculty('');
-    setDay1('');
-    setBegin1('');
-    setEnd1('');
-    setRoom1('');
-    setDay2('');
-    setBegin2('');
-    setEnd2('');
-    setRoom2('');
-    setEnrlCap('');
-    setRemarks('');
+    setCode("");
+    setTitle("");
+    setSection("");
+    setFaculty("");
+    setDay1("");
+    setBegin1("");
+    setEnd1("");
+    setRoom1("");
+    setDay2("");
+    setBegin2("");
+    setEnd2("");
+    setRoom2("");
+    setEnrlCap("");
+    setRemarks("");
 
     // Close the modal and navigate to /offerings
     navigate("/offerings");

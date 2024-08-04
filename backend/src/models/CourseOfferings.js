@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const courseSchema = new Schema({
+const courseOfferingSchema = new Schema({
   takers: [{
     program: { type: String, required: true }, // BSCS-ST
     batch: { type: Number, required: true },   // 122
@@ -28,4 +28,4 @@ const courseSchema = new Schema({
 }, { timestamps: true });
 
 
-module.exports = model('Courses', courseSchema);
+module.exports = model('CourseOfferings', courseOfferingSchema);

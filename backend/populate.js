@@ -1,6 +1,6 @@
 require('dotenv/config');
 const mongoose = require('mongoose')
-const Courses = require("#models/Courses.js");
+const Courses = require("#models/CourseOfferings.js");
 
 // BSIET-AD 124
 mongoose.connect(process.env.MONGO_URI).then(_ => {
