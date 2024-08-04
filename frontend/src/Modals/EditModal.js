@@ -61,15 +61,15 @@ function EditModal({closeModal, courseInfo}) {
 
 
   return (
-    <div class={styles.modalOverlay}>
-      <div class={styles.modalContent}>
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
         <div className={styles.headers}>
           <h2>{code}</h2>
           <h2>{section}</h2>
         </div>
         <form>
-          <div class={styles.formRow3}>
-            <div class={styles.formGroup2}>
+          <div className={styles.formRow3}>
+            <div className={styles.formGroup2}>
               <label htmlFor="faculty" className={styles.required}>Faculty</label>
               <input 
                 type="text" 
@@ -78,7 +78,7 @@ function EditModal({closeModal, courseInfo}) {
                 onChange={e => setFaculty(e.target.value)} 
                 value={faculty}/>
             </div>
-            <div class={styles.formGroup}>
+            <div className={styles.formGroup}>
               <label htmlFor="section" className={styles.required}>Section</label>
               <input 
                 type="text" 
@@ -251,9 +251,9 @@ function EditModal({closeModal, courseInfo}) {
               />
             </div>
           </div>
-          <div class={styles.formButtons}>
-            <button type="submit" class={styles.cancelButton}>Cancel</button>
-            <button type="submit" class={styles.saveButton}>Save</button>
+          <div className={styles.formButtons}>
+            <button type="submit" className={styles.cancelButton}>Cancel</button>
+            <button type="submit" className={styles.saveButton}>Save</button>
           </div>
         </form>
       </div>

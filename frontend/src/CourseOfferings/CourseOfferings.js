@@ -93,6 +93,11 @@ function CourseCourseOfferings(){
     fetchCourseOfferings();
   }, []);
 
+  const checkedCourseOfferings = getCheckedCourseOfferings();
+  const checkedCourse = checkedCourseOfferings.length > 0;
+  const checkedOneCourse = checkedCourseOfferings.length == 1;
+  const checkedTwoCourses = checkedCourseOfferings.length == 2;
+
   return (
     <div className={styles.container}>
       <Sidebar />
@@ -104,20 +109,32 @@ function CourseCourseOfferings(){
                 <input type="text"/>
             </div>
             <div className={styles.iconButtons}>
-              <div className={`${styles.iconButton} ${styles.addIcon}`}onClick={() => {setOpenAddModal(true)}}><img src="/img/icons/plus.png" alt="add"></img></div>
+              <div className={`${styles.iconButton} ${styles.addIcon}`}
+                   onClick={() => {setOpenAddModal(true)}}
+              >
+                <img src="/img/icons/plus.png" alt="add"></img>
+              </div>
               {openAddModal && <AddModal closeModal={setOpenAddModal}/>}
               
-              <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenEditModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
+              <div className={`${styles.iconButton} ${styles.editIcon} ${!checkedOneCourse ? styles.disabled : ''} `} 
+                   onClick={() => {setOpenEditModal(true)}}
+              >
+                    <img src="/img/icons/edit.png" alt="edit"></img>
+              </div>
               {openEditModal && <EditModal closeModal={setOpenEditModal} courseInfo={getCheckedCourseOfferings()[0]}/>}
               
-              <div className={`${styles.iconButton} ${styles.mergeIcon}`} onClick={() => {setOpenMergeModal(true)}}><img src="/img/icons/merge.png" alt="merge"></img></div>
+              <div className={`${styles.iconButton} ${styles.mergeIcon} ${!checkedTwoCourses ? styles.disabled : ''}` } 
+                   onClick={() => {setOpenMergeModal(true)}}
+              >
+                    <img src="/img/icons/merge.png" alt="merge"></img>
+              </div>
               {openMergeModal && <MergeModal closeModal={setOpenEditModal}/>}
               
               <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
               {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} />)}
               
               <div 
-                className={`${styles.iconButton} ${styles.deleteIcon}`}
+                className={`${styles.iconButton} ${styles.deleteIcon} ${!checkedCourse ? styles.disabled : ''}`}
                 onClick={onDelete}
               >
                 <img src="/img/icons/trash.png" alt="delete"></img>
