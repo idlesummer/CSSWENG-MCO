@@ -11,6 +11,9 @@ function CourseOfferings({ courseList , takersList}){
     const [courses, setCourses] = useState(courseList);
     const [loading, setLoading] = useState(true);
 
+    const [checkedRows, setCheckedRows] = useState({});
+
+
     useEffect(() => {
       const fetchOfferings = async () => {
         const res = await fetch("http://localhost:4000/api/offerings");
@@ -23,9 +26,38 @@ function CourseOfferings({ courseList , takersList}){
       fetchOfferings();
     }, []);
 
+
+    const handleCheckboxChange = (index) => {
+      setCheckedRows((prevCheckedRows) =>({
+        ...prevCheckedRows,
+        [index]: !prevCheckedRows[index], 
+      }));
+    };
+
+    // function returns JSON of selected rows
+    const getCheckedCourses = () => {
+      return courses.filter((course, index) => checkedRows[index]);
+    };
+
+    // REMOVE, did this just to see array
+    useEffect(() => {
+      const getCheckedCourses = () => {
+        return courses.filter((course, index) => checkedRows[index]);
+      };
+      const selectedCourses = getCheckedCourses();
+      console.log("Selected Courses:", selectedCourses);
+
+      return () => {}
+
+    }, [courses, checkedRows]);
+
     const courseRows = courses.map((course, index) => (
       <tr key={index}>
-        <td><input type="checkbox" /></td>
+        <td>
+          <input type="checkbox"
+                  checked={checkedRows[index] || false}
+                  onChange={() => handleCheckboxChange(index)} />
+        </td>
         <td>{course.code}</td>
         <td>{course.title}</td>
         <td>{course.offered_to}</td>
@@ -43,6 +75,28 @@ function CourseOfferings({ courseList , takersList}){
         <td>{course.remarks}</td> 
       </tr>
     ));
+      
+
+    // const courseRows = courses.map((course, index) => (
+    //   <tr key={index}>
+    //     <td><input type="checkbox" /></td>
+    //     <td>{course.code}</td>
+    //     <td>{course.title}</td>
+    //     <td>{course.offered_to}</td>
+    //     <td>{course.section}</td>
+    //     <td>{course.faculty}</td>
+    //     <td>{course.day1}</td>
+    //     <td>{course.begin1}</td>
+    //     <td>{course.end1}</td>
+    //     <td>{course.room1}</td>
+    //     <td>{course.day2}</td>
+    //     <td>{course.begin2}</td>
+    //     <td>{course.end2}</td>
+    //     <td>{course.room2}</td>
+    //     <td>{course.enrl_cap}</td>
+    //     <td>{course.remarks}</td> 
+    //   </tr>
+    // ));
 
     const [openEditModal, setOpenEditModal] = useState(false)
     const [openMergeModal, setOpenMergeModal] = useState(false)
