@@ -54,14 +54,17 @@ async function createCourseOffering(req, res) {
 }
 
 
+// Delete many course offerings
 async function deleteCourseOfferings(req, res) {
   const ids = req.body.map(courseOffering => courseOffering._id);
 
-  
+  try {
+    const result = await CourseOfferings.deleteMany({ _id: { $in: ids }});  
+    res.status(200).json(result);
 
-  res.status(200).json({
-    mssg: "DELETE request on course offering",
-  });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 }
 
 
