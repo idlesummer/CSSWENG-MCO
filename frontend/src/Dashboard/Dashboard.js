@@ -3,10 +3,27 @@ import styles from './Dashboard.module.css'
 
 import { useEffect, useState } from 'react'
 
-// temporary dummy database entries
 const items = [
-    { id: 'id124', label: 'ID124', list: ['BS Interactive Entertainment major in Game Design', 'BS Interactive Entertainment major in Game Development', 'BS Information Systems', 'BS Computer Science major in Software Technology'] },
-    { id: 'id123', label: 'ID123', list: ['BS Interactive Entertainment major in Game Design', 'BS Interactive Entertainment major in Game Development', 'BS Information Systems', 'BS Computer Science major in Software Technology'] }
+    { id: '124', 
+      label: 'ID124', 
+      list: ['BS Interactive Entertainment major in Game Design', 
+             'BS Interactive Entertainment major in Game Development', 
+             'BS Information Systems', 
+             'BS Computer Science major in Software Technology'], 
+      code: ['BSIET-AD',
+             'BSIET-GD',
+             'BSIS',
+             'BSCS-ST'] },
+    { id: '123',
+      label: 'ID123',
+      list: ['BS Interactive Entertainment major in Game Design',
+             'BS Interactive Entertainment major in Game Development',
+             'BS Information Systems', 
+             'BS Computer Science major in Software Technology'],
+      code: ['BSIET-AD',
+             'BSIET-GD',
+             'BSIS',
+             'BSCS-ST'] }
 ];
 
 function Dashboard() {
@@ -35,6 +52,11 @@ function Dashboard() {
         }));
     };
 
+    const getProgramInfo = (divId, programName, programCode) => {
+        const program = { divId, programName, programCode };
+        console.log(program);
+    }
+
     const programList = items.map(item => (
         <div className={styles.item} key={item.id}>
             <div className={styles.itemHeader} onClick={() => toggleDropdown(item.id)}>
@@ -43,9 +65,13 @@ function Dashboard() {
             </div>
             {isDropdownOpen[item.id] && (
                  <ul className={`${styles.itemList} ${isDropdownOpen[item.id] ? styles.open : ''}`}>
-                    {item.list.map((programName, index) => (
-                        <li key={index}>{programName}</li>
-                    ))}
+                    {item.list.map((programName, index) => {
+                        const programCode = item.code[index];
+                        const divId = item.id;
+                        return (
+                        <li key={programCode} onClick={() => getProgramInfo(divId, programName, programCode)} >{programName}</li>
+                        );
+                    })}
                 </ul>
             )}
         </div>
