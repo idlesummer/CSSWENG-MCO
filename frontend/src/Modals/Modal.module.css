@@ -110,6 +110,19 @@
     flex-grow: 1;
   }
 
+  .formRow4 {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .formRow4 div:first-child {
+    flex-grow: 1;
+  }
+
+  .formRow4 div:last-child {
+    width: 10%;
+  }
   label {
     display: block;
     margin-bottom: 5px;
