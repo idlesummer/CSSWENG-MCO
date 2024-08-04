@@ -6,7 +6,6 @@ const router = Router();
 
 // GET
 router.get('/', getBatchLists);
-
 router.get('/coursepage', getCoursePage);
 
 // POST
