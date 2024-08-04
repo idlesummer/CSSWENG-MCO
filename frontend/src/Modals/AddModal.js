@@ -221,11 +221,10 @@ function AddModal() {
                 required
               >
                 <option key="none" value="" disabled></option>
-                <option key="Su" value="Su">Su</option>
                 <option key="M" value="M">M</option>
                 <option key="T" value="T">T</option>
                 <option key="W" value="W">W</option>
-                <option key="Th" value="Th">Th</option>
+                <option key="H" value="H">H</option>
                 <option key="F" value="F">F</option>
                 <option key="Sa" value="Sa">Sa</option>
               </select>
@@ -252,7 +251,7 @@ function AddModal() {
             </div>
 
             <div className={styles.formGroup2}>
-              <label htmlFor="begin2"className={styles.required}>Begin 2</label>
+              <label htmlFor="end1"className={styles.required}>End 1</label>
               <select 
                 id="end1" 
                 name="end1"

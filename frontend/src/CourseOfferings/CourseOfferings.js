@@ -78,12 +78,14 @@ function CourseCourseOfferings(){
     console.table(json);
     navigate(0);
   }
+  
 
   useEffect(() => {
     const fetchCourseOfferings = async () => {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`);
+      // const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`);
+      const res = await fetch(`http://localhost:4000/api/course-offerings`);
+      
       const courseOfferings = await res.json();     
-
       setLoading(false);
       setCourses(courseOfferings);
     }
@@ -106,7 +108,7 @@ function CourseCourseOfferings(){
               {openAddModal && <AddModal closeModal={setOpenAddModal}/>}
               
               <div className={`${styles.iconButton} ${styles.editIcon}`} onClick={() => {setOpenEditModal(true)}}><img src="/img/icons/edit.png" alt="edit"></img></div>
-              {openEditModal && <EditModal closeModal={setOpenEditModal}/>}
+              {openEditModal && <EditModal closeModal={setOpenEditModal} courseInfo={getCheckedCourseOfferings()[0]}/>}
               
               <div className={`${styles.iconButton} ${styles.mergeIcon}`} onClick={() => {setOpenMergeModal(true)}}><img src="/img/icons/merge.png" alt="merge"></img></div>
               {openMergeModal && <MergeModal closeModal={setOpenEditModal}/>}
