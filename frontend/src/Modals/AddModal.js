@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import styles from './Modal.module.css';
+
 
 function AddModal() {
   const [code, setCode] = useState("");
@@ -7,17 +10,38 @@ function AddModal() {
   const [section, setSection] = useState("");
   const [faculty, setFaculty] = useState("");
   const [day1, setDay1] = useState("");
-  const [startTime1, setStartTime1] = useState("");
-  const [endTime1, setEndTime1] = useState("");
+  const [begin1, setBegin1] = useState("");
+  const [end1, setEnd1] = useState("");
   const [room1, setRoom1] = useState("");
   const [day2, setDay2] = useState("");
-  const [startTime2, setStartTime2] = useState("");
-  const [endTime2, setEndTime2] = useState("");
+  const [begin2, setBegin2] = useState("");
+  const [end2, setEnd2] = useState("");
   const [room2, setRoom2] = useState("");
   const [enrlCap, setEnrlCap] = useState("");
   const [remarks, setRemarks] = useState("");
+  const navigate = useNavigate();
 
   const [error, setError] = useState(null);
+
+  const onCancel = (e) => {
+    setCode('');
+    setTitle('');
+    setSection('');
+    setFaculty('');
+    setDay1('');
+    setBegin1('');
+    setEnd1('');
+    setRoom1('');
+    setDay2('');
+    setBegin2('');
+    setEnd2('');
+    setRoom2('');
+    setEnrlCap('');
+    setRemarks('');
+    
+    // Close the modal and navigate to /offerings
+    navigate("/offerings");
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -28,12 +52,12 @@ function AddModal() {
       section,
       faculty,
       day1,
-      startTime1,
-      endTime1,
+      begin1,
+      end1,
       room1,
       day2,
-      startTime2,
-      endTime2,
+      begin2,
+      end2,
       room2,
       enrlCap,
       remarks,
@@ -59,15 +83,18 @@ function AddModal() {
     setSection('');
     setFaculty('');
     setDay1('');
-    setStartTime1('');
-    setEndTime1('');
+    setBegin1('');
+    setEnd1('');
     setRoom1('');
     setDay2('');
-    setStartTime2('');
-    setEndTime2('');
+    setBegin2('');
+    setEnd2('');
     setRoom2('');
     setEnrlCap('');
     setRemarks('');
+
+    // Close the modal and navigate to /offerings
+    navigate("/offerings");
   };
 
 
@@ -151,12 +178,12 @@ function AddModal() {
               </select>
             </div>
 
-            <div className={styles.formGroup2} id="startTimeBox1">
+            <div className={styles.formGroup2} id="beginBox1">
               <select 
-                id="startTime1" 
-                name="startTime1"
-                onChange={e => setStartTime1(e.target.value)}
-                value={startTime1}
+                id="begin1" 
+                name="begin1"
+                onChange={e => setBegin1(e.target.value)}
+                value={begin1}
                 required
               >
                 <option key="none" value="" disabled></option>
@@ -179,10 +206,10 @@ function AddModal() {
 
             <div className={styles.formGroup2}>
               <select 
-                id="endTime1" 
-                name="endTime1"
-                onChange={e => setEndTime1(e.target.value)}
-                value={endTime1}
+                id="end1" 
+                name="end1"
+                onChange={e => setEnd1(e.target.value)}
+                value={end1}
                 required
               >
                 <option key="none" value="" disabled></option>
@@ -237,12 +264,12 @@ function AddModal() {
             </div>
 
             <div className={styles.formGroup2}>
-              <label htmlFor="startTime2"></label>
+              <label htmlFor="begin2"></label>
               <select 
-                id="startTime2"
+                id="begin2"
                 name="day2"
-                onChange={e => setStartTime2(e.target.value)}
-                value={startTime2}
+                onChange={e => setBegin2(e.target.value)}
+                value={begin2}
               >
                 <option key="none" value=""></option>
                 <option key="0730" value="0730">0730</option>
@@ -263,12 +290,12 @@ function AddModal() {
             </div>
 
             <div className={styles.formGroup2}>
-              <label htmlFor="endTime2"></label>
+              <label htmlFor="end2"></label>
               <select 
-                id="endTime2"
-                name="endTime2"
-                onChange={e => setEndTime2(e.target.value)}
-                value={endTime2}
+                id="end2"
+                name="end2"
+                onChange={e => setEnd2(e.target.value)}
+                value={end2}
               >
                 <option key="none" value=""></option>
                 <option key="0730" value="0730">0730</option>
@@ -304,7 +331,7 @@ function AddModal() {
             <div className={styles.formGroup}>
               <label htmlFor="enrlCap" className={styles.required}>Enrl Cap</label>
               <input 
-                type="text" 
+                type="number" 
                 id="enrlCap" 
                 className={styles.inputText}
                 onChange={e => setEnrlCap(e.target.value)}  
@@ -329,7 +356,7 @@ function AddModal() {
             <button 
               type="button" 
               className={styles.cancelButton}
-              onClick={e => 1}
+              onClick={onCancel}
             >Cancel</button>
 
             <button type="submit" className={styles.addButton}>Add Class</button>
