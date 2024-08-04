@@ -28,23 +28,24 @@ import { useEffect, useState } from 'react'
 
 function Dashboard() {
   const [batchLists, setBatchLists] = useState({});
+  const [isPending, setIsPending] = useState(true);
+
 
   useEffect(() => {
     const fetchHome = async () => {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api`);
       const data = await res.json();
       setBatchLists(data);
+      setIsPending(false);
     };
 
     fetchHome();
-
   }, []);
 
-  console.table("batchLists", batchLists);
-  // console.log("batchLists.batches", Array.isArray(batchLists.batches));
-  // console.log("batchLists.batches", batchLists?.batches[0]);
-  if(batchLists){
-    console.log(batchLists.batches[0]);
+
+  if (Object.keys(batchLists).length) {
+    console.log('ksdljfh')
+    console.table(batchLists.batches[0])
   }
 
   
@@ -61,14 +62,14 @@ function Dashboard() {
 
   //const [isDropdownOpen, setIsDropdownOpen] = useState(initialDropdownState);
 
-  const toggleDropdown = (id) => {
-    setIsDropdownOpen(prevState => ({...prevState, [id]: !prevState[id]}));
-  };
+  // const toggleDropdown = (id) => {
+  //   setIsDropdownOpen(prevState => ({...prevState, [id]: !prevState[id]}));
+  // };
 
-  const getProgramInfo = (divId, programName, programCode) => {
-    const program = { divId, programName, programCode };
-    console.log(program);
-  }
+  // const getProgramInfo = (divId, programName, programCode) => {
+  //   const program = { divId, programName, programCode };
+  //   console.log(program);
+  // }
 
   // const programList = batchLists.map(batch => (
   //   <div className={styles.item} key={batch.id}>
