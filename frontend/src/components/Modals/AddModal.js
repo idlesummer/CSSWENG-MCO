@@ -303,7 +303,7 @@ function AddModal({ setOpenAddModal, openAddModal }) {
                 <option key="M" value="M">M</option>
                 <option key="T" value="T">T</option>
                 <option key="W" value="W">W</option>
-                <option key="Th" value="Th">Th</option>
+                <option key="H" value="H">H</option>
                 <option key="F" value="F">F</option>
                 <option key="Sa" value="Sa">Sa</option>
               </select>

@@ -34,8 +34,8 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
 
   const timeMapping = useMemo(
     () => ({
-      "0730": ["0900", "1045"],
-      "0915": ["1045", "1230"],
+      "730": ["900", "1045"],
+      "915": ["1045", "1230"],
       "1100": ["1230", "1415"],
       "1245": ["1415", "1600"],
       "1430": ["1600", "1745"],
@@ -47,15 +47,12 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
 
 
   useEffect(() => {
-    setEnd1("");
     setEnd1Options(timeMapping[begin1] || []);
-
     return () => {}
   }, [begin1, timeMapping]);
 
   useEffect(() => {
     setEnd2Options(timeMapping[begin2] || []);
-
     return () => {}
   }, [begin2, timeMapping]);
 
@@ -117,9 +114,10 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
                 value={begin1}
                 required
               >
+                <option></option>
                 <option key="none" value="" disabled></option>
-                <option key="0730" value="0730">0730</option>
-                <option key="0915" value="0915">0915</option>
+                <option key="730" value="730">0730</option>
+                <option key="915" value="915">0915</option>
                 <option key="1100" value="1100">1100</option>
                 <option key="1245" value="1245">1245</option>
                 <option key="1430" value="1430">1430</option>
@@ -188,8 +186,8 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
                 value={begin2}
               >
                 <option key="none" value=""></option>
-                <option key="0730" value="0730">0730</option>
-                <option key="0915" value="0915">0915</option>
+                <option key="730" value="730">0730</option>
+                <option key="915" value="915">0915</option>
                 <option key="1100" value="1100">1100</option>
                 <option key="1245" value="1245">1245</option>
                 <option key="1430" value="1430">1430</option>
