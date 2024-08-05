@@ -7,6 +7,9 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
   
   console.table(courseInfo)
 
+  const courseID = courseInfo._id;
+  const offered_to = courseInfo.offered_to;
+  
   const [code, setCode] = useState(courseInfo.code);
   const [title, setTitle] = useState(courseInfo.title);
   const [section, setSection] = useState(courseInfo.section);
@@ -57,6 +60,66 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
   }, [begin2, timeMapping]);
 
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const offering = {
+      courseID,
+      takers,
+
+      code,
+      title,
+      offered_to,
+      section,
+      faculty,
+    
+      day1,
+      begin1,
+      end1,
+      room1,
+      day2,
+      begin2,
+      end2,
+      room2,
+    
+      enrlCap,
+      remarks,
+    };
+
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+      method: "PATCH",
+      body: JSON.stringify(offering),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await response.json();
+
+    if (!response.ok)
+      return setError(json.error);
+
+    console.table(json);
+
+    setCode("");
+    setTitle("");
+    setSection("");
+    setFaculty("");
+    setDay1("");
+    setBegin1("");
+    setEnd1("");
+    setRoom1("");
+    setDay2("");
+    setBegin2("");
+    setEnd2("");
+    setRoom2("");
+    setEnrlCap("");
+    setRemarks("");
+
+    // Close the modal and navigate to /offerings
+    navigate(0);
+  };
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -64,7 +127,7 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
           <h2>{code}</h2>
           <h2>{section}</h2>
         </div>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className={styles.formRow3}>
             <div className={styles.formGroup2}>
               <label htmlFor="faculty" className={styles.required}>Faculty</label>
@@ -84,6 +147,7 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
                 onChange={e => setSection(e.target.value)}
                 value={section}/>
             </div>
+            
           </div>
           <div className={styles.formRow}>
             <div className={styles.formGroup}>

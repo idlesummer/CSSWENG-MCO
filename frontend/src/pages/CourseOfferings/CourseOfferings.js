@@ -152,7 +152,7 @@ function CourseCourseOfferings(){
               >
                     <img src="/img/icons/merge.png" alt="merge"></img>
               </div>
-              {openMergeModal && <MergeModal setOpenMergeModal={setOpenMergeModal} openMergeModal={openMergeModal} courses={checkedCourseOfferings}/>}
+              {openMergeModal && <MergeModal setOpenMergeModal={setOpenMergeModal} openMergeModal={openMergeModal} courseList={checkedCourseOfferings}/>}
               
               <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
               {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} />)}

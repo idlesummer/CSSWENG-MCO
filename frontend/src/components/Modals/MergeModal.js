@@ -1,47 +1,62 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import styles from './Modal.module.css';
 
-function MergeModal({setOpenMergeModal, openMergeModal, courses}) {
+function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
 
-    console.log("Merge Modal", courses[0])
+    console.log("Merge Modal", courseList[0])
 
-    const [code, setCode] = useState(courses[0].code);
-    const [title, setTitle] = useState(courses[0].title);
-    const [section, setSection] = useState(courses[0].section);
+    const [code, setCode] = useState(courseList[0].code);
+    const [title, setTitle] = useState(courseList[0].title);
+    const [section, setSection] = useState(courseList[0].section);
     
-    const [faculty, setFaculty] = useState(courses[0].faculty);
-    const [takers, setTakers] = useState(courses[0].takers);
+    const [faculty, setFaculty] = useState(courseList[0].faculty);
+    const [takers, setTakers] = useState(courseList[0].takers);
   
-    const [day1, setDay1] = useState(courses[0].day1);
-    const [begin1, setBegin1] = useState(courses[0].begin1);
-    const [end1, setEnd1] = useState(courses[0].end1);
-    const [room1, setRoom1] = useState(courses[0].room1);
+    const [day1, setDay1] = useState(courseList[0].day1);
+    const [begin1, setBegin1] = useState(courseList[0].begin1);
+    const [end1, setEnd1] = useState(courseList[0].end1);
+    const [room1, setRoom1] = useState(courseList[0].room1);
   
-    const [day2, setDay2] = useState(courses[0].day2);
-    const [begin2, setBegin2] = useState(courses[0].begin2);
-    const [end2, setEnd2] = useState(courses[0].end2);
-    const [room2, setRoom2] = useState(courses[0].room2);
+    const [day2, setDay2] = useState(courseList[0].day2);
+    const [begin2, setBegin2] = useState(courseList[0].begin2);
+    const [end2, setEnd2] = useState(courseList[0].end2);
+    const [room2, setRoom2] = useState(courseList[0].room2);
   
-    const [enrlCap, setEnrlCap] = useState(courses[0].enrl_cap);
-    const [remarks, setRemarks] = useState(courses[0].remarks);
+    const [enrlCap, setEnrlCap] = useState(courseList[0].enrl_cap);
+    const [remarks, setRemarks] = useState(courseList[0].remarks);
     //const navigate = useNavigate();
   
     const [error, setError] = useState(null);
     const [end1Options, setEnd1Options] = useState([]);
     const [end2Options, setEnd2Options] = useState([]);
     
+    const [selectedCourseIndex, setSelectedCourseIndex] = useState(0);
     const [toggleState, setToggleState] = useState(1);
 
     console.log(code, section)
 
-    const toggleTab = (index) => {
-      setToggleState(index);
-    }
+    const handleRadioChange = (index) => {
+      setSelectedCourseIndex(index);
+      if (index !== null && courseList[index]) {
+        const course = courseList[index];
+        setFaculty(course.faculty || '');
+        setDay1(course.day1 || '');
+        setBegin1(course.begin1 || '');
+        setEnd1(course.end1 || '');
+        setRoom1(course.room1 || '');
+        setDay2(course.day2 || '');
+        setBegin2(course.begin2 || '');
+        setEnd2(course.end2 || '');
+        setRoom2(course.room2 || '');
+        setEnrlCap(course.enrlCap || '');
+        setRemarks(course.remarks || '');
+      }
+    };
 
     const timeMapping = useMemo(
       () => ({
-        "0730": ["0900", "1045"],
-        "0915": ["1045", "1230"],
+        "730": ["900", "1045"],
+        "915": ["1045", "1230"],
         "1100": ["1230", "1415"],
         "1245": ["1415", "1600"],
         "1430": ["1600", "1745"],
@@ -52,27 +67,24 @@ function MergeModal({setOpenMergeModal, openMergeModal, courses}) {
     );
   
     useEffect(() => {
-      setEnd1("");
       setEnd1Options(timeMapping[begin1] || []);
-  
       return () => {}
     }, [begin1, timeMapping]);
   
     useEffect(() => {
       setEnd2Options(timeMapping[begin2] || []);
-  
       return () => {}
     }, [begin2, timeMapping]);
 
     return(
-        <div className={styles.modalOverlay}>
+      <div className={styles.modalOverlay}>
         <div className={styles.modalContent}>
           <div className={styles.headers}>
             <h2>
              <span className={styles.lightText}> Merge </span> 
              <span className={styles.boldText}> {code} {section} </span>
               <span className={styles.lightText}> and </span> 
-              <span className={styles.boldText}> {courses[1].code} {courses[1].section}</span>
+              <span className={styles.boldText}> {courseList[1].code} {courseList[1].section}</span>
             </h2>
           </div>
           <form>
@@ -80,10 +92,17 @@ function MergeModal({setOpenMergeModal, openMergeModal, courses}) {
                 <span className={styles.radioContainer}>
                     <label>Merge into</label>
                     <div class={styles.radioGroup}>
-                        <input type="radio" id="" name="mergeInto" value="XX22"/>
-                        <label htmlFor="">{code} {section}</label>
-                        <input type="radio" id="" name="mergeInto" value="XXE1"/>
-                        <label htmlFor="">{courses[1].code} {courses[1].section}</label>
+                        <input type="radio" id="" name="mergeInto" value={courseList[0].section}
+                           
+                          checked={selectedCourseIndex === 0}
+                          onChange={() => handleRadioChange(0)}
+                        />
+                          <label htmlFor="">{code} {section}</label>
+                        <input type="radio" id="" name="mergeInto" value={courseList[1].section}
+                         checked={selectedCourseIndex === 1}
+                         onChange={() => handleRadioChange(1)}
+                        />
+                        <label htmlFor="">{courseList[1].code} {courseList[1].section}</label>
                     </div>
                 </span>
             </div>
@@ -115,8 +134,8 @@ function MergeModal({setOpenMergeModal, openMergeModal, courses}) {
                   required
                 >
                   <option key="none" value="" disabled></option>
-                  <option key="0730" value="0730">0730</option>
-                  <option key="0915" value="0915">0915</option>
+                  <option key="730" value="730">0730</option>
+                  <option key="915" value="915">0915</option>
                   <option key="1100" value="1100">1100</option>
                   <option key="1245" value="1245">1245</option>
                   <option key="1430" value="1430">1430</option>
@@ -186,8 +205,8 @@ function MergeModal({setOpenMergeModal, openMergeModal, courses}) {
                 value={begin2}
               >
                 <option key="none" value=""></option>
-                <option key="0730" value="0730">0730</option>
-                <option key="0915" value="0915">0915</option>
+                <option key="730" value="730">0730</option>
+                <option key="915" value="915">0915</option>
                 <option key="1100" value="1100">1100</option>
                 <option key="1245" value="1245">1245</option>
                 <option key="1430" value="1430">1430</option>
@@ -233,7 +252,9 @@ function MergeModal({setOpenMergeModal, openMergeModal, courses}) {
               </div>
               <div class={styles.formGroup}>
                 <label htmlFor="remarks">Remarks</label>
-                <input type="text" id="remarks" className={styles.inputText2}/>
+                <input type="text" id="remarks" className={styles.inputText2}
+                       value={remarks}
+                />
               </div>
             </div>
             <div class={styles.formButtons}>
