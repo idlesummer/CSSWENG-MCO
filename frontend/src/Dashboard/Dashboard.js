@@ -58,9 +58,15 @@ function Dashboard() {
   const getProgramInfo = async (batch, programName, programCode) => {
     // const program = { batch, programName, programCode };
     // console.log(program);
-    const params = createSearchParams({ batch, code: programCode }).toString();
-    navigate({pathname: '/coursepage', search: params});
 
+    const params = createSearchParams({ batch, code: programCode }).toString();
+    const states = {batch: batch, programCode: programCode}
+    navigate({pathname: '/coursepage', 
+              search: params,
+              }, 
+              {state: states}
+            );
+    // state:params
     // const response = await fetch(`${process.env.REACT_APP_API_URL}/api/${url}`);
     // const batchProgramOfferings = await response.json();
     // console.log(url);

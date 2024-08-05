@@ -101,8 +101,8 @@ function CourseCourseOfferings(){
 
   const checkedCourseOfferings = getCheckedCourseOfferings();
   const checkedCourse = checkedCourseOfferings.length > 0;
-  const checkedOneCourse = checkedCourseOfferings.length == 1;
-  const checkedTwoCourses = checkedCourseOfferings.length == 2;
+  const checkedOneCourse = checkedCourseOfferings.length === 1;
+  const checkedTwoCourses = checkedCourseOfferings.length === 2;
 
   console.log(checkedCourseOfferings);
 
