@@ -47,7 +47,13 @@ function CourseCourseOfferings(){
           }} 
         />
       </td>
-
+      
+      {courseOffering.takers.map((taker, index) => (
+        <React.Fragment key={index}>
+          <td>{`${taker.programCode}-${taker.batch}`}</td>
+          <td>{taker.count}</td>
+        </React.Fragment>
+      ))}
       <td>{courseOffering.code}</td>
       <td>{courseOffering.title}</td>
       <td>{courseOffering.offered_to}</td>
@@ -156,6 +162,8 @@ function CourseCourseOfferings(){
                 <thead>
                   <tr>
                     <th></th>
+                    <th>Program</th>
+                    <th>Num of Takers</th>
                     <th>Course Code</th>
                     <th>Course Title</th>
                     <th>Offered To</th>

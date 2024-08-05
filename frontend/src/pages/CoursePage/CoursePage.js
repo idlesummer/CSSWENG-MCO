@@ -67,6 +67,9 @@ function CoursePage({ courseList }){
             }} 
           />
         </td>
+          {course.takers.map((taker, index) => (
+            <td key={index}>{taker.count}</td>
+          ))}
           <td>{course.code}</td>
           <td>{course.title}</td>
           <td>{course.offered_to}</td>
@@ -130,6 +133,7 @@ function CoursePage({ courseList }){
                     <thead>
                         <tr>
                             <th></th>
+                            <th>Num of Takers</th>
                             <th>Course Code</th>
                             <th>Course Title</th>
                             <th>Offered To</th>
