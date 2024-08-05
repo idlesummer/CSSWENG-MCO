@@ -6,7 +6,7 @@ const {
   createCourseOffering,
   deleteCourseOfferings,
   updateCourseOffering,
-} = require('#controllers/CourseOfferingsController.js');
+} = require('#src/controllers/CourseOfferingsController.js');
 
 
 const router = Router();

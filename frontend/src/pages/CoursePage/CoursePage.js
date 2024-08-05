@@ -8,28 +8,19 @@ import AddModal from '../../components/Modals/AddModal.js';
 
 
 function CoursePage({ courseList }){
-
-  let courses
-
-
+  let courses;
 
   const [checkedRows, setCheckedRows] = useState({});
-
   const [isPending, setIsPending] = useState(true);
-
   const [batchProgramOfferings, setBatchProgramOfferings] = useState([]);
   const location = useLocation();
-  
   const {batch, programCode} = location.state || {};
 
-
-
-
   useEffect(() => {
-    const url = `${process.env.REACT_APP_API_URL}/api/${location.pathname}${location.search}`;
+    const url = `${process.env.REACT_APP_API_URL}/api${location.pathname}${location.search}`;
+    // const url = `${process.env.REACT_APP_API_URL}/api/${location.pathname}${location.search}`;
 
     const getBatchProgramOfferings = async () => {
-      console.log(url)
       const response = await fetch(url);
       const data = await response.json();
 
@@ -50,13 +41,13 @@ function CoursePage({ courseList }){
     }));
   };
 
-  const getCheckedCourses = () => batchProgramOfferings.filter((batchProgramOfferings, index) => checkedRows[index]);
+  const getCheckedCourses = () => batchProgramOfferings.filter((_, index) => checkedRows[index]);
 
-  if(!isPending){
+  if (!isPending){
     courses = batchProgramOfferings.map((course, index) => (
       <tr key={index}
-      className={checkedRows[index] ? styles.checkedRow : ''}
-      onClick={() => handleCheckboxChange(index)} 
+        className={checkedRows[index] ? styles.checkedRow : ''}
+        onClick={() => handleCheckboxChange(index)} 
       >
         <td>
           <input 
@@ -109,21 +100,21 @@ function CoursePage({ courseList }){
                     </div>
                     <div className={styles.iconButtons}>
                         <div className={`${styles.iconButton} ${styles.addIcon}`} 
-                             onClick={() => {setOpenAddModal(true)}}
+                          onClick={() => {setOpenAddModal(true)}}
                         >
                           <img src="/img/icons/plus.png" alt="add"></img>
                         </div>
                         {openAddModal && <AddModal closeModal={setOpenAddModal}/>}
                         
                         <div className={`${styles.iconButton} ${styles.editIcon} ${!checkedOneCourse ? styles.disabled : ''}`} 
-                             onClick={() => {setOpenEditModal(true)}}
+                          onClick={() => {setOpenEditModal(true)}}
                         >
                           <img src="/img/icons/edit.png" alt="edit"></img>
                         </div>
                         {openEditModal && <EditModal closeModal={setOpenEditModal}/>}
 
                         <div className={`${styles.iconButton} ${styles.deleteIcon} ${!checkedCourse ? styles.disabled : ''}`}
-                             onClick={null}
+                          onClick={null}
                         >
                           <img src="/img/icons/trash.png" alt="delete"></img>
                         </div>
