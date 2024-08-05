@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
-import Sidebar from '../Sidebar/Sidebar.js'
+import Sidebar from '../../component/Sidebar/Sidebar.js'
 import styles from './Dashboard.module.css'
 
 

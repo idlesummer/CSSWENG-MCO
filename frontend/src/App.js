@@ -1,8 +1,8 @@
 import './App.css';
-import Dashboard from './Dashboard/Dashboard.js';
-import LoginPage from './LoginPage/LoginPage.js';
-import CoursePage from './CoursePage/CoursePage.js';
-import CourseOfferings from './CourseOfferings/CourseOfferings.js';
+import Dashboard from './pages/Dashboard/Dashboard.js';
+import LoginPage from './pages/LoginPage/LoginPage.js';
+import CoursePage from './pages/CoursePage/CoursePage.js';
+import CourseOfferings from './pages/CourseOfferings/CourseOfferings.js';
 
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
