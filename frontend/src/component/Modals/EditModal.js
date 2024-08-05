@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from './Modal.module.css';
 
-function EditModal({closeModal, courseInfo}) {
+function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
   
   console.table(courseInfo)
 
@@ -252,7 +252,13 @@ function EditModal({closeModal, courseInfo}) {
             </div>
           </div>
           <div className={styles.formButtons}>
-            <button type="submit" className={styles.cancelButton}>Cancel</button>
+            <button 
+              type="button" 
+              className={styles.cancelButton}
+              onClick={() => setOpenEditModal(false)}
+            >
+                Cancel
+            </button>
             <button type="submit" className={styles.saveButton}>Save</button>
           </div>
         </form>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './Modal.module.css';
 
 
-function AddModal() {
+function AddModal({ setOpenAddModal, openAddModal }) {
   const [code, setCode] = useState("");
   const [title, setTitle] = useState("");
   const [section, setSection] = useState("");
@@ -386,10 +386,10 @@ function AddModal() {
             <button 
               type="button" 
               className={styles.cancelButton}
-              onClick={onCancel}
-              
-              
-            >Cancel</button>
+              onClick={() => setOpenAddModal(false)}
+            >
+                Cancel
+            </button>
 
             <button type="submit" className={styles.addButton}>Add Class</button>
             

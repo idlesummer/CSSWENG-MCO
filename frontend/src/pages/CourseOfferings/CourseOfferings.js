@@ -122,21 +122,21 @@ function CourseCourseOfferings(){
               >
                 <img src="/img/icons/plus.png" alt="add"></img>
               </div>
-              {openAddModal && <AddModal closeModal={setOpenAddModal}/>}
+              {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} openAddModal={openAddModal}/>}
               
               <div className={`${styles.iconButton} ${styles.editIcon} ${!checkedOneCourse ? styles.disabled : ''} `} 
                    onClick={() => {setOpenEditModal(true)}}
               >
                     <img src="/img/icons/edit.png" alt="edit"></img>
               </div>
-              {openEditModal && <EditModal closeModal={setOpenEditModal} courseInfo={getCheckedCourseOfferings()[0]}/>}
+              {openEditModal && <EditModal setOpenEditModal={setOpenEditModal} openEditModal={openEditModal} courseInfo={getCheckedCourseOfferings()[0]}/>}
               
               <div className={`${styles.iconButton} ${styles.mergeIcon} ${!checkedTwoCourses ? styles.disabled : ''}` } 
                    onClick={() => {setOpenMergeModal(true)}}
               >
                     <img src="/img/icons/merge.png" alt="merge"></img>
               </div>
-              {openMergeModal && <MergeModal closeModal={setOpenEditModal} courses={checkedCourseOfferings}/>}
+              {openMergeModal && <MergeModal setOpenMergeModal={setOpenMergeModal} openMergeModal={openMergeModal} courses={checkedCourseOfferings}/>}
               
               <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
               {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} />)}

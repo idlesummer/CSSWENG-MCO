@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import styles from './Modal.module.css';
 
-function MergeModal({courses}) {
+function MergeModal({setOpenMergeModal, openMergeModal, courses}) {
 
     console.log("Merge Modal", courses[0])
 
@@ -237,7 +237,13 @@ function MergeModal({courses}) {
               </div>
             </div>
             <div class={styles.formButtons}>
-              <button type="submit" class={styles.cancelButton}>Cancel</button>
+              <button 
+                type="button" 
+                className={styles.cancelButton}
+                onClick={() => setOpenMergeModal(false)}
+              >
+                  Cancel
+              </button>
               <button type="submit" class={styles.saveButton}>Save</button>
             </div>
           </form>
