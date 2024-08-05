@@ -104,14 +104,14 @@ function CoursePage({ courseList }){
                         >
                           <img src="/img/icons/plus.png" alt="add"></img>
                         </div>
-                        {openAddModal && <AddModal closeModal={setOpenAddModal}/>}
+                        {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} openAddModal={openAddModal} fromCourseOfferings={false}/>}
                         
                         <div className={`${styles.iconButton} ${styles.editIcon} ${!checkedOneCourse ? styles.disabled : ''}`} 
                           onClick={() => {setOpenEditModal(true)}}
                         >
                           <img src="/img/icons/edit.png" alt="edit"></img>
                         </div>
-                        {openEditModal && <EditModal closeModal={setOpenEditModal}/>}
+                        {openEditModal && <EditModal setOpenEditModal={setOpenEditModal} openEditModal={openEditModal} courseInfo={getCheckedCourses()[0]}/>}
 
                         <div className={`${styles.iconButton} ${styles.deleteIcon} ${!checkedCourse ? styles.disabled : ''}`}
                           onClick={null}

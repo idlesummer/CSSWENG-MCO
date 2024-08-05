@@ -123,6 +123,17 @@
   .formRow4 div:last-child {
     width: 10%;
   }
+
+  .formRow5 {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .formRow5 > :nth-child(2) {
+    flex-grow: 1;
+  }
+  
   label {
     display: block;
     margin-bottom: 5px;

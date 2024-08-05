@@ -138,7 +138,7 @@ function CourseCourseOfferings(){
               >
                 <img src="/img/icons/plus.png" alt="add"></img>
               </div>
-              {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} openAddModal={openAddModal}/>}
+              {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} openAddModal={openAddModal} fromCourseOfferings={true}/>}
               
               <div className={`${styles.iconButton} ${styles.editIcon} ${!checkedOneCourse ? styles.disabled : ''} `} 
                    onClick={() => {setOpenEditModal(true)}}

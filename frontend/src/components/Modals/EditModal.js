@@ -114,7 +114,6 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
                 value={begin1}
                 required
               >
-                <option></option>
                 <option key="none" value="" disabled></option>
                 <option key="730" value="730">0730</option>
                 <option key="915" value="915">0915</option>

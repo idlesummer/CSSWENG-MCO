@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 import styles from './Modal.module.css';
 
 
-function AddModal({ setOpenAddModal, openAddModal }) {
+function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings }) {
+
+  const [programCode, setProgramCode] = useState("");
+  const [programName, setProgramName] = useState("");
+  const [batch, setBatch] = useState("");
+
   const [code, setCode] = useState("");
   const [title, setTitle] = useState("");
   const [section, setSection] = useState("");
@@ -146,6 +151,53 @@ function AddModal({ setOpenAddModal, openAddModal }) {
         </div>
 
         <form onSubmit={onSubmit}>
+          {fromCourseOfferings && (
+          <div className={styles.formRow5}>
+            <div className={styles.formGroup2}>
+                <label htmlFor="programCode" className={styles.required}>Program Code</label>
+                <input 
+                  type="text" 
+                  id="programCode" 
+                  className={styles.inputText}
+                  onChange={e => setProgramCode(e.target.value)}
+                  value={programCode}
+                  required
+                />
+            </div>
+
+            <div className={styles.formGroup}>
+                <label htmlFor="programName" className={styles.required}>Program Name</label>
+                <input 
+                  type="text" 
+                  id="programName" 
+                  className={styles.inputText2}
+                  onChange={e => setProgramName(e.target.value)}
+                  value={programName}
+                  required
+                />
+            </div>
+
+            <div className={styles.formGroup}>
+                <label htmlFor="batch" className={styles.required}>Batch</label>
+                <select 
+                id="batch" 
+                name="batch"
+                className={styles.inputText2}
+                onChange={e => setBatch(e.target.value)}
+                value={batch}
+                required
+                >
+                  <option key="none" value="" disabled></option>
+                  <option key={120} value={120}>120</option>
+                  <option key={121} value={121}>121</option>
+                  <option key={122} value={122}>122</option>
+                  <option key={123} value={123}>123</option>
+                  <option key={124} value={124}>124</option>
+
+              </select>
+            </div>
+          </div>
+          )}
 
           <div className={styles.formRow1}>
             <div className={styles.formGroup2}>
@@ -335,6 +387,7 @@ function AddModal({ setOpenAddModal, openAddModal }) {
                 name="end2"
                 onChange={e => setEnd2(e.target.value)}
                 value={end2}
+                disabled={!begin2}
               >
                 <option key="none" value=""></option>
                 {end2Options.map((time) => (
