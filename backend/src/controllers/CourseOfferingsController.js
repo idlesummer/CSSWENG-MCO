@@ -32,9 +32,10 @@ async function createCourseOffering(req, res) {
     remarks,
   } = req.body;
 
+  
   try {
     const courseOffering = await CourseOfferings.create({
-      takers: [{ program: "BSCS-ST", batch: 122, count: 20 }],
+      takers: [{ programCode: "To be implemented", programName: "To be implemented", batch: 122, count: 20 }],
       code,
       title,
       section,
@@ -53,7 +54,7 @@ async function createCourseOffering(req, res) {
     });
 
     res.status(200).json(courseOffering);
-  
+    
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
