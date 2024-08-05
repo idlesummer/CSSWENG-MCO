@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import Sidebar from '../../component/Sidebar/Sidebar.js'
+import Sidebar from '../../components/Sidebar/Sidebar.js'
 import styles from '../CoursePage/CoursePage.module.css';
-import EditModal from '../../component/Modals/EditModal.js';
-import MergeModal from '../../component/Modals/MergeModal.js';
-import SplitModal from '../../component/Modals/SplitModal.js';
-import AddModal from '../../component/Modals/AddModal.js';
+import EditModal from '../../components/Modals/EditModal.js';
+import MergeModal from '../../components/Modals/MergeModal.js';
+import SplitModal from '../../components/Modals/SplitModal.js';
+import AddModal from '../../components/Modals/AddModal.js';
 
 
 function CourseCourseOfferings(){

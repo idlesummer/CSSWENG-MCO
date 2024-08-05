@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import Sidebar from '../../component/Sidebar/Sidebar.js';
+import Sidebar from '../../components/Sidebar/Sidebar.js';
 import styles from './CoursePage.module.css';
-import EditModal from '../../component/Modals/EditModal.js';
-import AddModal from '../../component/Modals/AddModal.js';
+import EditModal from '../../components/Modals/EditModal.js';
+import AddModal from '../../components/Modals/AddModal.js';
 
 
 function CoursePage({ courseList }){
