@@ -79,16 +79,26 @@ function CourseCourseOfferings(){
     if (!checkedCourseOfferings.length)
       return;
 
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(checkedCourseOfferings),
-    });
-    
-    const json = await response.json();
+    const courseDetails = checkedCourseOfferings
+      .map((course) => `${course.code} ${course.section}`)
+      .join("\n");
 
-    console.table(json);
-    navigate(0);
+    const message = `Delete the following classes:\n${courseDetails}`;
+
+    var result = window.confirm(message);
+    if (result) {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(checkedCourseOfferings),
+      });
+      
+      const json = await response.json();
+  
+      console.table(json);
+      navigate(0);
+    }
+
   }
   
 
