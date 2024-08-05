@@ -29,6 +29,7 @@ function CoursePage({ courseList }){
     const url = `${process.env.REACT_APP_API_URL}/api/${location.pathname}${location.search}`;
 
     const getBatchProgramOfferings = async () => {
+      console.log(url)
       const response = await fetch(url);
       const data = await response.json();
 
