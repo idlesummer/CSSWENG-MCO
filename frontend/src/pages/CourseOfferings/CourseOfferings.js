@@ -27,6 +27,8 @@ function CourseCourseOfferings(){
   
 
   const navigate = useNavigate();
+
+
   
   useEffect(() => {
     const fetchCourseOfferings = async () => {
@@ -39,7 +41,7 @@ function CourseCourseOfferings(){
     }
 
     fetchCourseOfferings();
-  }, []);
+  }, [openDeleteModal]);
 
 
   const handleCheckboxChange = (id) => {
@@ -99,40 +101,41 @@ function CourseCourseOfferings(){
     ));
   }
 
-  const onDelete = async () => {  
-    const checkedCourseOfferings = getCheckedCourseOfferings();
+  // const onDelete = async () => {  
+  //   const checkedCourseOfferings = getCheckedCourseOfferings();
     
-    // If no rows are selected
-    if (!checkedCourseOfferings.length)
-      return;
+  //   // If no rows are selected
+  //   if (!checkedCourseOfferings.length)
+  //     return;
 
-    const courseDetails = checkedCourseOfferings
-      .map((course) => `${course.code} ${course.section}`)
-      .join("\n");
+  //   const courseDetails = checkedCourseOfferings
+  //     .map((course) => `${course.code} ${course.section}`)
+  //     .join("\n");
 
-    const message = `Delete the following classes:\n${courseDetails}`;
+  //   const message = `Delete the following classes:\n${courseDetails}`;
 
-    var result = window.confirm(message);
-    if (result) {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(checkedCourseOfferings),
-      });
+  //   var result = window.confirm(message);
+  //   if (result) {
+  //     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+  //       method: "DELETE",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(checkedCourseOfferings),
+  //     });
       
-      const json = await response.json();
+  //     const json = await response.json();
   
-      console.table(json);
-      navigate(0);
-    }
+  //     console.table(json);
+  //     navigate(0);
+  //   }
 
-  }
+  // }
   
   const checkedCourseOfferings = getCheckedCourseOfferings();
   const checkedCourse = checkedCourseOfferings.length > 0;
   const checkedOneCourse = checkedCourseOfferings.length === 1;
   // const checkedTwoCourses = checkedCourseOfferings.length === 2;
 
+  //remove
   const canMergeCourses = () => {
     if (checkedCourseOfferings.length !== 2) return false;
 
