@@ -15,7 +15,9 @@ return (
         <div><i className={styles.icon}><img src="/img/icons/card-text.png" alt="table"></img></i></div>
       </Link>
       
+      <Link to ="/upload">
       <div><i className={styles.icon}><img src="/img/icons/box-arrow-up.png" alt="arrow up"></img></i></div>
+      </Link>
 
       <div><i className={styles.icon}><img src="/img/icons/box-arrow-down.png" alt="arrow down"></img></i></div>
 

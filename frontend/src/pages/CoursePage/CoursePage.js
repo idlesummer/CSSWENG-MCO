@@ -34,52 +34,50 @@ function CoursePage({ courseList }){
     getBatchProgramOfferings();
   }, [location]);
 
-  const handleCheckboxChange = (index) => {
+  const handleCheckboxChange = (id) => {
     setCheckedRows((prevCheckedRows) =>({
       ...prevCheckedRows,
-      [index]: !prevCheckedRows[index], 
+      [id]: !prevCheckedRows[id], 
     }));
   };
 
-  const getCheckedCourses = () => batchProgramOfferings.filter((_, index) => checkedRows[index]);
+  const getCheckedCourses = () => batchProgramOfferings.filter((courseOffering) => checkedRows[courseOffering._id]);
 
-  if (!isPending){
-    courses = batchProgramOfferings.map((course, index) => (
-      <tr key={index}
-        className={checkedRows[index] ? styles.checkedRow : ''}
-        onClick={() => handleCheckboxChange(index)} 
+  if(!isPending){
+    courses = batchProgramOfferings.map((courseOffering) => (
+      <tr key={courseOffering._id}
+          className={checkedRows[courseOffering._id] ? styles.checkedRow : ''}
+          onClick={() => handleCheckboxChange(courseOffering._id)} 
       >
         <td>
           <input 
             type="checkbox"
-            checked={checkedRows[index] || false}
+            checked={checkedRows[courseOffering._id] || false}
             onChange={(e) => {
               e.stopPropagation(); 
-              handleCheckboxChange(index);
+              handleCheckboxChange(courseOffering._id);
             }} 
           />
         </td>
-          {course.takers.map((taker, index) => (
-            <td key={index}>{taker.count}</td>
-          ))}
-          <td>{course.code}</td>
-          <td>{course.title}</td>
-          <td>{course.offered_to}</td>
-          <td>{course.section}</td>
-          <td>{course.faculty}</td>
-          <td>{course.day1}</td>
-          <td>{course.begin1}</td>
-          <td>{course.end1}</td>
-          <td>{course.room1}</td>
-          <td>{course.day2}</td>
-          <td>{course.begin2}</td>
-          <td>{course.end2}</td>
-          <td>{course.room2}</td>
-          <td>{course.enrl_cap}</td>
-          <td>{course.remarks}</td>
-        </tr>
-      ));
-    }
+        <td>{courseOffering.takers[0].count}</td>
+        <td>{courseOffering.code}</td>
+        <td>{courseOffering.title}</td>
+        <td>{courseOffering.offered_to}</td>
+        <td>{courseOffering.section}</td>
+        <td>{courseOffering.faculty}</td>
+        <td>{courseOffering.day1}</td>
+        <td>{courseOffering.begin1}</td>
+        <td>{courseOffering.end1}</td>
+        <td>{courseOffering.room1}</td>
+        <td>{courseOffering.day2}</td>
+        <td>{courseOffering.begin2}</td>
+        <td>{courseOffering.end2}</td>
+        <td>{courseOffering.room2}</td>
+        <td>{courseOffering.enrl_cap}</td>
+        <td>{courseOffering.remarks}</td> 
+      </tr>
+    ));
+  }
 
   const [openEditModal, setOpenEditModal] = useState(false)
   const [openAddModal, setOpenAddModal] = useState(false)
@@ -87,6 +85,37 @@ function CoursePage({ courseList }){
   const checkedCourses = getCheckedCourses();
   const checkedCourse = checkedCourses.length > 0;
   const checkedOneCourse = checkedCourses.length === 1;
+
+  console.log(checkedCourses)
+
+  const onDelete = async () => {  
+    const checkedCourseOfferings = getCheckedCourses();
+    
+    // If no rows are selected
+    if (!checkedCourseOfferings.length)
+      return;
+
+    const courseDetails = checkedCourseOfferings
+      .map((course) => `${course.code} ${course.section}`)
+      .join("\n");
+
+    const message = `Delete the following classes:\n${courseDetails}`;
+
+    var result = window.confirm(message);
+    if (result) {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(checkedCourseOfferings),
+      });
+      
+      const json = await response.json();
+  
+      console.table(json);
+      // navigate(0);
+    }
+
+  }
 
   return (
     <div className={styles.container}>
@@ -108,7 +137,7 @@ function CoursePage({ courseList }){
                         {openEditModal && <EditModal setOpenEditModal={setOpenEditModal} openEditModal={openEditModal} courseInfo={getCheckedCourses()[0]}/>}
 
                         <div className={`${styles.iconButton} ${styles.deleteIcon} ${!checkedCourse ? styles.disabled : ''}`}
-                          onClick={null}
+                          onClick={onDelete}
                         >
                           <img src="/img/icons/trash.png" alt="delete"></img>
                         </div>

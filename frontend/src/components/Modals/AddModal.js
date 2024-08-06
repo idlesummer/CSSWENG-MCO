@@ -64,7 +64,9 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    const courseId = courseInfo._id;
     const taker = {
+      courseId,
       programCode,
       programName,
       batch,
