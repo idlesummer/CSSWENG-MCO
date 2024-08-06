@@ -249,6 +249,7 @@ function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
               
         <div className={`${styles.viewOnly} ${styles.deleteProgramList}`}>
 
+          
           {programLists}
           {/* <div className={` ${styles.formRow5} ${styles.programRow}`}>
 
