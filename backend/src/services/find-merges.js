@@ -1,41 +1,27 @@
-function getTotalTakers(courseOffer) {
-  return courseOffer.takers.reduce((total, taker) => total + taker.count, 0);
-}
+function findMergeableCourses(courseOfferings) {
+  const mergeableCourses = [];
 
+  // Iterate through each course offering
+  for (let i = 0; i < courseOfferings.length; i++) {
+    const course1 = courseOfferings[i];
 
-function isMergeable(courseOffer1, courseOffer2) {
+    // Compare with other course offerings
+    for (let j = i + 1; j < courseOfferings.length; j++) {
+      const course2 = courseOfferings[j];
 
-  // Check if course codes are different
-  if (courseOffer1.courseCode !== courseOffer2.courseCode)
-    return false;
-
-  // Check if total number of takers are greater than the limit
-  if (getTotalTakers(courseOffer1) + getTotalTakers(courseOffer2) > 45)
-    return false;
-  
-  return true;
-}
-
-
-function findMerges(courseOfferings) {
-  const merges = {};
-
-  for (const courseOffer1 of courseOfferings) {
-    if (!(courseOffer1._id in merges))
-      merges[courseOffer1._id] = [courseOffer1];
-
-    for (const courseOffer2 of courseOfferings) {
-      if (courseOffer1._id !== courseOffer2._id && isMergeable(courseOffer1, courseOffer2))
-        merges[courseOffer1._id].push(courseOffer2);
+      // Check if course codes match and total takers is less than 45
+      if (
+        course1.courseCode === course2.courseCode && 
+        course1.takers.reduce((sum, taker) => sum + taker.count, 0) + 
+        course2.takers.reduce((sum, taker) => sum + taker.count, 0) <= 45
+      ) {
+        mergeableCourses.push([course1, course2]); // Add the pair to the result
+      }
     }
-
-    if (merges[courseOffer1._id].length === 1)
-      merges[courseOffer1._id] = [];
   }
 
-  return merges;
+  return mergeableCourses;
 }
-
 // (async function () {
 //   require('dotenv/config');
 //   const mongoose = require('mongoose');
@@ -48,4 +34,4 @@ function findMerges(courseOfferings) {
 //   console.log(result);
 // })()
 
-module.exports = findMerges;
+module.exports = findMergeableCourses;

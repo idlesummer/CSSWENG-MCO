@@ -1,5 +1,5 @@
 const CourseOfferings = require('#models/CourseOfferings.js');
-const findMerges = require("#services/find-merges.js");
+const findMergeableCourses = require("#services/find-merges.js");
 
 
 // Get all course offerings
@@ -17,7 +17,7 @@ async function getCourseOfferings(req, res) {
 async function getPossibleMerges(req, res) {
   try {
     const courseOfferings = await CourseOfferings.find({  });
-    const possibleMerges = findMerges(courseOfferings);
+    const possibleMerges = findMergeableCourses(courseOfferings);
     res.status(200).json(possibleMerges);
 
   } catch (error) {
