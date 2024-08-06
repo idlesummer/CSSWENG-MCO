@@ -5,6 +5,7 @@ import CoursePage from './pages/CoursePage/CoursePage.js';
 import CourseOfferings from './pages/CourseOfferings/CourseOfferings.js';
 import UploadPage from './pages/UploadPage/UploadPage.js'
 
+
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 

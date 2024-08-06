@@ -5,7 +5,7 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
 
     console.log("Merge Modal", courseList[0])
 
-    const [code, setCode] = useState(courseList[0].code);
+    const [courseCode, setcourseCode] = useState(courseList[0].courseCode);
     const [title, setTitle] = useState(courseList[0].title);
     const [section, setSection] = useState(courseList[0].section);
     
@@ -33,7 +33,7 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
     const [selectedCourseIndex, setSelectedCourseIndex] = useState(0);
     const [toggleState, setToggleState] = useState(1);
 
-    console.log(code, section)
+    console.log(courseCode, section)
 
     const handleRadioChange = (index) => {
       setSelectedCourseIndex(index);
@@ -84,7 +84,7 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
         // courseID,
         takers,
   
-        code,
+        courseCode,
         title,
         // offered_to,
         section,
@@ -118,7 +118,7 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
   
       console.table(json);
   
-      setCode("");
+      setcourseCode("");
       setTitle("");
       setSection("");
       setFaculty("");
@@ -143,9 +143,9 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
           <div className={styles.headers}>
             <h2>
              <span className={styles.lightText}> Merge </span> 
-             <span className={styles.boldText}> {code} {section} </span>
+             <span className={styles.boldText}> {courseCode} {section} </span>
               <span className={styles.lightText}> and </span> 
-              <span className={styles.boldText}> {courseList[1].code} {courseList[1].section}</span>
+              <span className={styles.boldText}> {courseList[1].courseCode} {courseList[1].section}</span>
             </h2>
           </div>
           <form>
@@ -158,12 +158,12 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
                           checked={selectedCourseIndex === 0}
                           onChange={() => handleRadioChange(0)}
                         />
-                          <label htmlFor="">{code} {section}</label>
+                          <label htmlFor="">{courseCode} {section}</label>
                         <input type="radio" id="" name="mergeInto" value={courseList[1].section}
                          checked={selectedCourseIndex === 1}
                          onChange={() => handleRadioChange(1)}
                         />
-                        <label htmlFor="">{courseList[1].code} {courseList[1].section}</label>
+                        <label htmlFor="">{courseList[1].courseCode} {courseList[1].section}</label>
                     </div>
                 </span>
             </div>

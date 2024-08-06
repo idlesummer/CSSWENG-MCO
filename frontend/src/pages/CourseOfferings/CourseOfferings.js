@@ -137,7 +137,6 @@ function CourseCourseOfferings(){
   const checkedOneCourse = checkedCourseOfferings.length === 1;
   // const checkedTwoCourses = checkedCourseOfferings.length === 2;
 
-  //remove
   const canRemoveTakers = () => {
     if (checkedCourseOfferings.length !== 1) return false;
 
@@ -145,6 +144,12 @@ function CourseCourseOfferings(){
 
     return false;
   };
+
+  const canMergeCourses = () => {
+    if (checkedCourseOfferings.length !== 2) return false;
+
+    return checkedCourseOfferings[0].courseCode === checkedCourseOfferings[1].courseCode
+  }
 
   console.log(checkedCourseOfferings);
 
@@ -175,9 +180,12 @@ function CourseCourseOfferings(){
               >
                     <img src="/img/icons/edit.png" alt="edit"></img>
               </div>
-              {openEditModal && <EditModal setOpenEditModal={setOpenEditModal} openEditModal={openEditModal} courseInfo={getCheckedCourseOfferings()[0]}/>}
+              {openEditModal && <EditModal 
+                                  setOpenEditModal={setOpenEditModal} 
+                                  openEditModal={openEditModal} 
+                                  courseInfo={getCheckedCourseOfferings()[0]}/>}
               
-              <div className={`${styles.iconButton} ${styles.mergeIcon} ${styles.disabled}` } 
+              <div className={`${styles.iconButton} ${styles.mergeIcon} ${!canMergeCourses() ? styles.disabled : ''}` } 
                    onClick={() => {setOpenMergeModal(true)}}
               >
                     <img src="/img/icons/merge.png" alt="merge"></img>
