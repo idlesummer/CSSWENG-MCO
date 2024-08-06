@@ -7,7 +7,7 @@ async function getBatchProgramOfferings(req, res) {
   try {
     const { batch, code } = req.query;
     const courseOfferings = await CourseOfferings.find({ takers: { $elemMatch: { batch, programCode: code }}});
-    
+
     res.status(200).json(courseOfferings);
 
   } catch (err) {
@@ -26,6 +26,8 @@ async function deleteBatchProgramOfferingTakers(req, res) {
         $elemMatch: { batch, programCode },
       },
     };
+
+    console.log(filter)
 
     const result = await CourseOfferings.updateMany(
       filter,
