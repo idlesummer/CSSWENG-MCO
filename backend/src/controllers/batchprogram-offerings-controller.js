@@ -18,11 +18,11 @@ async function getBatchProgramOfferings(req, res) {
 
 // Get list of course offerings that have conflicting schedules
 async function getScheduleConflicts(req, res) {
+  console.log('aklshdfklahjsd')
   try {
     const { ids } = req.body;
     const courseOfferings = await CourseOfferings.find({ _id: { $in: ids } });
     const conflicts = findConflicts(courseOfferings);
-
     res.status(200).json(conflicts);
 
   } catch (error) {
@@ -63,4 +63,5 @@ async function deleteBatchProgramOfferingTakers(req, res) {
 module.exports = { 
   getBatchProgramOfferings, 
   getScheduleConflicts,
-  deleteBatchProgramOfferingTakers };
+  deleteBatchProgramOfferingTakers 
+};
