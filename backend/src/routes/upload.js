@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-const { createCourseOfferings } = require('#controllers/UploadController.js');
+const { createCourseOfferings } = require('#src/controllers/upload-controller.js');
 const upload = require('#middleware/upload.js');
 
 const router = Router();

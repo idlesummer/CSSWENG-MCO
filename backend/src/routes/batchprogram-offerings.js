@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getBatchProgramOfferings } = require('#controllers/BatchProgramOfferingsController.js');
+const { getBatchProgramOfferings } = require('#controllers/batchprogram-offerings-controller.js');
 
 const router = Router();
 

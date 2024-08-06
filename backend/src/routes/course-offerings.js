@@ -2,10 +2,10 @@ const { Router } = require('express');
 
 const {
   getCourseOfferings,
-  createCourseOffering,
+  addTaker,
   deleteCourseOfferings,
   updateCourseOffering,
-} = require('#src/controllers/CourseOfferingsController.js');
+} = require('#src/controllers/course-offerings-controller.js');
 
 
 const router = Router();
@@ -14,9 +14,7 @@ const router = Router();
 router.get('/', getCourseOfferings);
 
 // POST
-router.post('/', createCourseOffering);
-// router.post('/merge', createCourseOffering);
-// router.post('/split', createCourseOffering);
+router.post('/', addTaker);
 
 // DELETE
 router.delete('/', deleteCourseOfferings);

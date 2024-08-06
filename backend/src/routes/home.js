@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getBatchLists } = require('#controllers/HomeController.js');
+const { getBatchLists } = require('#src/controllers/home-controller.js');
 
 const router = Router();
 
