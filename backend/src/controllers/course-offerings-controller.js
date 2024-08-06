@@ -95,7 +95,7 @@ async function updateCourseOffering(req, res) {
 
 module.exports = {
   getCourseOfferings,
-  createCourseOffering,
+  addTaker,
   deleteCourseOfferings,
   updateCourseOffering,
 };
