@@ -16,5 +16,4 @@ async function getBatchProgramOfferings(req, res) {
   }
 }
 
-
 module.exports = { getBatchProgramOfferings };

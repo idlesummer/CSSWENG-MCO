@@ -14,6 +14,33 @@ async function getCourseOfferings(req, res) {
 
 
 // Create a course offering
+async function addTaker(req, res) {
+  try {
+    const { _id, batch, programCode, programName, count: takers } = req.body;
+
+    // Find the course offering by ID
+    const courseOffer = await CourseOfferings.findById(_id);
+
+    // Check if the course offering exists
+    if (!courseOffer)
+      return res.status(404).json({ error: 'Course offering not found' });
+
+    // Create a new taker object
+    const taker = { programCode, programName, batch, count };
+
+    // Add the new taker to the takers array using $push
+    await CourseOfferings.findByIdAndUpdate(_id, { $push: { takers: taker } });
+
+    // Fetch the updated course offering (optional, if you need to send it back in the response)
+    const updatedCourseOffer = await CourseOfferings.findById(_id);
+
+    res.status(200).json(updatedCourseOffer);
+
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
 async function createCourseOffering(req, res) {
   const {
     code,
@@ -34,7 +61,7 @@ async function createCourseOffering(req, res) {
 
   
   try {
-    const courseOffering = await CourseOfferings.create({
+    const courseOffer = await CourseOfferings.create({
       takers: [{ programCode: "To be implemented", programName: "To be implemented", batch: 122, count: 20 }],
       code,
       title,
@@ -53,7 +80,7 @@ async function createCourseOffering(req, res) {
       remarks,
     });
 
-    res.status(200).json(courseOffering);
+    res.status(200).json(courseOffer);
     
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -63,7 +90,7 @@ async function createCourseOffering(req, res) {
 
 // Delete many course offerings
 async function deleteCourseOfferings(req, res) {
-  const ids = req.body.map(courseOffering => courseOffering._id);
+  const ids = req.body.map(courseOffer => courseOffer._id);
 
   try {
     const result = await CourseOfferings.deleteMany({ _id: { $in: ids }});  
@@ -77,9 +104,38 @@ async function deleteCourseOfferings(req, res) {
 
 // Update/edit a course offering
 async function updateCourseOffering(req, res) {
-  res.status(200).json({
-    mssg: "UPDATE request on course offering",
-  });
+  try {
+    const courseOffer = {
+      _id,
+      takers,
+
+      code,
+      title,
+      offered_to,
+      section,
+      faculty,
+
+      day1,
+      begin1,
+      end1,
+      room1,
+      day2,
+      begin2,
+      end2,
+      room2,
+
+      enrlCap,
+      remarks,
+    } = req.body;
+
+    const updatedCourseOffer = await CourseOfferings.findByIdAndUpdate(_id, courseOffer, { new: true });
+    res.status(200).json(updatedCourseOffer);
+
+    // RETURNS NULL IF ID IS NOT FOUND
+
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 }
 
 

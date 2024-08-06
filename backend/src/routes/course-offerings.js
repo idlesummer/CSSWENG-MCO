@@ -1,6 +1,5 @@
 const { Router } = require('express');
 
-const Courses = require('#models/CourseOfferings.js');
 const {
   getCourseOfferings,
   createCourseOffering,
@@ -16,6 +15,8 @@ router.get('/', getCourseOfferings);
 
 // POST
 router.post('/', createCourseOffering);
+// router.post('/merge', createCourseOffering);
+// router.post('/split', createCourseOffering);
 
 // DELETE
 router.delete('/', deleteCourseOfferings);

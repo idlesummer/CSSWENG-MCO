@@ -2,29 +2,29 @@ const { Schema, model } = require('mongoose');
 
 const courseOfferingSchema = new Schema({
   takers: [{
-    programCode: { type: String, required: true }, // BSCS-ST
-    programName: { type: String, required: true }, // BSCS-ST
-    batch: { type: Number, required: true },   // 122
-    count: { type: Number, required: true },  // student count
+    programCode: String, // BSCS-ST
+    programName: String, // Bachelor of Science in Computer Science major in Software Technology
+    batch: Number,       // 122
+    count: Number,       // student count
   }],
   
-  code: { type: String, required: true },
-  title: { type: String, required: true },
-  offered_to: { type: String, required: true },
-  section: { type: String, required: true },
-  faculty: { type: String, required: true },
+  courseCode: { type: String, required: true },
+  courseTitle: String,
+  offeredTo: String,
+  section: String,
+  faculty: String,
   
-  day1: { type: String, required: true },
-  begin1: { type: Number, required: true },
-  end1: { type: Number, required: true },
-  room1: { type: String, required: true },
+  day1: String,
+  begin1: String,
+  end1: String,
+  room1: String,
 
   day2: String,
-  begin2: Number,
-  end2: Number,
+  begin2: String,
+  end2: String,
   room2: String,
 
-  enrl_cap: Number,
+  enrlCap: Number,
   remarks: String,
 }, { timestamps: true });
 

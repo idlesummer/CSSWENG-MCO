@@ -64,7 +64,7 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
     e.preventDefault();
 
     const offering = {
-      courseID,
+      _id: courseID,
       takers,
 
       code,
@@ -94,7 +94,8 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
       },
     });
 
-    const json = await response.json();
+    const json = await response.json();    
+    console.log(json)
 
     if (!response.ok)
       return setError(json.error);
