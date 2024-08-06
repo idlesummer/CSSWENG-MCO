@@ -1,9 +1,12 @@
 const { Router } = require('express');
-const { getBatchProgramOfferings } = require('#controllers/batchprogram-offerings-controller.js');
+const { getBatchProgramOfferings, deleteBatchProgramOfferingTakers } = require('#controllers/batchprogram-offerings-controller.js');
 
 const router = Router();
 
-// // GET
+// GET
 router.get('/', getBatchProgramOfferings);
+
+// DELETE
+router.delete('/', deleteBatchProgramOfferingTakers);
 
 module.exports = router;
