@@ -14,7 +14,7 @@ const router = Router();
 
 // GET
 router.get('/', getCourseOfferings);
-router.get('/merges', getPossibleMerges);
+router.get('/find-merges', getPossibleMerges);
 
 // POST
 router.post('/', addTaker);
