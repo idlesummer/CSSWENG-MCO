@@ -6,7 +6,7 @@ import styles from './Modal.module.css';
 
 function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
 
-  console.log(courseInfo)
+  console.log("deletemodal",courseInfo)
   const [programCode, setProgramCode] = useState(courseInfo.takers[0].programCode);
   const [programName, setProgramName] = useState(courseInfo.takers[0].programName);
   const [batch, setBatch] = useState(courseInfo.takers[0].batch);
@@ -34,68 +34,15 @@ function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
 
   const [programs, setPrograms] = useState(courseInfo.takers);
 
-  console.log("programs",programs)
-
-
   const [error, setError] = useState(null);
   const [end1Options, setEnd1Options] = useState([]);
   const [end2Options, setEnd2Options] = useState([]);
 
-
-  const onCancel = (e) => {
-    setCode("");
-    setTitle("");
-    setSection("");
-    
-    setFaculty("");
-    setTakers("");
-
-    setDay1("");
-    setBegin1("");
-    setEnd1("");
-    setRoom1("");
-
-    setDay2("");
-    setBegin2("");
-    setEnd2("");
-    setRoom2("");
-
-    setEnrlCap("");
-    setRemarks("");
-    
-    // Close the modal and navigate to /offerings
-    navigate(0);
-  }
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    const taker = {
-      programCode,
-      programName,
-      batch,
-      takers
-    };
-
-    console.log(taker);
-    // const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
-    //   method: "POST",
-    //   body: JSON.stringify(offering),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-
-    // const json = await response.json();
-
-    // if (!response.ok)
-    //   return setError(json.error);
-
-    // console.table(json);
-
-    // Close the modal and navigate to /offerings
-    navigate(0);
-  };
+  const [currentTakers, setCurrentTakers] = useState(courseInfo.takers);
+  
+  // useEffect(() => {
+  //   setCurrentTakers(courseInfo.takers);
+  // }, [currentTakers]);
 
   const timeMapping = useMemo(
     () => ({
@@ -110,6 +57,12 @@ function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
     []
   );
 
+  function removeTakerById(id) {
+    // Use filter to create a new array excluding the course with the given ID
+    const updatedTakers = currentTakers.filter(course => course._id !== id);
+    setCurrentTakers(updatedTakers)
+  }
+
   useEffect(() => {
     setEnd1Options(timeMapping[begin1] || []);
     return () => {}
@@ -120,30 +73,97 @@ function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
     return () => {}
   }, [begin2, timeMapping]);
 
-  // const courseOfferingRows = programs.map((program) => (
-  //     <div className={styles.formRow5}>
-
-  //       <td>
-  //         {program.programCode}
-  //       </td>
-  //       <td>{program.programName}</td>
-  //       <td>{program.batch}</td>
-  //       <td>{program.count}</td>
-  //       <td className={styles.iconButton}><img src="/img/icons/trash.png" alt="delete" /></td>
-  //     </div>
-  //   ));
-
-  const deleteProgram = (_id, programName, batch, count) => {
+  const deleteProgram = async (takerId, programName, batch, count) => {
+    const courseId = courseInfo._id
     const program = {
-      _id,
+      courseId,
+      takerId,
       programName,
       batch,
       count
     }
     console.log("program", program)
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(program),
+    });
+    removeTakerById(takerId)
+    console.log(currentTakers)
   }
 
-  const programLists = programs.map((program) => (
+  // let programLists
+  // useEffect(() => {
+  //   setCurrentTakers(courseInfo.takers);
+  //   programLists = programs.map((program) => (
+  //     <div className={` ${styles.formRow5} ${styles.programRow}`} key={program._id}>
+  //       <div className={styles.formGroup2}>
+  //           <label htmlFor="programCode" >Program Code</label>
+  //           <input 
+  //             type="text" 
+  //             id="programCode" 
+  //             className={styles.inputText}
+  //             onChange={e => setProgramCode(e.target.value)}
+  //             value={program.programCode}
+  //           />
+  //       </div>
+  
+  //       <div className={styles.formGroup}>
+  //       <label htmlFor="programName" >Program Name</label>
+  //         <input 
+  //             type="text" 
+  //             id="programName" 
+  //             className={styles.inputText2}
+  //             onChange={e => setProgramName(e.target.value)}
+  //             value={program.programName}
+  //             readOnly
+  //         />
+  //       </div>
+  
+  //       <div className={styles.formGroup}>
+  //           <label htmlFor="batch" >Batch</label>
+  //           <select 
+  //           id="batch" 
+  //           name="batch"
+  //           className={styles.inputText2}
+  //           onChange={e => setBatch(e.target.value)}
+  //           value={program.batch}
+  //           readOnly
+  //           disabled
+  //           >
+  //             <option key="none" value="" disabled></option>
+  //             <option key={120} value={120}>120</option>
+  //             <option key={121} value={121}>121</option>
+  //             <option key={122} value={122}>122</option>
+  //             <option key={123} value={123}>123</option>
+  //             <option key={124} value={124}>124</option>
+  //         </select>
+  //       </div>
+  
+  //       <div className={styles.formGroup}>
+  //         <label htmlFor="takers">Takers</label>
+  //         <input
+  //           type="number"
+  //           id="takers"
+  //           className={styles.inputText2}
+  //           onChange={e => setTakers(e.target.value)}
+  //           value={program.count}
+  //           readOnly
+  //         />
+  //       </div>
+  
+  //       <div className={styles.formGroup}>
+  //       <label style={{visibility:'hidden'}}>OOO</label>
+  //         <div className={styles.iconButton} 
+  //              onClick={(e) => deleteProgram(program._id, program.programName, program.batch, program.count)}>
+  //                 <img src="/img/icons/trash.png" alt="delete" /></div>
+  //         </div>
+  
+  //     </div>
+  //   ))
+  // }, [currentTakers]);
+
+  const programLists = currentTakers.map((program) => (
     <div className={` ${styles.formRow5} ${styles.programRow}`} key={program._id}>
       <div className={styles.formGroup2}>
           <label htmlFor="programCode" >Program Code</label>

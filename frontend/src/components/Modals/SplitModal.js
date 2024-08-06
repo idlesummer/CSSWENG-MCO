@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 
 function SplitModal ({closeModal, listOfTakers, courseList}) {
 
-    console.log('takersList:', listOfTakers);
 
     const [options] = useState(
       courseList.map(taker => ({

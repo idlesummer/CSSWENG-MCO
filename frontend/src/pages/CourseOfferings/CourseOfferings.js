@@ -22,6 +22,9 @@ function CourseCourseOfferings(){
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
+  // const [checkedCourseOfferings, setCheckedCourseOfferings] = useState([]);
+
+  
 
   const navigate = useNavigate();
   
@@ -77,20 +80,20 @@ function CourseCourseOfferings(){
           
         ))}
         </td>
-        <td>{courseOffering.code}</td>
-        <td>{courseOffering.title}</td>
-        <td>{courseOffering.offered_to}</td>
+        <td>{courseOffering.courseCode}</td>
+        <td>{courseOffering.courseTitle}</td>
+        <td>{courseOffering.offeredTo}</td>
         <td>{courseOffering.section}</td>
         <td>{courseOffering.faculty}</td>
         <td>{courseOffering.day1}</td>
         <td>{courseOffering.begin1}</td>
         <td>{courseOffering.end1}</td>
-        <td>{courseOffering.room1}</td>
+        <td>{courseOffering.room1}</td> 
         <td>{courseOffering.day2}</td>
         <td>{courseOffering.begin2}</td>
         <td>{courseOffering.end2}</td>
         <td>{courseOffering.room2}</td>
-        <td>{courseOffering.enrl_cap}</td>
+        <td>{courseOffering.enrlCap}</td>
         <td>{courseOffering.remarks}</td> 
       </tr>
     ));

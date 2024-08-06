@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 
 import Sidebar from '../../components/Sidebar/Sidebar.js';
 import styles from './UploadPage.module.css';
@@ -8,10 +9,13 @@ function UploadPage() {
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
 
+  const [uploading, setUploading] = useState(false)
+
+  const navigate = useNavigate();
+
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
 
-    // Validate file type
     if (selectedFile && selectedFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
       setFile(selectedFile);
       setError('');
@@ -21,14 +25,33 @@ function UploadPage() {
     }
   };
 
-  const handleUpload = () => {
+  const handleUpload = async (e) => {
     if (!file) {
       setError('No file selected. Please choose a .xlsx file to upload.');
       return;
     }
-    console.log('Uploading file:', file);
     setFile(null);
-    setError('');
+
+    const formData = new FormData();
+    
+    formData.append('file', file);
+
+    setUploading(true)
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/upload`, {
+      method: "POST",
+      body: formData,
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+    });
+
+    setUploading(false)
+    const json = await response.json();    
+
+    if (!response.ok)
+      return setError(json.error);
+
+    navigate('/course-offerings')
   };
 
   return (
@@ -36,26 +59,35 @@ function UploadPage() {
       <Sidebar />
       <div className={styles.content}>
         <div className={styles.uploadWrapper}>
-          <h1 className={styles.title}>Upload .xlsx File</h1>
+          {
+            uploading ? (<div className={styles.loading }>Loading...</div>) :
+            (          
+            <div>
 
-          <div className={styles.controls}>
-            <input
-              id="file-upload"
-              type="file"
-              accept=".xlsx"
-              className={styles.fileInput}
-              onChange={handleFileChange}
-            />
-            <button className={styles.uploadButton} onClick={handleUpload}>
-              Upload
-            </button>
-          </div>
-          {error && <div className={styles.error}>{error}</div>}
-          <div className={styles.progressBarWrapper}>
-            <div className={styles.progressBar}>
-              <div className={styles.progress}></div>
-            </div>
-          </div>
+              <h1 className={styles.title}>Upload .xlsx File</h1>
+                <div className={styles.controls}>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    accept=".xlsx"
+                    className={styles.fileInput}
+                    onChange={handleFileChange}
+                  />
+                  <button className={styles.uploadButton} onClick={handleUpload}>
+                    Upload
+                  </button>
+                </div>
+                {error && <div className={styles.error}>{error}</div>}
+                <div className={styles.progressBarWrapper}>
+                  <div className={styles.progressBar}>
+                    <div className={styles.progress}></div>
+                  </div>
+                </div>
+
+              </div>
+            )
+          }
+
         </div>
       </div>
     </div>

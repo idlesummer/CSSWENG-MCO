@@ -12,8 +12,8 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
   const [batch, setBatch] = useState("");
   const [takers, setTakers] = useState("");
 
-  const [code, setCode] = useState(courseInfo.code);
-  const [title, setTitle] = useState(courseInfo.title);
+  const [code, setCode] = useState(courseInfo.courseCode);
+  const [title, setTitle] = useState(courseInfo.courseTitle);
   const [section, setSection] = useState(courseInfo.section);
 
   const [faculty, setFaculty] = useState(courseInfo.faculty);
@@ -28,7 +28,7 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
   const [end2, setEnd2] = useState(courseInfo.end2);
   const [room2, setRoom2] = useState(courseInfo.room2);
 
-  const [enrlCap, setEnrlCap] = useState(courseInfo.enrl_cap);
+  const [enrlCap, setEnrlCap] = useState(courseInfo.enrlCap);
   const [remarks, setRemarks] = useState(courseInfo.remarks);
   const navigate = useNavigate();
 
@@ -36,30 +36,15 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
   const [end1Options, setEnd1Options] = useState([]);
   const [end2Options, setEnd2Options] = useState([]);
 
-  const onCancel = (e) => {
-    setCode("");
-    setTitle("");
-    setSection("");
-    
-    setFaculty("");
-    setTakers("");
-
-    setDay1("");
-    setBegin1("");
-    setEnd1("");
-    setRoom1("");
-
-    setDay2("");
-    setBegin2("");
-    setEnd2("");
-    setRoom2("");
-
-    setEnrlCap("");
-    setRemarks("");
-    
-    // Close the modal and navigate to /offerings
-    navigate(0);
-  }
+  const programMapping = useMemo(
+    () => ({
+      "BSCS-ST": "BS Computer Science Major in Software Technology",
+      "BSIS": "BS Information Systems",
+      "BSIET-GD": "BS Interactive Entertainment major in Game Development",
+      "BSIET-AD": "BS Interactive Entertainment major in Game Design",
+    }),
+    []
+  );
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -74,23 +59,23 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
     };
 
     console.log(taker);
-    // const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
-    //   method: "POST",
-    //   body: JSON.stringify(offering),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+      method: "POST",
+      body: JSON.stringify(taker),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-    // const json = await response.json();
+    const json = await response.json();
 
-    // if (!response.ok)
-    //   return setError(json.error);
+    if (!response.ok)
+      return setError(json.error);
 
-    // console.table(json);
+    console.table(json);
 
-    // Close the modal and navigate to /offerings
-    // navigate(0);
+    //Close the modal and navigate to /offerings
+    navigate(0);
   };
 
   const timeMapping = useMemo(
@@ -116,6 +101,11 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
     return () => {}
   }, [begin2, timeMapping]);
 
+  useEffect(() => {
+    setProgramName(programMapping[programCode] || '');
+    return () => {}
+  }, [programCode]);
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -128,14 +118,20 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
           <div className={styles.formRow5}>
             <div className={styles.formGroup2}>
                 <label htmlFor="programCode" className={styles.required}>Program Code</label>
-                <input 
+                <select
                   type="text" 
                   id="programCode" 
                   className={styles.inputText}
                   onChange={e => setProgramCode(e.target.value)}
                   value={programCode}
                   required
-                />
+                >
+                  <option key="none" value="" disabled></option>
+                  <option key="BSCS-ST" value="BSCS-ST">BSCS-ST</option>
+                  <option key="BSIS" value="BSIS">BSIS</option>
+                  <option key="BSIET-GD" value="BSIET-GD">BSIET-GD</option>
+                  <option key="BSIET-AD" value="BSIET-AD">BSIET-AD</option>
+                </select>
             </div>
 
             <div className={styles.formGroup}>

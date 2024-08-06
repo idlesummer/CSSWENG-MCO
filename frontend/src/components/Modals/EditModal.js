@@ -10,8 +10,8 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
   const courseID = courseInfo._id;
   const offered_to = courseInfo.offered_to;
   
-  const [code, setCode] = useState(courseInfo.code);
-  const [title, setTitle] = useState(courseInfo.title);
+  const [courseCode, setCode] = useState(courseInfo.courseCode);
+  const [courseTitle, setTitle] = useState(courseInfo.courseTitle);
   const [section, setSection] = useState(courseInfo.section);
   
   const [faculty, setFaculty] = useState(courseInfo.faculty);
@@ -27,7 +27,7 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
   const [end2, setEnd2] = useState(courseInfo.end2);
   const [room2, setRoom2] = useState(courseInfo.room2);
 
-  const [enrlCap, setEnrlCap] = useState(courseInfo.enrl_cap);
+  const [enrlCap, setEnrlCap] = useState(courseInfo.enrlCap);
   const [remarks, setRemarks] = useState(courseInfo.remarks);
   const navigate = useNavigate();
 
@@ -65,10 +65,9 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
 
     const offering = {
       _id: courseID,
-      takers,
 
-      code,
-      title,
+      courseCode,
+      courseTitle,
       offered_to,
       section,
       faculty,
@@ -125,7 +124,7 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.headers}>
-          <h2>{code}</h2>
+          <h2>{courseCode}</h2>
           <h2>{section}</h2>
         </div>
         <form onSubmit={onSubmit}>

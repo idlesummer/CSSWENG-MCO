@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Sidebar from '../../components/Sidebar/Sidebar.js';
 import styles from './CoursePage.module.css';
@@ -9,6 +9,7 @@ import AddModal from '../../components/Modals/AddModal.js';
 
 function CoursePage({ courseList }){
   let courses;
+  const navigate = useNavigate();
 
   const [checkedRows, setCheckedRows] = useState({});
   const [isPending, setIsPending] = useState(true);
@@ -27,6 +28,7 @@ function CoursePage({ courseList }){
       if (!response.ok)
         return;
 
+      console.log(data);
       setIsPending(false);
       setBatchProgramOfferings(data);
     };
@@ -60,9 +62,9 @@ function CoursePage({ courseList }){
           />
         </td>
         <td>{courseOffering.takers[0].count}</td>
-        <td>{courseOffering.code}</td>
-        <td>{courseOffering.title}</td>
-        <td>{courseOffering.offered_to}</td>
+        <td>{courseOffering.courseCode}</td>
+        <td>{courseOffering.courseTitle}</td>
+        <td>{courseOffering.offeredTo}</td>
         <td>{courseOffering.section}</td>
         <td>{courseOffering.faculty}</td>
         <td>{courseOffering.day1}</td>
@@ -73,7 +75,7 @@ function CoursePage({ courseList }){
         <td>{courseOffering.begin2}</td>
         <td>{courseOffering.end2}</td>
         <td>{courseOffering.room2}</td>
-        <td>{courseOffering.enrl_cap}</td>
+        <td>{courseOffering.enrlCap}</td>
         <td>{courseOffering.remarks}</td> 
       </tr>
     ));
@@ -88,34 +90,58 @@ function CoursePage({ courseList }){
 
   console.log(checkedCourses)
 
-  const onDelete = async () => {  
+  const onDelete = async () => {
     const checkedCourseOfferings = getCheckedCourses();
-    
-    // If no rows are selected
-    if (!checkedCourseOfferings.length)
-      return;
 
-    const courseDetails = checkedCourseOfferings
-      .map((course) => `${course.code} ${course.section}`)
-      .join("\n");
+    const courseIds = checkedCourseOfferings.map(course => course._id);
 
-    const message = `Delete the following classes:\n${courseDetails}`;
-
-    var result = window.confirm(message);
-    if (result) {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(checkedCourseOfferings),
-      });
-      
-      const json = await response.json();
-  
-      console.table(json);
-      // navigate(0);
+    const remove = {
+      courseIds,
+      batch,
+      programCode
     }
 
+    console.log(remove)
+
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coursepage`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(remove),
+      });
+      
+    const json = await response.json();
+
+    console.log(json);
+    navigate(0);
   }
+  // const onDelete = async () => {  
+  //   const checkedCourseOfferings = getCheckedCourses();
+    
+  //   // If no rows are selected
+  //   if (!checkedCourseOfferings.length)
+  //     return;
+
+  //   const courseDetails = checkedCourseOfferings
+  //     .map((course) => `${course.code} ${course.section}`)
+  //     .join("\n");
+
+  //   const message = `Delete the following classes:\n${courseDetails}`;
+
+  //   var result = window.confirm(message);
+  //   if (result) {
+  //     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+  //       method: "DELETE",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(checkedCourseOfferings),
+  //     });
+      
+  //     const json = await response.json();
+  
+  //     console.table(json);
+  //     // navigate(0);
+  //   }
+
+  // }
 
   return (
     <div className={styles.container}>

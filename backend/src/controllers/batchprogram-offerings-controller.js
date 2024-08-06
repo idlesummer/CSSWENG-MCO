@@ -20,6 +20,7 @@ async function getBatchProgramOfferings(req, res) {
 async function deleteBatchProgramOfferingTakers(req, res) {
   try {
     const { batch, courseIds, programCode } = req.body;
+    console.log("req.body",req.body)
     const filter = {
       _id: { $in: courseIds },
       takers: {

@@ -40,6 +40,7 @@ function Dashboard() {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api`);
       const data = await res.json();
       setBatchLists(data);
+      console.log(data)
       setIsPending(false);
     };
 
