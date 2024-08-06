@@ -138,3 +138,18 @@ thead {
     background-color: rgba(4, 128, 0, 0.315);
 }
 
+.conflictRow {
+    background-color: rgba(128, 26, 0, 0.274);
+}
+
+.conflictRow:hover {
+    background-color: rgba(128, 26, 0, 0.356);
+}
+
+.checkedRow.conflictRow{
+    background-color: rgba(0, 128, 128, 0.315);
+}
+
+.checkedRow.conflictRow:hover{
+    background-color: rgba(0, 128, 128, 0.384);
+}

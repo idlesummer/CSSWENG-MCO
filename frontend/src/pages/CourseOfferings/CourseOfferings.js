@@ -148,6 +148,10 @@ function CourseCourseOfferings(){
   const canMergeCourses = () => {
     if (checkedCourseOfferings.length !== 2) return false;
 
+    if (checkedCourseOfferings[0].takers.length < 1) return false
+
+    if (checkedCourseOfferings[1].takers.length < 1) return false
+
     return checkedCourseOfferings[0].courseCode === checkedCourseOfferings[1].courseCode
   }
 

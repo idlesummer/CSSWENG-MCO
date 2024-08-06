@@ -16,6 +16,7 @@ function CoursePage({ courseList }){
   const [batchProgramOfferings, setBatchProgramOfferings] = useState([]);
   const location = useLocation();
   const {batch, programCode} = location.state || {};
+  const [conflicts, setConflicts] = useState([])
 
   useEffect(() => {
     const url = `${process.env.REACT_APP_API_URL}/api${location.pathname}${location.search}`;
@@ -36,6 +37,32 @@ function CoursePage({ courseList }){
     getBatchProgramOfferings();
   }, [location]);
 
+  useEffect(() => {
+    if(!isPending){
+      const getScheduleConflicts = async () => {
+        const ids = batchProgramOfferings.map(course => course._id);
+        console.log("ids", ids);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/coursepage/find-conflicts`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ids}),
+        });
+        
+        const data = await response.json();
+
+        if (!response.ok)
+          return;
+
+        setConflicts(data);
+
+      }
+
+      getScheduleConflicts()
+
+    }
+  }, [batchProgramOfferings]);
+
+
   const handleCheckboxChange = (id) => {
     setCheckedRows((prevCheckedRows) =>({
       ...prevCheckedRows,
@@ -45,10 +72,17 @@ function CoursePage({ courseList }){
 
   const getCheckedCourses = () => batchProgramOfferings.filter((courseOffering) => checkedRows[courseOffering._id]);
 
+  const conflictList = conflicts.reduce((acc, pair) => acc.concat(pair), []);
+  const conflictIds = conflictList.map(course => course._id);
+  
+  // table info
   if(!isPending){
+    console.log(conflicts);
+
     courses = batchProgramOfferings.map((courseOffering) => (
       <tr key={courseOffering._id}
-          className={checkedRows[courseOffering._id] ? styles.checkedRow : ''}
+          className={`${checkedRows[courseOffering._id] ? styles.checkedRow: ''} 
+                      ${conflictIds.includes(courseOffering._id) ? styles.conflictRow : ''}`}
           onClick={() => handleCheckboxChange(courseOffering._id)} 
       >
         <td>
@@ -58,6 +92,10 @@ function CoursePage({ courseList }){
             onChange={(e) => {
               e.stopPropagation(); 
               handleCheckboxChange(courseOffering._id);
+            }}
+            style={{
+              visibility: 'hidden', 
+              margin: '0px'
             }} 
           />
         </td>
@@ -114,35 +152,7 @@ function CoursePage({ courseList }){
     console.log(json);
     navigate(0);
   }
-  // const onDelete = async () => {  
-  //   const checkedCourseOfferings = getCheckedCourses();
-    
-  //   // If no rows are selected
-  //   if (!checkedCourseOfferings.length)
-  //     return;
-
-  //   const courseDetails = checkedCourseOfferings
-  //     .map((course) => `${course.code} ${course.section}`)
-  //     .join("\n");
-
-  //   const message = `Delete the following classes:\n${courseDetails}`;
-
-  //   var result = window.confirm(message);
-  //   if (result) {
-  //     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
-  //       method: "DELETE",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(checkedCourseOfferings),
-  //     });
-      
-  //     const json = await response.json();
   
-  //     console.table(json);
-  //     // navigate(0);
-  //   }
-
-  // }
-
   return (
     <div className={styles.container}>
         <Sidebar/>
