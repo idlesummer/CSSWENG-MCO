@@ -54,6 +54,39 @@ async function addTaker(req, res) {
 }
 
 
+// Merge a course offering
+async function createMergedCourseOffering(req, res) {
+  try {
+    const { mergeToId, mergeFromId } = req.body;
+    const courseOffering1 = await CourseOfferings.findById(mergeToId);
+    const courseOffering2 = await CourseOfferings.findById(mergeFromId);
+
+    // Check if both course offerings exist
+    if (!courseOffering1 || !courseOffering2)
+      return res.status(404).json({ error: 'One or both course offerings not found' });
+
+    // Combine the takers arrays (avoiding duplicates)
+    const combinedTakers = [
+      ...courseOffering1.takers,
+      ...courseOffering2.takers.filter(taker2 => !courseOffering1.takers.some(taker1 => 
+          taker1.programCode === taker2.programCode && taker1.batch === taker2.batch
+        )
+      )
+    ];
+
+    // Update courseOffering1 with the combined takers
+    courseOffering1.takers = combinedTakers;
+    await courseOffering1.save();
+
+    // Delete courseOffering2
+    await CourseOfferings.findByIdAndDelete(mergeFromId);
+    res.status(200).json({ courseOffering1 });
+  
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 // Delete many course offerings
 async function deleteTaker(req, res) {
   const { takerId, courseId } = req.body;
@@ -118,6 +151,7 @@ module.exports = {
   getCourseOfferings,
   getPossibleMerges,
   addTaker,
+  createMergedCourseOffering,
   deleteTaker,
   updateCourseOffering,
 };

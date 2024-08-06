@@ -4,6 +4,7 @@ const {
   getCourseOfferings,
   getPossibleMerges,
   addTaker,
+  createMergedCourseOffering,
   deleteTaker,
   updateCourseOffering,
 } = require('#controllers/course-offerings-controller.js');
@@ -23,5 +24,6 @@ router.delete('/', deleteTaker);
 
 // UPDATE
 router.patch('/', updateCourseOffering);
+router.patch('/merge', createMergedCourseOffering);
 
 module.exports = router;
