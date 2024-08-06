@@ -9,7 +9,9 @@ const router = Router();
 
 // GET
 router.get('/', getBatchProgramOfferings);
-router.get('/find-conflicts', getScheduleConflicts);
+
+// POST
+router.post('/find-conflicts', getScheduleConflicts);
 
 // DELETE
 router.delete('/', deleteBatchProgramOfferingTakers);
