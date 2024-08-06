@@ -43,12 +43,20 @@ async function addTaker(req, res) {
 
 
 // Delete many course offerings
-async function deleteCourseOfferings(req, res) {
-  const ids = req.body.map(courseOffer => courseOffer._id);
+async function deleteTaker(req, res) {
+  const { takerId, courseId } = req.body;
 
   try {
-    const result = await CourseOfferings.deleteMany({ _id: { $in: ids }});  
-    res.status(200).json(result);
+    const updatedCourseOffer = await CourseOfferings.findByIdAndUpdate(
+      courseId,
+      { $pull : { takers: { _id: takerId }}},
+      { new: true },
+    );  
+
+    if (!updatedCourseOffer)
+      return res.status(400).json({ error: 'Course offering not found' });
+
+    res.status(200).json(updatedCourseOffer);
 
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -97,6 +105,6 @@ async function updateCourseOffering(req, res) {
 module.exports = {
   getCourseOfferings,
   addTaker,
-  deleteCourseOfferings,
+  deleteTaker,
   updateCourseOffering,
 };

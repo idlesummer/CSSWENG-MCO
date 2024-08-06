@@ -3,7 +3,7 @@ const { Router } = require('express');
 const {
   getCourseOfferings,
   addTaker,
-  deleteCourseOfferings,
+  deleteTaker,
   updateCourseOffering,
 } = require('#src/controllers/course-offerings-controller.js');
 
@@ -17,7 +17,7 @@ router.get('/', getCourseOfferings);
 router.post('/', addTaker);
 
 // DELETE
-router.delete('/', deleteCourseOfferings);
+router.delete('/', deleteTaker);
 
 // UPDATE
 router.patch('/', updateCourseOffering);
