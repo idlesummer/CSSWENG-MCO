@@ -133,6 +133,10 @@
   .formRow5 > :nth-child(2) {
     flex-grow: 1;
   }
+
+  .formRow5 > :nth-child(4){
+    width: 10%;
+  }
   
   label {
     display: block;
@@ -172,6 +176,7 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
+    margin-bottom: 20px;
   }
   
   button {
@@ -294,4 +299,43 @@
   
   .activeContent {
     display: block;
+  }
+
+  .viewOnly input,
+  .viewOnly textarea, 
+  .viewOnly select{
+    background-color: #f5f5f5; /* Light gray background to suggest non-editability */
+    border: none; /* Remove borders to make it look like plain text */
+    color: #666; /* Darker text color for a subtle, non-editable appearance */
+    cursor: default; /* Change the cursor to default to indicate non-editable */
+  }
+
+  .iconButton {
+    width: 45px;
+    height: 38px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #198754;
+    background-size: cover;
+    border-style:hidden;
+    transition: background-color 0.3s ease;
+}
+
+  .iconButton img {
+    max-height: 60%;
+  }
+
+  .iconButton:hover {
+    background-color: #126840;
+  }
+
+  .deleteProgramList {
+    gap: 1px;
+  }
+
+  .programRow {
+    gap: 15px;
   }

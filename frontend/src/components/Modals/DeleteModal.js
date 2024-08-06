@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import styles from './Modal.module.css';
 
 
-function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseInfo }) {
+function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
 
   console.log(courseInfo)
-  const [programCode, setProgramCode] = useState("");
-  const [programName, setProgramName] = useState("");
-  const [batch, setBatch] = useState("");
-  const [takers, setTakers] = useState("");
+  const [programCode, setProgramCode] = useState(courseInfo.takers[0].programCode);
+  const [programName, setProgramName] = useState(courseInfo.takers[0].programName);
+  const [batch, setBatch] = useState(courseInfo.takers[0].batch);
+  const [takers, setTakers] = useState(courseInfo.takers[0].count);
 
   const [code, setCode] = useState(courseInfo.code);
   const [title, setTitle] = useState(courseInfo.title);
@@ -32,9 +32,15 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
   const [remarks, setRemarks] = useState(courseInfo.remarks);
   const navigate = useNavigate();
 
+  const [programs, setPrograms] = useState(courseInfo.takers);
+
+  console.log("programs",programs)
+
+
   const [error, setError] = useState(null);
   const [end1Options, setEnd1Options] = useState([]);
   const [end2Options, setEnd2Options] = useState([]);
+
 
   const onCancel = (e) => {
     setCode("");
@@ -88,7 +94,7 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
     // console.table(json);
 
     // Close the modal and navigate to /offerings
-    // navigate(0);
+    navigate(0);
   };
 
   const timeMapping = useMemo(
@@ -114,49 +120,151 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
     return () => {}
   }, [begin2, timeMapping]);
 
+  // const courseOfferingRows = programs.map((program) => (
+  //     <div className={styles.formRow5}>
+
+  //       <td>
+  //         {program.programCode}
+  //       </td>
+  //       <td>{program.programName}</td>
+  //       <td>{program.batch}</td>
+  //       <td>{program.count}</td>
+  //       <td className={styles.iconButton}><img src="/img/icons/trash.png" alt="delete" /></td>
+  //     </div>
+  //   ));
+
+  const deleteProgram = (_id, programName, batch, count) => {
+    const program = {
+      _id,
+      programName,
+      batch,
+      count
+    }
+    console.log("program", program)
+  }
+
+  const programLists = programs.map((program) => (
+    <div className={` ${styles.formRow5} ${styles.programRow}`} key={program._id}>
+      <div className={styles.formGroup2}>
+          <label htmlFor="programCode" >Program Code</label>
+          <input 
+            type="text" 
+            id="programCode" 
+            className={styles.inputText}
+            onChange={e => setProgramCode(e.target.value)}
+            value={program.programCode}
+          />
+      </div>
+
+      <div className={styles.formGroup}>
+      <label htmlFor="programName" >Program Name</label>
+        <input 
+            type="text" 
+            id="programName" 
+            className={styles.inputText2}
+            onChange={e => setProgramName(e.target.value)}
+            value={program.programName}
+            readOnly
+        />
+      </div>
+
+      <div className={styles.formGroup}>
+          <label htmlFor="batch" >Batch</label>
+          <select 
+          id="batch" 
+          name="batch"
+          className={styles.inputText2}
+          onChange={e => setBatch(e.target.value)}
+          value={program.batch}
+          readOnly
+          disabled
+          >
+            <option key="none" value="" disabled></option>
+            <option key={120} value={120}>120</option>
+            <option key={121} value={121}>121</option>
+            <option key={122} value={122}>122</option>
+            <option key={123} value={123}>123</option>
+            <option key={124} value={124}>124</option>
+        </select>
+      </div>
+
+      <div className={styles.formGroup}>
+        <label htmlFor="takers">Takers</label>
+        <input
+          type="number"
+          id="takers"
+          className={styles.inputText2}
+          onChange={e => setTakers(e.target.value)}
+          value={program.count}
+          readOnly
+        />
+      </div>
+
+      <div className={styles.formGroup}>
+      <label style={{visibility:'hidden'}}>OOO</label>
+        <div className={styles.iconButton} 
+             onClick={(e) => deleteProgram(program._id, program.programName, program.batch, program.count)}>
+                <img src="/img/icons/trash.png" alt="delete" /></div>
+        </div>
+
+    </div>
+  ))
+
+
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.headers}>
-          <h2>Add Program to {code} {section} </h2>
+          <h2>Remove Programs in {code} {section} </h2>
         </div>
 
-        <form onSubmit={onSubmit}>
-          {fromCourseOfferings && (
-          <div className={styles.formRow5}>
+    
+        {/* <tr>
+          <th>Program Code</th>
+          <th>Program Name</th>
+          <th>Batch</th>
+          <th>Takers</th>
+        </tr>
+        {courseOfferingRows} */}
+              
+        <div className={`${styles.viewOnly} ${styles.deleteProgramList}`}>
+
+          {programLists}
+          {/* <div className={` ${styles.formRow5} ${styles.programRow}`}>
+
             <div className={styles.formGroup2}>
-                <label htmlFor="programCode" className={styles.required}>Program Code</label>
+                <label htmlFor="programCode" >Program Code</label>
                 <input 
                   type="text" 
                   id="programCode" 
                   className={styles.inputText}
                   onChange={e => setProgramCode(e.target.value)}
                   value={programCode}
-                  required
                 />
             </div>
 
             <div className={styles.formGroup}>
-                <label htmlFor="programName" className={styles.required}>Program Name</label>
-                <input 
+            <label htmlFor="programName" >Program Name</label>
+              <input 
                   type="text" 
                   id="programName" 
                   className={styles.inputText2}
                   onChange={e => setProgramName(e.target.value)}
                   value={programName}
-                  required
-                />
+                  readOnly
+              />
             </div>
 
             <div className={styles.formGroup}>
-                <label htmlFor="batch" className={styles.required}>Batch</label>
+                <label htmlFor="batch" >Batch</label>
                 <select 
                 id="batch" 
                 name="batch"
                 className={styles.inputText2}
                 onChange={e => setBatch(e.target.value)}
                 value={batch}
-                required
+                readOnly
+                disabled
                 >
                   <option key="none" value="" disabled></option>
                   <option key={120} value={120}>120</option>
@@ -168,32 +276,38 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="takers"className={styles.required}>Takers</label>
+              <label htmlFor="takers">Takers</label>
               <input
                 type="number"
                 id="takers"
                 className={styles.inputText2}
                 onChange={e => setTakers(e.target.value)}
                 value={takers}
-                required
+                readOnly
               />
             </div>
-          </div>
-          )}
 
-          <div className={styles.formButtons}>
+            <div className={styles.formGroup}>
+            <label style={{visibility:'hidden'}}>OOO</label>
+              <div className={styles.iconButton}><img src="/img/icons/trash.png" alt="delete" /></div>
+            </div>
+
+          </div> */}
+
+          {/* <div className={styles.formButtons}>
             <button 
               type="button" 
               className={styles.cancelButton}
-              onClick={() => setOpenAddModal(false)}
+              onClick={() => setOpenDeleteModal(false)}
             >
                 Cancel
             </button>
 
             <button type="submit" className={styles.addButton}>Add Program</button>
             
-          </div>
-        </form>
+          </div> */}
+        </div>
+
         <div className={styles.viewOnly}>
           <div className={styles.formRow1}>
             <div className={styles.formGroup2}>
@@ -440,9 +554,19 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
           </div>
         </div>
 
+        <div className={styles.formButtons}>
+            <button 
+              type="button" 
+              className={styles.addButton}
+              onClick={() => setOpenDeleteModal(false)}
+            >
+                Cancel
+            </button>            
+          </div>
+          
       </div>
     </div>
   );
 }
 
-export default AddModal
+export default DeleteModal

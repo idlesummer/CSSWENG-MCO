@@ -81,12 +81,12 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
       e.preventDefault();
   
       const offering = {
-        courseID,
+        // courseID,
         takers,
   
         code,
         title,
-        offered_to,
+        // offered_to,
         section,
         faculty,
       
@@ -134,7 +134,7 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
       setRemarks("");
   
       // Close the modal and navigate to /offerings
-      navigate(0);
+      // navigate(0);
     };
 
     return(

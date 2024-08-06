@@ -7,6 +7,8 @@ import EditModal from '../../components/Modals/EditModal.js';
 import MergeModal from '../../components/Modals/MergeModal.js';
 import SplitModal from '../../components/Modals/SplitModal.js';
 import AddModal from '../../components/Modals/AddModal.js';
+import DeleteModal from '../../components/Modals/DeleteModal.js';
+
 
 
 function CourseCourseOfferings(){
@@ -18,6 +20,8 @@ function CourseCourseOfferings(){
   const [openMergeModal, setOpenMergeModal] = useState(false);
   const [openSplitModal, setOpenSplitModal] = useState (false);
   const [openAddModal, setOpenAddModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
 
   const navigate = useNavigate();
   
@@ -45,6 +49,7 @@ function CourseCourseOfferings(){
   // function returns JSON of selected rows
   const getCheckedCourseOfferings = () => courseOfferings.filter((courseOffering) => checkedRows[courseOffering._id]);
   
+  // table data
   var courseOfferingRows
   if(!loading){
     courseOfferingRows = courseOfferings.map((courseOffering) => (
@@ -120,9 +125,6 @@ function CourseCourseOfferings(){
 
   }
   
-
-
-
   const checkedCourseOfferings = getCheckedCourseOfferings();
   const checkedCourse = checkedCourseOfferings.length > 0;
   const checkedOneCourse = checkedCourseOfferings.length === 1;
@@ -148,12 +150,16 @@ function CourseCourseOfferings(){
                 <input type="text"/>
             </div>
             <div className={styles.iconButtons}>
-              <div className={`${styles.iconButton} ${styles.addIcon}`}
+              <div className={`${styles.iconButton} ${styles.addIcon} ${!checkedOneCourse ? styles.disabled : ''}`}
                    onClick={() => {setOpenAddModal(true)}}
               >
                 <img src="/img/icons/plus.png" alt="add"></img>
               </div>
-              {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} openAddModal={openAddModal} fromCourseOfferings={true}/>}
+              {openAddModal && <AddModal 
+                                  setOpenAddModal={setOpenAddModal} 
+                                  openAddModal={openAddModal} 
+                                  fromCourseOfferings={true}
+                                  courseInfo={getCheckedCourseOfferings()[0]}/>}
               
               <div className={`${styles.iconButton} ${styles.editIcon} ${!checkedOneCourse ? styles.disabled : ''} `} 
                    onClick={() => {setOpenEditModal(true)}}
@@ -173,11 +179,15 @@ function CourseCourseOfferings(){
               {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} />)}
               
               <div 
-                className={`${styles.iconButton} ${styles.deleteIcon} ${!checkedCourse ? styles.disabled : ''}`}
-                onClick={onDelete}
+                className={`${styles.iconButton} ${styles.deleteIcon} ${!checkedOneCourse ? styles.disabled : ''}`}
+                onClick={() => {setOpenDeleteModal(true)}}
               >
                 <img src="/img/icons/trash.png" alt="delete"></img>
               </div>
+              {openDeleteModal && <DeleteModal
+                                  setOpenDeleteModal={setOpenDeleteModal} 
+                                  openDeleteModal={openDeleteModal} 
+                                  courseInfo={getCheckedCourseOfferings()[0]}/>}
             </div>
           </div>
 
