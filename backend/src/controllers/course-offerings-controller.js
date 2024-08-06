@@ -1,4 +1,5 @@
 const CourseOfferings = require('#models/CourseOfferings.js');
+const findMerges = require("#services/find-merges.js");
 
 
 // Get all course offerings
@@ -7,11 +8,22 @@ async function getCourseOfferings(req, res) {
     const courseOfferings = await CourseOfferings.find({ }).sort({ createdAt: -1 });
     res.status(200).json(courseOfferings);
 
-  } catch (err) {
+  } catch (error) {
     res.status(400).json({ error: err.message });
   }
 }
 
+// Get all possible merges
+async function getPossibleMerges(req, res) {
+  try {
+    const courseOfferings = await CourseOfferings.find({  });
+    const possibleMerges = findMerges(courseOfferings);
+    res.status(200).json(possibleMerges);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
 
 // Create a course offering taker
 async function addTaker(req, res) {
@@ -104,6 +116,7 @@ async function updateCourseOffering(req, res) {
 
 module.exports = {
   getCourseOfferings,
+  getPossibleMerges,
   addTaker,
   deleteTaker,
   updateCourseOffering,

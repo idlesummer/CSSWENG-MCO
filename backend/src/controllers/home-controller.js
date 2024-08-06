@@ -1,5 +1,5 @@
 const CourseOfferings = require('#models/CourseOfferings.js');
-const getBatchesAndPrograms = require('#utils/getBatchesAndPrograms.js');
+const getBatchesAndPrograms = require('#src/services/get-batches-and-programs.js');
 
 
 // Get all batch lists

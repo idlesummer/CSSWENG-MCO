@@ -1,5 +1,5 @@
 const CourseOfferings = require('#models/CourseOfferings.js');
-
+const findConflicts = require('#services/find-conflicts.js');
 
 
 // Get a batch list (or get course page)
@@ -10,8 +10,23 @@ async function getBatchProgramOfferings(req, res) {
 
     res.status(200).json(courseOfferings);
 
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+
+// Get list of course offerings that have conflicting schedules
+async function getScheduleConflicts(req, res) {
+  try {
+    const { ids } = req.body;
+    const courseOfferings = await CourseOfferings.find({ _id: { $in: ids } });
+    const conflicts = findConflicts(courseOfferings);
+
+    res.status(200).json(conflicts);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 }
 
@@ -45,4 +60,7 @@ async function deleteBatchProgramOfferingTakers(req, res) {
   }
 }
 
-module.exports = { getBatchProgramOfferings, deleteBatchProgramOfferingTakers };
+module.exports = { 
+  getBatchProgramOfferings, 
+  getScheduleConflicts,
+  deleteBatchProgramOfferingTakers };

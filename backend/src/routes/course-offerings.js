@@ -2,16 +2,18 @@ const { Router } = require('express');
 
 const {
   getCourseOfferings,
+  getPossibleMerges,
   addTaker,
   deleteTaker,
   updateCourseOffering,
-} = require('#src/controllers/course-offerings-controller.js');
+} = require('#controllers/course-offerings-controller.js');
 
 
 const router = Router();
 
 // GET
 router.get('/', getCourseOfferings);
+router.get('/merges', getPossibleMerges);
 
 // POST
 router.post('/', addTaker);
