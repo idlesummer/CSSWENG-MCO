@@ -22,6 +22,8 @@ function CourseCourseOfferings(){
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
+  const [possibleMerges, setPossibleMerges] = useState([]);
+
   // const [checkedCourseOfferings, setCheckedCourseOfferings] = useState([]);
 
   const navigate = useNavigate();
@@ -30,8 +32,8 @@ function CourseCourseOfferings(){
   
   useEffect(() => {
     const fetchCourseOfferings = async () => {
-      // const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`);
-      const res = await fetch(`http://localhost:4000/api/course-offerings`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`);
+      // const res = await fetch(`http://localhost:4000/api/course-offerings`);
       
       const courseOfferings = await res.json();     
       setLoading(false);
@@ -39,6 +41,17 @@ function CourseCourseOfferings(){
     }
 
     fetchCourseOfferings();
+  }, [openDeleteModal]);
+
+  useEffect(() => {
+    const fetchPossibleMerges = async () => {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings/find-merges`);
+      
+      const possibleMerges = await res.json();    
+      setPossibleMerges(possibleMerges)
+    }
+
+    fetchPossibleMerges();
   }, [openDeleteModal]);
 
 
