@@ -1,6 +1,6 @@
 const xlsx = require('xlsx');
 const CourseOfferings = require('#models/CourseOfferings.js');
-const { convertHeaders, requiredHeaders } = require('#utils/convertHeaders.js');
+const { convertHeaders, requiredHeaders } = require('#services/convert-headers.js');
 
 async function createCourseOfferings(req, res) {
   try {
