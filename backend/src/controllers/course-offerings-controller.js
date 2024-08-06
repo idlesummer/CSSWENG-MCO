@@ -13,7 +13,7 @@ async function getCourseOfferings(req, res) {
 }
 
 
-// Create a course offering
+// Create a course offering taker
 async function addTaker(req, res) {
   try {
     const { courseId: _id , batch, programCode, programName, takers: count } = req.body;
@@ -61,31 +61,32 @@ async function updateCourseOffering(req, res) {
   try {
     const courseOffer = {
       _id,
-      takers,
 
-      code,
-      title,
-      offered_to,
-      section,
-      faculty,
+      courseCode = null,
+      courseTitle = null,
+      offeredTo = 'X',
+      section = null,
+      faculty = null,
 
-      day1,
-      begin1,
-      end1,
-      room1,
-      day2,
-      begin2,
-      end2,
-      room2,
+      day1 = null,
+      begin1 = null,
+      end1 = null,
+      room1 = null,
+      day2 = null,
+      begin2 = null,
+      end2 = null,
+      room2 = null,
 
-      enrlCap,
-      remarks,
+      enrlCap = null,
+      remarks = null,
     } = req.body;
 
     const updatedCourseOffer = await CourseOfferings.findByIdAndUpdate(_id, courseOffer, { new: true });
+    
+    if (!updatedCourseOffer) // BTW IT RETURNS NULL IF ID IS NOT FOUND
+      res.status(400).json({ error: 'Id is not found' });
+    
     res.status(200).json(updatedCourseOffer);
-
-    // RETURNS NULL IF ID IS NOT FOUND
 
   } catch (err) {
     res.status(400).json({ error: err.message });
