@@ -24,8 +24,6 @@ function CourseCourseOfferings(){
 
   // const [checkedCourseOfferings, setCheckedCourseOfferings] = useState([]);
 
-  
-
   const navigate = useNavigate();
 
 
@@ -70,12 +68,16 @@ function CourseCourseOfferings(){
               e.stopPropagation(); 
               handleCheckboxChange(courseOffering._id);
             }} 
+            style={{
+              visibility: 'hidden', 
+              margin: '0px'
+            }}
           />
         </td>
         <td>
         {courseOffering.takers.map((taker, index) => (
           <React.Fragment key={index}>
-            {`${taker.programCode}-${taker.batch} (${taker.count}) `}
+            {`${taker.programCode}-${taker.batch} (${taker.count}) `}<br/>
             {/* <td>{`${taker.programCode}-${taker.batch}`}</td>
             <td>{taker.count}</td> */}
           </React.Fragment>
@@ -136,11 +138,12 @@ function CourseCourseOfferings(){
   // const checkedTwoCourses = checkedCourseOfferings.length === 2;
 
   //remove
-  const canMergeCourses = () => {
-    if (checkedCourseOfferings.length !== 2) return false;
+  const canRemoveTakers = () => {
+    if (checkedCourseOfferings.length !== 1) return false;
 
-    const [firstCourse, secondCourse] = checkedCourseOfferings;
-    return firstCourse.code === secondCourse.code;
+    if (checkedCourseOfferings[0].takers.length > 0) return true;
+
+    return false;
   };
 
   console.log(checkedCourseOfferings);
@@ -174,18 +177,21 @@ function CourseCourseOfferings(){
               </div>
               {openEditModal && <EditModal setOpenEditModal={setOpenEditModal} openEditModal={openEditModal} courseInfo={getCheckedCourseOfferings()[0]}/>}
               
-              <div className={`${styles.iconButton} ${styles.mergeIcon} ${!canMergeCourses() ? styles.disabled : ''}` } 
+              <div className={`${styles.iconButton} ${styles.mergeIcon} ${styles.disabled}` } 
                    onClick={() => {setOpenMergeModal(true)}}
               >
                     <img src="/img/icons/merge.png" alt="merge"></img>
               </div>
-              {openMergeModal && <MergeModal setOpenMergeModal={setOpenMergeModal} openMergeModal={openMergeModal} courseList={checkedCourseOfferings}/>}
+              {openMergeModal && <MergeModal 
+                                  setOpenMergeModal={setOpenMergeModal} 
+                                  openMergeModal={openMergeModal} 
+                                  courseList={checkedCourseOfferings}/>}
               
               <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
               {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} />)}
               
               <div 
-                className={`${styles.iconButton} ${styles.deleteIcon} ${!checkedOneCourse ? styles.disabled : ''}`}
+                className={`${styles.iconButton} ${styles.deleteIcon} ${!canRemoveTakers() ? styles.disabled : ''}`}
                 onClick={() => {setOpenDeleteModal(true)}}
               >
                 <img src="/img/icons/trash.png" alt="delete"></img>
