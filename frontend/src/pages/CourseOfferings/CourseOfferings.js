@@ -21,56 +21,75 @@ function CourseCourseOfferings(){
 
   const navigate = useNavigate();
   
+  useEffect(() => {
+    const fetchCourseOfferings = async () => {
+      // const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`);
+      const res = await fetch(`http://localhost:4000/api/course-offerings`);
+      
+      const courseOfferings = await res.json();     
+      setLoading(false);
+      setCourses(courseOfferings);
+    }
 
-  const handleCheckboxChange = (index) => {
+    fetchCourseOfferings();
+  }, []);
+
+
+  const handleCheckboxChange = (id) => {
     setCheckedRows((prevCheckedRows) =>({
       ...prevCheckedRows,
-      [index]: !prevCheckedRows[index], 
+      [id]: !prevCheckedRows[id], 
     }));
   };
 
   // function returns JSON of selected rows
-  const getCheckedCourseOfferings = () => courseOfferings.filter((courseOffering, index) => checkedRows[index]);
-
-  const courseOfferingRows = courseOfferings.map((courseOffering, index) => (
-    <tr key={index}
-        className={checkedRows[index] ? styles.checkedRow : ''}
-        onClick={() => handleCheckboxChange(index)} 
-    >
-      <td>
-        <input 
-          type="checkbox"
-          checked={checkedRows[index] || false}
-          onChange={(e) => {
-            e.stopPropagation(); 
-            handleCheckboxChange(index);
-          }} 
-        />
-      </td>
-      
-      {courseOffering.takers.map((taker, index) => (
-        <React.Fragment key={index}>
-          <td>{`${taker.programCode}-${taker.batch}`}</td>
-          <td>{taker.count}</td>
-        </React.Fragment>
-      ))}
-      <td>{courseOffering.code}</td>
-      <td>{courseOffering.title}</td>
-      <td>{courseOffering.offered_to}</td>
-      <td>{courseOffering.section}</td>
-      <td>{courseOffering.faculty}</td>
-      <td>{courseOffering.day1}</td>
-      <td>{courseOffering.begin1}</td>
-      <td>{courseOffering.end1}</td>
-      <td>{courseOffering.room1}</td>
-      <td>{courseOffering.day2}</td>
-      <td>{courseOffering.begin2}</td>
-      <td>{courseOffering.end2}</td>
-      <td>{courseOffering.room2}</td>
-      <td>{courseOffering.enrl_cap}</td>
-      <td>{courseOffering.remarks}</td> 
-    </tr>
-  ));
+  const getCheckedCourseOfferings = () => courseOfferings.filter((courseOffering) => checkedRows[courseOffering._id]);
+  
+  var courseOfferingRows
+  if(!loading){
+    courseOfferingRows = courseOfferings.map((courseOffering) => (
+      <tr key={courseOffering._id}
+          className={checkedRows[courseOffering._id] ? styles.checkedRow : ''}
+          onClick={() => handleCheckboxChange(courseOffering._id)} 
+      >
+        <td>
+          <input 
+            type="checkbox"
+            checked={checkedRows[courseOffering._id] || false}
+            onChange={(e) => {
+              e.stopPropagation(); 
+              handleCheckboxChange(courseOffering._id);
+            }} 
+          />
+        </td>
+        <td>
+        {courseOffering.takers.map((taker, index) => (
+          <React.Fragment key={index}>
+            {`${taker.programCode}-${taker.batch} (${taker.count}) `}
+            {/* <td>{`${taker.programCode}-${taker.batch}`}</td>
+            <td>{taker.count}</td> */}
+          </React.Fragment>
+          
+        ))}
+        </td>
+        <td>{courseOffering.code}</td>
+        <td>{courseOffering.title}</td>
+        <td>{courseOffering.offered_to}</td>
+        <td>{courseOffering.section}</td>
+        <td>{courseOffering.faculty}</td>
+        <td>{courseOffering.day1}</td>
+        <td>{courseOffering.begin1}</td>
+        <td>{courseOffering.end1}</td>
+        <td>{courseOffering.room1}</td>
+        <td>{courseOffering.day2}</td>
+        <td>{courseOffering.begin2}</td>
+        <td>{courseOffering.end2}</td>
+        <td>{courseOffering.room2}</td>
+        <td>{courseOffering.enrl_cap}</td>
+        <td>{courseOffering.remarks}</td> 
+      </tr>
+    ));
+  }
 
   const onDelete = async () => {  
     const checkedCourseOfferings = getCheckedCourseOfferings();
@@ -102,18 +121,7 @@ function CourseCourseOfferings(){
   }
   
 
-  useEffect(() => {
-    const fetchCourseOfferings = async () => {
-      // const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`);
-      const res = await fetch(`http://localhost:4000/api/course-offerings`);
-      
-      const courseOfferings = await res.json();     
-      setLoading(false);
-      setCourses(courseOfferings);
-    }
 
-    fetchCourseOfferings();
-  }, []);
 
   const checkedCourseOfferings = getCheckedCourseOfferings();
   const checkedCourse = checkedCourseOfferings.length > 0;
@@ -180,7 +188,7 @@ function CourseCourseOfferings(){
                   <tr>
                     <th></th>
                     <th>Program</th>
-                    <th>Num of Takers</th>
+                    {/* <th>Num of Takers</th> */}
                     <th>Course Code</th>
                     <th>Course Title</th>
                     <th>Offered To</th>

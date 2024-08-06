@@ -76,6 +76,67 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
       return () => {}
     }, [begin2, timeMapping]);
 
+
+    const onSubmit = async (e) => {
+      e.preventDefault();
+  
+      const offering = {
+        courseID,
+        takers,
+  
+        code,
+        title,
+        offered_to,
+        section,
+        faculty,
+      
+        day1,
+        begin1,
+        end1,
+        room1,
+        day2,
+        begin2,
+        end2,
+        room2,
+      
+        enrlCap,
+        remarks,
+      };
+  
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+        method: "PATCH",
+        body: JSON.stringify(offering),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const json = await response.json();
+  
+      if (!response.ok)
+        return setError(json.error);
+  
+      console.table(json);
+  
+      setCode("");
+      setTitle("");
+      setSection("");
+      setFaculty("");
+      setDay1("");
+      setBegin1("");
+      setEnd1("");
+      setRoom1("");
+      setDay2("");
+      setBegin2("");
+      setEnd2("");
+      setRoom2("");
+      setEnrlCap("");
+      setRemarks("");
+  
+      // Close the modal and navigate to /offerings
+      navigate(0);
+    };
+
     return(
       <div className={styles.modalOverlay}>
         <div className={styles.modalContent}>
@@ -244,16 +305,25 @@ function MergeModal({setOpenMergeModal, openMergeModal, courseList}) {
             </div>
           </div>
             <div class={styles.formRow2}>
-              <div class={styles.formGroup}>
+              <div className={styles.formGroup}>
                 <label htmlFor="enrlCap" className={styles.required}>Enrl Cap</label>
-                <select id="enrlCap" >
-                  <option value="40">40</option>
-                </select>
+                <input 
+                  type="number" 
+                  id="enrlCap" 
+                  className={styles.inputText}
+                  onChange={e => setEnrlCap(e.target.value)}  
+                  value={enrlCap}
+                  required
+                />
               </div>
               <div class={styles.formGroup}>
                 <label htmlFor="remarks">Remarks</label>
-                <input type="text" id="remarks" className={styles.inputText2}
-                       value={remarks}
+                <input 
+                  type="text"
+                  id="remarks" 
+                  className={styles.inputText2}
+                  onChange={e => setEnrlCap(e.target.value)}
+                  value={remarks}
                 />
               </div>
             </div>
