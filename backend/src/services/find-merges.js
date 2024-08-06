@@ -36,16 +36,16 @@ function findMerges(courseOfferings) {
   return merges;
 }
 
-(async function () {
-  require('dotenv/config');
-  const mongoose = require('mongoose');
-  const CourseOfferings = require('#models/CourseOfferings.js');
+// (async function () {
+//   require('dotenv/config');
+//   const mongoose = require('mongoose');
+//   const CourseOfferings = require('#models/CourseOfferings.js');
 
 
-  await mongoose.connect(process.env.MONGO_URI);
-  const courseOfferings = await CourseOfferings.find({ }).lean();
-  const result = findMerges(courseOfferings);  
-  console.log(result);
-})()
+//   await mongoose.connect(process.env.MONGO_URI);
+//   const courseOfferings = await CourseOfferings.find({ }).lean();
+//   const result = findMerges(courseOfferings);  
+//   console.log(result);
+// })()
 
 module.exports = findMerges;

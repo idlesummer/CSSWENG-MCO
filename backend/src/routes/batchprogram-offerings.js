@@ -1,10 +1,15 @@
 const { Router } = require('express');
-const { getBatchProgramOfferings, deleteBatchProgramOfferingTakers } = require('#controllers/batchprogram-offerings-controller.js');
+const { 
+  getBatchProgramOfferings, 
+  getScheduleConflicts,
+  deleteBatchProgramOfferingTakers
+ } = require('#controllers/batchprogram-offerings-controller.js');
 
 const router = Router();
 
 // GET
 router.get('/', getBatchProgramOfferings);
+router.get('/conflicts', getScheduleConflicts);
 
 // DELETE
 router.delete('/', deleteBatchProgramOfferingTakers);
