@@ -5,9 +5,16 @@ function findMergeableCourses(courseOfferings) {
   for (let i = 0; i < courseOfferings.length; i++) {
     const course1 = courseOfferings[i];
 
+    // Check if course1 has at least one taker
+    if (course1.takers.length === 0)
+      continue; // Skip to the next course if no takers
+
     // Compare with other course offerings
     for (let j = i + 1; j < courseOfferings.length; j++) {
       const course2 = courseOfferings[j];
+
+      if (course2.takers.length === 0)
+        continue; // Skip to the next course if no takers
 
       // Check if course codes match and total takers is less than 45
       if (
