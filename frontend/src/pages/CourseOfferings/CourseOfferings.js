@@ -409,9 +409,6 @@ function CourseCourseOfferings(){
                                   openMergeModal={openMergeModal} 
                                   courseList={checkedCourseOfferings}/>}
               
-              <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
-              {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} />)}
-                
               <div 
                 className={`${styles.iconButton} ${styles.deleteIcon} ${!canRemoveTakers() ? styles.disabled : ''}`}
                 onClick={() => {setOpenDeleteModal(true)}}

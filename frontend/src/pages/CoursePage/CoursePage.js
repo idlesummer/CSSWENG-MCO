@@ -278,7 +278,7 @@ function CoursePage({ courseList }){
             <div className={styles.tableWrapper}>
                 <div className={styles.controls}>
                     <div className={styles.searchBar}>
-                        <input type="text"/>
+                        <input type="text" style={{visibility:'hidden'}}/>
                     </div>
                     <div className={styles.iconButtons}>
 
