@@ -40,10 +40,6 @@ function findConflicts(courseOfferings) {
 
   for (let i = 0; i < courseOfferings.length; i++) {
     for (let j = i + 1; j < courseOfferings.length; j++) {
-      console.log(courseOfferings[i].begin1, courseOfferings[i].end1)
-      console.log(courseOfferings[j].begin2, courseOfferings[j].end2)
-      console.log(hasTimeConflict(courseOfferings[i], courseOfferings[j]))
-
       if (hasTimeConflict(courseOfferings[i], courseOfferings[j])) {
         conflicts.push([courseOfferings[i], courseOfferings[j]]);
       }
