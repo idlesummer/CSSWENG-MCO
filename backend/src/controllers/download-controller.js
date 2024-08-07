@@ -100,7 +100,7 @@ async function download(req, res) {
     const buf = xlsx.write(workbook, { bookType: 'xlsx', type: 'buffer' });
 
     // Write the buffer to the file on the server
-    fs.writeFileSync(filePath, buf);
+    // fs.writeFileSync(filePath, buf);
 
     // Set headers for the client download
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
