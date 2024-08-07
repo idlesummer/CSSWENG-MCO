@@ -386,19 +386,6 @@ function CourseCourseOfferings(){
                                   openEditModal={openEditModal} 
                                   courseInfo={getCheckedCourseOfferings()[0]}/>}
               
-              <div className={`${styles.iconButton} ${styles.mergeIcon} ${!canMergeCourses() ? styles.disabled : ''}` } 
-                   onClick={() => {setOpenMergeModal(true)}}
-              >
-                    <img src="/img/icons/merge.png" alt="merge"></img>
-              </div>
-              {openMergeModal && <MergeModal 
-                                  setOpenMergeModal={setOpenMergeModal} 
-                                  openMergeModal={openMergeModal} 
-                                  courseList={checkedCourseOfferings}/>}
-              
-              <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
-              {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} />)}
-              
               <div 
                 className={`${styles.iconButton} ${styles.deleteIcon} ${!canRemoveTakers() ? styles.disabled : ''}`}
                 onClick={() => {setOpenDeleteModal(true)}}
