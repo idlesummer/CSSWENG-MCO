@@ -95,7 +95,6 @@ async function download(req, res) {
 
     // Specify the file path for saving on the server
     const filePath = path.join(__dirname, '..', 'uploads', 'course_offerings.xlsx');
-    console.log(filePath)
 
     // Write the workbook to a buffer in memory
     const buf = xlsx.write(workbook, { bookType: 'xlsx', type: 'buffer' });
