@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const xlsx = require('xlsx');
 const CourseOfferings = require('#models/CourseOfferings.js');
 
@@ -29,6 +31,7 @@ async function download(req, res) {
     }
 
     const groupedCourses = courseOfferings.reduce(groupCourseOfferings, {
+      '': [],
       'PE': [],
       'NSTP & SAS': [],
       'LASARE': [],
@@ -42,7 +45,7 @@ async function download(req, res) {
     for (const group in groupedCourses) {
       worksheet_data.push([group]); // Add group name as the first cell in a new row
       worksheet_data.push(...groupedCourses[group].map(course => [
-        '', // Empty cell for the checkbox
+        '',
         course.takers.map(taker => `${taker.programCode}-${taker.batch} (${taker.count})`).join(', '), // Combine takers
         course.courseCode,
         course.courseTitle,
@@ -67,7 +70,7 @@ async function download(req, res) {
     // Add header row (adjust as needed)
     const headers = [[
       '', 
-      'Program', 
+      'TAKERS [w/ merged/combined sections/takers]', 
       'Course Code',
       'Course Title', 
       'Offered To', 
@@ -84,16 +87,28 @@ async function download(req, res) {
       'Enrl Cap', 
       'Remarks'
     ]];
+    
     xlsx.utils.sheet_add_aoa(worksheet, headers, { origin: 'A1' });
 
     const workbook = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(workbook, worksheet, 'CourseOfferings');
 
+    // Specify the file path for saving on the server
+    const filePath = path.join(__dirname, '..', 'uploads', 'course_offerings.xlsx');
+    console.log(filePath)
+
+    // Write the workbook to a buffer in memory
+    const buf = xlsx.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+
+    // Write the buffer to the file on the server
+    fs.writeFileSync(filePath, buf);
+
+    // Set headers for the client download
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    res.setHeader('Content-Disposition', 'attachment; filename=course_offerings.xlsx');
+    res.setHeader('Content-Disposition', 'attachment; filename=course_offerings.xlsx');  
 
-    xlsx.write(workbook, { bookType: 'xlsx', type: 'buffer' }, res);
-
+    // Send the buffer directly to the client for download
+    res.send(buf);
 
   } catch (error) {
     res.status(400).json({ error: error.message });
