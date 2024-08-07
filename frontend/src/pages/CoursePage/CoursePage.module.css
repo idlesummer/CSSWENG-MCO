@@ -146,11 +146,11 @@ thead {
 }
 
 .checkedRow.conflictRow{
-    background-color: rgba(229, 255, 0, 0.349);
+    background-color: rgba(4, 128, 0, 0.274);
 }
 
 .checkedRow.conflictRow:hover{
-    background-color: rgba(229, 255, 0, 0.521);
+    background-color: rgba(4, 128, 0, 0.315);
 }
 
 .snackBarButton {

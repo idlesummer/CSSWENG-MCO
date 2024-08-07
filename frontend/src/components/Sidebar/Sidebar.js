@@ -56,10 +56,6 @@ return (
 
       <div onClick={() => fetchCourseOfferings() }><i className={styles.icon}><img src="/img/icons/box-arrow-down.png" alt="arrow down"></img></i></div>
 
-      <Link to ="/login" className={styles.lastItem}>
-        <div className={styles.lastItem}><i className={styles.icon}><img src="/img/icons/power.png" alt="power"></img></i></div>
-      </Link>
-
   </div>
 </div>
 );
