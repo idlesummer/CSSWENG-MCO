@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef  } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo  } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from 'notistack';
 
@@ -17,6 +17,7 @@ function CourseCourseOfferings(){
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [snackbarQueue, setSnackbarQueue] = useState([]);
 
+  const [input, setInput] = useState("");
 
   const [courseOfferings, setCourses] = useState([]);
   const [checkedRows, setCheckedRows] = useState({});
@@ -38,8 +39,6 @@ function CourseCourseOfferings(){
   // const [checkedCourseOfferings, setCheckedCourseOfferings] = useState([]);
 
   const navigate = useNavigate();
-
-
   
   useEffect(() => {
     const fetchCourseOfferings = async () => {
@@ -228,11 +227,18 @@ function CourseCourseOfferings(){
 
   // function returns JSON of selected rows
   const getCheckedCourseOfferings = () => courseOfferings.filter((courseOffering) => checkedRows[courseOffering._id]);
+
+  const filteredCourses = useMemo(() => {
+    return courseOfferings.filter(courseOffering => {
+      return courseOffering.courseCode.toLowerCase().includes(input.toLowerCase());
+    });
+  }, [courseOfferings, input]);
   
   // table data
-  var courseOfferingRows
-  if(!loading){
-    const sortedCourseOfferings = [...courseOfferings].sort((a, b) => {
+  const courseOfferingRows = useMemo(() => {
+    if (loading) return <tr><td colSpan="15">Loading...</td></tr>;
+
+    const sortedCourseOfferings = [...filteredCourses].sort((a, b) => {
       const isAHighlighted = highlightedMerges.includes(a._id);
       const isBHighlighted = highlightedMerges.includes(b._id);
 
@@ -240,7 +246,8 @@ function CourseCourseOfferings(){
       if (!isAHighlighted && isBHighlighted) return 1; 
       return 0; 
     });
-    courseOfferingRows = sortedCourseOfferings.map((courseOffering) => (
+
+    return sortedCourseOfferings.map((courseOffering) => (
       <tr key={courseOffering._id}
           className={`${checkedRows[courseOffering._id] ? styles.checkedRow : ''}
                       ${highlightedMerges.includes(courseOffering._id) ? styles.mergeRow : ''}`}
@@ -261,14 +268,11 @@ function CourseCourseOfferings(){
           />
         </td>
         <td>
-        {courseOffering.takers.map((taker, index) => (
-          <React.Fragment key={index}>
-            {`${taker.programCode}-${taker.batch} (${taker.count}) `}<br/>
-            {/* <td>{`${taker.programCode}-${taker.batch}`}</td>
-            <td>{taker.count}</td> */}
-          </React.Fragment>
-          
-        ))}
+          {courseOffering.takers.map((taker, index) => (
+            <React.Fragment key={index}>
+              {`${taker.programCode}-${taker.batch} (${taker.count}) `}<br/>
+            </React.Fragment>
+          ))}
         </td>
         <td>{courseOffering.courseCode}</td>
         <td>{courseOffering.courseTitle}</td>
@@ -287,7 +291,7 @@ function CourseCourseOfferings(){
         <td>{courseOffering.remarks}</td> 
       </tr>
     ));
-  }
+  }, [filteredCourses, highlightedMerges, checkedRows, loading]);
 
   // const onDelete = async () => {  
   //   const checkedCourseOfferings = getCheckedCourseOfferings();
@@ -351,7 +355,11 @@ function CourseCourseOfferings(){
         <div className={styles.tableWrapper}>
           <div className={styles.controls}>
             <div className={styles.searchBar}>
-                <input type="text"/>
+                <input 
+                  type="text" 
+                  value = {input}
+                  onChange={(e) => setInput(e.target.value)}
+                />
             </div>
             <div className={styles.iconButtons}>
               <div className={`${styles.iconButton} ${styles.addIcon} ${!checkedOneCourse ? styles.disabled : ''}`}
