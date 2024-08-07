@@ -6,10 +6,37 @@ import { Link } from 'react-router-dom';
 function Sidebar() {
 
   const fetchCourseOfferings = async () => {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/download`);
-    // const res = await fetch(`http://localhost:4000/api/course-offerings`);
-    console.log(res);  
+  try {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/download`, {
+      method: 'GET',
+      // No need to specify Content-Type for a GET request downloading binary data
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to download file: ${response.statusText}`);
+    }
+
+    // Convert the response to a Blob
+    const blob = await response.blob();
+
+    // Create a URL for the Blob and set it as the href attribute of an anchor element
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'course_offerings.xlsx'; // Name of the file to be downloaded
+    document.body.appendChild(a);
+    a.click();
+
+    // Clean up by removing the link element and revoking the Blob URL
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+
+    console.log('File downloaded successfully');
+  } catch (error) {
+    console.error('Error downloading the file:', error);
   }
+};
+
 
 
 return (
