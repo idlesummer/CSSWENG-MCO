@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef  } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from 'notistack';
+
 
 import Sidebar from '../../components/Sidebar/Sidebar.js'
 import styles from '../CoursePage/CoursePage.module.css';
@@ -12,6 +14,10 @@ import DeleteModal from '../../components/Modals/DeleteModal.js';
 
 
 function CourseCourseOfferings(){
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const [snackbarQueue, setSnackbarQueue] = useState([]);
+
+
   const [courseOfferings, setCourses] = useState([]);
   const [checkedRows, setCheckedRows] = useState({});
   const [loading, setLoading] = useState(true);
@@ -23,6 +29,11 @@ function CourseCourseOfferings(){
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const [possibleMerges, setPossibleMerges] = useState([]);
+  const [mergeAlert, setMergeAlert] = useState([])
+  const [highlightedMerges, setHighlightedMerges] = useState([]);
+
+  const [mergeNotifs, setMergeNotifs] = useState(() => () => {});
+  const snackbarKeys = useRef([]); 
 
   // const [checkedCourseOfferings, setCheckedCourseOfferings] = useState([]);
 
@@ -43,6 +54,7 @@ function CourseCourseOfferings(){
     fetchCourseOfferings();
   }, [openDeleteModal]);
 
+  // possible merges
   useEffect(() => {
     const fetchPossibleMerges = async () => {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings/find-merges`);
@@ -50,10 +62,162 @@ function CourseCourseOfferings(){
       const possibleMerges = await res.json();    
       setPossibleMerges(possibleMerges)
     }
-
     fetchPossibleMerges();
-  }, [openDeleteModal]);
+  }, []);
 
+  console.log('possibleMerges', possibleMerges)
+
+  // // merge notif queue
+  // useEffect(() => {
+  //   setMergeNotifs(() => () => {
+  //     possibleMerges.forEach((merge) => 
+  //       enqueueSnackbar( 
+  //         <div>
+  //           {merge.map((course) => ( 
+  //             <span key={course._id}> {course.courseCode} <br/> </span>
+  //           ))}
+  //           {"can be merged."}
+  //         </div>, 
+  //         {
+  //         variant: 'info',
+  //         anchorOrigin: {
+  //           vertical: 'bottom',
+  //           horizontal: 'right',
+  //         },
+  //         action: key => (
+  //           <div style={{ display: 'flex', alignItems: 'center' }}>
+  //             <button
+  //               className={styles.snackBarButton}
+  //               onClick={() => {
+  //                 setHighlightedMerges(merge.map(course => course._id));
+  //                 closeSnackbar(key);
+  //               }}
+  //             >
+  //               Highlight Merges
+  //             </button>
+  //             <span 
+  //               className={styles.snackBarDismiss}
+  //               onClick={() => closeSnackbar(key)}>
+  //               Dismiss
+  //             </span>
+  //           </div>
+  //         ),
+  //         autoHideDuration: null,
+  //       })
+  
+  //     )
+      
+  //   });
+
+  // }, [possibleMerges] );
+
+  // // merge notif call
+  // useEffect(() => {
+  //   if (typeof mergeNotifs === 'function') {
+  //     mergeNotifs(); 
+  //   }
+  // }, [mergeNotifs]);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const processQueue = useCallback(() => {
+    if (snackbarQueue.length > 0) {
+      const currentSnackbar = snackbarQueue[0];
+
+      const key = enqueueSnackbar(
+        <div>
+          {currentSnackbar.map((course) => (
+            <span key={course._id}>
+              {course.courseCode} {course.section}
+              <br />
+            </span>
+          ))}
+          {'can be merged.'}
+        </div>,
+        {
+          variant: 'info',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+          action: (key) => (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <button
+                className={styles.snackBarButton}
+                onClick={() => {
+                  setHighlightedMerges(
+                    currentSnackbar.map((course) => course._id)
+                  );
+                  closeSnackbar(key);
+                  removeSnackbarFromQueue(); 
+                }}
+              >
+                Highlight Merges
+              </button>
+              <span
+                className={styles.snackBarDismiss}
+                onClick={() => {
+                  closeSnackbar(key);
+                  removeSnackbarFromQueue(); 
+                }}
+              >
+                Dismiss
+              </span>
+            </div>
+          ),
+          autoHideDuration: null,
+          persist: true, 
+        }
+      );
+      snackbarKeys.current.push(key);
+    }
+  }, [enqueueSnackbar, snackbarQueue, closeSnackbar]);
+
+  // Function to remove the first snackbar from the queue
+  const removeSnackbarFromQueue = () => {
+    setSnackbarQueue((prevQueue) => prevQueue.slice(1));
+  };
+
+  // Effect to update the merge notifications
+  useEffect(() => {
+    setMergeNotifs(() => () => {
+      // Enqueue new snackbars
+      const newQueue = possibleMerges.map((merge) => merge);
+      setSnackbarQueue(newQueue);
+    });
+  }, [possibleMerges]);
+
+  // Effect to trigger snackbar queue processing
+  useEffect(() => {
+    if (typeof mergeNotifs === 'function') {
+      mergeNotifs();
+    }
+  }, [mergeNotifs]);
+
+  // Process the snackbar queue whenever it changes
+  useEffect(() => {
+    if (snackbarQueue.length > 0) {
+      processQueue();
+    }
+  }, [snackbarQueue, processQueue]);
+
+  useEffect(() => {
+    const handleUnload = () => {
+      snackbarKeys.current.forEach((key) => {
+        closeSnackbar(key);
+      });
+      snackbarKeys.current = [];
+    };
+
+    window.addEventListener('beforeunload', handleUnload);
+
+    return () => {
+      handleUnload();
+      window.removeEventListener('beforeunload', handleUnload);
+    };
+  }, [closeSnackbar]);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const handleCheckboxChange = (id) => {
     setCheckedRows((prevCheckedRows) =>({
@@ -68,9 +232,18 @@ function CourseCourseOfferings(){
   // table data
   var courseOfferingRows
   if(!loading){
-    courseOfferingRows = courseOfferings.map((courseOffering) => (
+    const sortedCourseOfferings = [...courseOfferings].sort((a, b) => {
+      const isAHighlighted = highlightedMerges.includes(a._id);
+      const isBHighlighted = highlightedMerges.includes(b._id);
+
+      if (isAHighlighted && !isBHighlighted) return -1; 
+      if (!isAHighlighted && isBHighlighted) return 1; 
+      return 0; 
+    });
+    courseOfferingRows = sortedCourseOfferings.map((courseOffering) => (
       <tr key={courseOffering._id}
-          className={checkedRows[courseOffering._id] ? styles.checkedRow : ''}
+          className={`${checkedRows[courseOffering._id] ? styles.checkedRow : ''}
+                      ${highlightedMerges.includes(courseOffering._id) ? styles.mergeRow : ''}`}
           onClick={() => handleCheckboxChange(courseOffering._id)} 
       >
         <td>

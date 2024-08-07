@@ -5,7 +5,6 @@ import CoursePage from './pages/CoursePage/CoursePage.js';
 import CourseOfferings from './pages/CourseOfferings/CourseOfferings.js';
 import UploadPage from './pages/UploadPage/UploadPage.js'
 
-import Test from './test.js';
 
 
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -21,7 +20,6 @@ function App() {
           <Route path="/upload" element={<UploadPage />} />
           <Route path="/coursepage" element={<CoursePage />} />
           <Route path="/course-offerings" element={<CourseOfferings />} />
-          <Route path="/test" element={<Test />} />
         </Routes>
       </Router>
     </div>

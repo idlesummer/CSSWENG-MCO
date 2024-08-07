@@ -12,8 +12,8 @@ function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
   const [batch, setBatch] = useState(courseInfo.takers[0].batch);
   const [takers, setTakers] = useState(courseInfo.takers[0].count);
 
-  const [code, setCode] = useState(courseInfo.code);
-  const [title, setTitle] = useState(courseInfo.title);
+  const [code, setCode] = useState(courseInfo.courseCode);
+  const [title, setTitle] = useState(courseInfo.courseTitle);
   const [section, setSection] = useState(courseInfo.section);
 
   const [faculty, setFaculty] = useState(courseInfo.faculty);
@@ -251,82 +251,7 @@ function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
 
           
           {programLists}
-          {/* <div className={` ${styles.formRow5} ${styles.programRow}`}>
 
-            <div className={styles.formGroup2}>
-                <label htmlFor="programCode" >Program Code</label>
-                <input 
-                  type="text" 
-                  id="programCode" 
-                  className={styles.inputText}
-                  onChange={e => setProgramCode(e.target.value)}
-                  value={programCode}
-                />
-            </div>
-
-            <div className={styles.formGroup}>
-            <label htmlFor="programName" >Program Name</label>
-              <input 
-                  type="text" 
-                  id="programName" 
-                  className={styles.inputText2}
-                  onChange={e => setProgramName(e.target.value)}
-                  value={programName}
-                  readOnly
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-                <label htmlFor="batch" >Batch</label>
-                <select 
-                id="batch" 
-                name="batch"
-                className={styles.inputText2}
-                onChange={e => setBatch(e.target.value)}
-                value={batch}
-                readOnly
-                disabled
-                >
-                  <option key="none" value="" disabled></option>
-                  <option key={120} value={120}>120</option>
-                  <option key={121} value={121}>121</option>
-                  <option key={122} value={122}>122</option>
-                  <option key={123} value={123}>123</option>
-                  <option key={124} value={124}>124</option>
-              </select>
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="takers">Takers</label>
-              <input
-                type="number"
-                id="takers"
-                className={styles.inputText2}
-                onChange={e => setTakers(e.target.value)}
-                value={takers}
-                readOnly
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-            <label style={{visibility:'hidden'}}>OOO</label>
-              <div className={styles.iconButton}><img src="/img/icons/trash.png" alt="delete" /></div>
-            </div>
-
-          </div> */}
-
-          {/* <div className={styles.formButtons}>
-            <button 
-              type="button" 
-              className={styles.cancelButton}
-              onClick={() => setOpenDeleteModal(false)}
-            >
-                Cancel
-            </button>
-
-            <button type="submit" className={styles.addButton}>Add Program</button>
-            
-          </div> */}
         </div>
 
         <div className={styles.viewOnly}>

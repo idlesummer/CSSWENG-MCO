@@ -154,6 +154,18 @@ thead {
     background-color: rgba(229, 255, 0, 0.521);
 }
 
+.mergeRow {
+    background-color: rgba(0, 70, 128, 0.274);
+}
+
+.mergeRow:hover {
+    background-color: rgba(0, 70, 128, 0.349);
+}
+
+.checkedRow.mergeRow {
+    background-color: rgba(4, 128, 0, 0.274);
+}
+
 .snackBarButton {
     margin-right: 10px;
     background-color: rgb(255, 255, 255);

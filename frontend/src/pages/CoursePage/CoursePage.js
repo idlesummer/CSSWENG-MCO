@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Sidebar from '../../components/Sidebar/Sidebar.js';
@@ -14,6 +14,7 @@ function CoursePage({ courseList }){
   let courses;
   const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const [snackbarQueue, setSnackbarQueue] = useState([]);
 
   const [openEditModal, setOpenEditModal] = useState(false)
   const [openAddModal, setOpenAddModal] = useState(false)
@@ -30,6 +31,8 @@ function CoursePage({ courseList }){
   const [highlightedConflicts, setHighlightedConflicts] = useState([]);
 
   const [conflictNotifs, setConflictNotifs] = useState(() => () => {});
+  const snackbarKeys = useRef([]); 
+
   // let conflictNotifs = () => null
 
   // course list
@@ -139,54 +142,104 @@ function CoursePage({ courseList }){
   console.log(checkedCourses)
 
   // function for conflict pop ups on load
-  useEffect(() => {
-    setConflictNotifs(() => () => {
-      conflicts.forEach((conflict) => 
-        enqueueSnackbar( 
-          <div>
-            {conflict.map((course) => ( 
-              <span key={course._id}> {course.courseCode} <br/> </span>
-            ))}
-            {"are conflicting."}
-          </div>, 
-          {
+  const processQueue = useCallback(() => {
+    if (snackbarQueue.length > 0) {
+      const currentSnackbar = snackbarQueue[0];
+
+      const key = enqueueSnackbar(
+        <div>
+          {currentSnackbar.map((course) => (
+            <span key={course._id}>
+              {course.courseCode} {course.section}
+              <br />
+            </span>
+          ))}
+          {'have conflict.'}
+        </div>,
+        {
           variant: 'error',
           anchorOrigin: {
             vertical: 'bottom',
             horizontal: 'right',
           },
-          action: key => (
+          action: (key) => (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <button
                 className={styles.snackBarButton}
                 onClick={() => {
-                  setHighlightedConflicts(conflict.map(course => course._id));
+                  setHighlightedConflicts(
+                    currentSnackbar.map((course) => course._id)
+                  );
                   closeSnackbar(key);
+                  removeSnackbarFromQueue(); 
                 }}
               >
                 Highlight Conflicts
               </button>
-              <span 
+              <span
                 className={styles.snackBarDismiss}
-                onClick={() => closeSnackbar(key)}>
+                onClick={() => {
+                  closeSnackbar(key);
+                  removeSnackbarFromQueue(); 
+                }}
+              >
                 Dismiss
               </span>
             </div>
           ),
           autoHideDuration: null,
-        })
-  
-      )
-      
+          persist: true, 
+        }
+      );
+      snackbarKeys.current.push(key);
+    }
+  }, [enqueueSnackbar, snackbarQueue, closeSnackbar]);
+
+  // remove the first snackbar from the queue
+  const removeSnackbarFromQueue = () => {
+    setSnackbarQueue((prevQueue) => prevQueue.slice(1));
+  };
+
+  // update the merge notifications
+  useEffect(() => {
+    setConflictNotifs(() => () => {
+      // Enqueue new snackbars
+      const newQueue = conflicts.map((merge) => merge);
+      setSnackbarQueue(newQueue);
     });
+  }, [conflicts]);
 
-  }, [conflicts] );
-
+  // trigger snackbar queue processing
   useEffect(() => {
     if (typeof conflictNotifs === 'function') {
-      conflictNotifs(); 
+      conflictNotifs();
     }
   }, [conflictNotifs]);
+
+  // Process the snackbar queue on change
+  useEffect(() => {
+    if (snackbarQueue.length > 0) {
+      processQueue();
+    }
+  }, [snackbarQueue, processQueue]);
+
+  // Removes snackbar queue on location change
+  useEffect(() => {
+    const handleUnload = () => {
+      snackbarKeys.current.forEach((key) => {
+        closeSnackbar(key);
+      });
+      snackbarKeys.current = [];
+    };
+
+    window.addEventListener('beforeunload', handleUnload);
+
+    return () => {
+      handleUnload();
+      window.removeEventListener('beforeunload', handleUnload);
+    };
+  }, [closeSnackbar]);
+
 
   const onDelete = async () => {
     const checkedCourseOfferings = getCheckedCourses();
