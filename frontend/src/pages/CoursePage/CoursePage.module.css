@@ -153,3 +153,30 @@ thead {
 .checkedRow.conflictRow:hover{
     background-color: rgba(229, 255, 0, 0.521);
 }
+
+.snackBarButton {
+    margin-right: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    padding: '4px 8px';
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.15s ease;
+}
+
+.snackBarButton:hover {
+    background-color: rgb(179, 179, 179);
+}
+
+.snackBarDismiss {
+    cursor: pointer;
+    text-decoration: underline;
+    transition: background-color 0.15s ease;
+}
+
+.snackBarDismiss:hover {
+    font-size:1.0001rem;
+    color:rgb(56, 56, 56);
+    cursor: pointer;
+    text-decoration: underline;
+}

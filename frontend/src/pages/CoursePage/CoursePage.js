@@ -15,17 +15,24 @@ function CoursePage({ courseList }){
   const navigate = useNavigate();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
+  const [openEditModal, setOpenEditModal] = useState(false)
+  const [openAddModal, setOpenAddModal] = useState(false)
 
   const [checkedRows, setCheckedRows] = useState({});
   const [isPending, setIsPending] = useState(true);
   const [batchProgramOfferings, setBatchProgramOfferings] = useState([]);
   const location = useLocation();
+  
   const {batch, programCode} = location.state || {};
-  const [conflicts, setConflicts] = useState([])
 
+  const [conflicts, setConflicts] = useState([])
+  const [conflictWarning, setConflictWarning] = useState([])
   const [highlightedConflicts, setHighlightedConflicts] = useState([]);
 
+  const [conflictNotifs, setConflictNotifs] = useState(() => () => {});
+  // let conflictNotifs = () => null
 
+  // course list
   useEffect(() => {
     const url = `${process.env.REACT_APP_API_URL}/api${location.pathname}${location.search}`;
     // const url = `${process.env.REACT_APP_API_URL}/api/${location.pathname}${location.search}`;
@@ -45,6 +52,7 @@ function CoursePage({ courseList }){
     getBatchProgramOfferings();
   }, [location]);
 
+  // schedule conflict array
   useEffect(() => {
     if(!isPending){
       const getScheduleConflicts = async () => {
@@ -125,22 +133,19 @@ function CoursePage({ courseList }){
     ));
   }
 
-  const [openEditModal, setOpenEditModal] = useState(false)
-  const [openAddModal, setOpenAddModal] = useState(false)
-
   const checkedCourses = getCheckedCourses();
   const checkedCourse = checkedCourses.length > 0;
   const checkedOneCourse = checkedCourses.length === 1;
-
   console.log(checkedCourses)
 
+  // function for conflict pop ups on load
   useEffect(() => {
-    const conflictNotifs = () => {
+    setConflictNotifs(() => () => {
       conflicts.forEach((conflict) => 
         enqueueSnackbar( 
           <div>
             {conflict.map((course) => ( 
-              <span key={course.course_id}> {course.courseCode} <br/> </span>
+              <span key={course._id}> {course.courseCode} <br/> </span>
             ))}
             {"are conflicting."}
           </div>, 
@@ -153,8 +158,7 @@ function CoursePage({ courseList }){
           action: key => (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <button
-                style={{ marginRight: 8 }}
-                
+                className={styles.snackBarButton}
                 onClick={() => {
                   setHighlightedConflicts(conflict.map(course => course._id));
                   closeSnackbar(key);
@@ -162,29 +166,27 @@ function CoursePage({ courseList }){
               >
                 Highlight Conflicts
               </button>
-              <span onClick={() => closeSnackbar(key)} style={{ cursor: 'pointer' }}>
+              <span 
+                className={styles.snackBarDismiss}
+                onClick={() => closeSnackbar(key)}>
                 Dismiss
               </span>
             </div>
           ),
-          autoHideDuration: null, // Custom auto-hide duration
+          autoHideDuration: null,
         })
-
+  
       )
       
-    };
+    });
 
-    conflictNotifs()
+  }, [conflicts] );
 
-  }, [conflicts]); 
-
-  // setHighlightedConflicts(conflicts.map(conflict => conflict.map(course => course.course_id)));
-  // console.log('highlighted',highlightedConflicts)
-
-  // useEffect (() => {
-  //   console.log('highlighted',highlightedConflicts)
-  // }, [highlightedConflicts]);
-
+  useEffect(() => {
+    if (typeof conflictNotifs === 'function') {
+      conflictNotifs(); 
+    }
+  }, [conflictNotifs]);
 
   const onDelete = async () => {
     const checkedCourseOfferings = getCheckedCourses();
@@ -211,6 +213,8 @@ function CoursePage({ courseList }){
     navigate(0);
   }
   
+  console.log("conflicts", conflicts)
+
   return (
     <div className={styles.container}>
         <Sidebar/>
@@ -236,10 +240,10 @@ function CoursePage({ courseList }){
                           <img src="/img/icons/trash.png" alt="delete"></img>
                         </div>
 
-                        <div className={`${styles.iconButton} ${styles.editIcon} ${!checkedOneCourse ? styles.disabled : ''}`} 
-                          onClick={() => {setOpenEditModal(true)}}
+                        <div className={`${styles.iconButton} ${styles.editIcon}`}
+                             onClick={() => conflictNotifs()}
                         >
-                          <span>Show Conflicts</span>
+                          <img src="/img/icons/warning.png" alt="warning"></img>
                         </div>
                     </div>
                 </div>
