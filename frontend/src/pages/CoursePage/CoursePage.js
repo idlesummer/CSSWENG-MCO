@@ -110,10 +110,6 @@ function CoursePage({ courseList }){
               e.stopPropagation(); 
               handleCheckboxChange(courseOffering._id);
             }}
-            style={{
-              visibility: 'hidden', 
-              margin: '0px'
-            }} 
           />
         </td>
         <td>{courseOffering.takers[0].count}</td>
@@ -240,6 +236,12 @@ function CoursePage({ courseList }){
     };
   }, [closeSnackbar]);
 
+  const clearSnackBars = () => {
+    snackbarKeys.current.forEach((key) => {
+      closeSnackbar(key);
+    });
+    snackbarKeys.current = [];
+  };
 
   const onDelete = async () => {
     const checkedCourseOfferings = getCheckedCourses();
@@ -276,7 +278,7 @@ function CoursePage({ courseList }){
             <div className={styles.tableWrapper}>
                 <div className={styles.controls}>
                     <div className={styles.searchBar}>
-                        <input type="text"/>
+                        <input type="text" style={{visibility:'hidden'}}/>
                     </div>
                     <div className={styles.iconButtons}>
 
@@ -297,6 +299,12 @@ function CoursePage({ courseList }){
                              onClick={() => conflictNotifs()}
                         >
                           <img src="/img/icons/warning.png" alt="warning"></img>
+                        </div>
+
+                        <div className={`${styles.iconButton} ${styles.editIcon}`}
+                             onClick={() => clearSnackBars()}
+                        >
+                          <img src="/img/icons/clear.png" alt="clear"></img>
                         </div>
                     </div>
                 </div>

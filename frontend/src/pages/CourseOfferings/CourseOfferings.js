@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef  } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from 'notistack';
 
@@ -17,6 +17,7 @@ function CourseCourseOfferings(){
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [snackbarQueue, setSnackbarQueue] = useState([]);
 
+  const [input, setInput] = useState("");
 
   const [courseOfferings, setCourses] = useState([]);
   const [checkedRows, setCheckedRows] = useState({});
@@ -223,7 +224,11 @@ function CourseCourseOfferings(){
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+  const filteredCourses = useMemo(() => {
+    return courseOfferings.filter(courseOffering => {
+      return courseOffering.courseCode.toLowerCase().includes(input.toLowerCase());
+    });
+  }, [courseOfferings, input]);
 
   const handleCheckboxChange = (id) => {
     setCheckedRows((prevCheckedRows) =>({
@@ -246,9 +251,11 @@ function CourseCourseOfferings(){
   const getCheckedCourseOfferings = () => courseOfferings.filter((courseOffering) => checkedRows[courseOffering._id]);
   
   // table data
-  var courseOfferingRows
+
+  var courseOfferingRows; 
+
   if(!loading){
-    const sortedCourseOfferings = [...courseOfferings].sort((a, b) => {
+    const sortedCourseOfferings = [...filteredCourses].sort((a, b) => {
       const isAHighlighted = highlightedMerges.includes(a._id);
       const isBHighlighted = highlightedMerges.includes(b._id);
 
@@ -256,6 +263,7 @@ function CourseCourseOfferings(){
       if (!isAHighlighted && isBHighlighted) return 1; 
       return 0; 
     });
+    
     courseOfferingRows = sortedCourseOfferings.map((courseOffering) => (
       <tr key={courseOffering._id}
           className={`${checkedRows[courseOffering._id] ? styles.checkedRow : ''}`}
@@ -299,6 +307,7 @@ function CourseCourseOfferings(){
       </tr>
     ));
   }
+ 
 
   // const onDelete = async () => {  
   //   const checkedCourseOfferings = getCheckedCourseOfferings();
@@ -362,7 +371,11 @@ function CourseCourseOfferings(){
         <div className={styles.tableWrapper}>
           <div className={styles.controls}>
             <div className={styles.searchBar}>
-                <input type="text"/>
+                <input 
+                    type="text" 
+                    value = {input}
+                    onChange={(e) => setInput(e.target.value)}
+                />
             </div>
             <div className={styles.iconButtons}>
               <div className={`${styles.iconButton} ${styles.addIcon} ${!checkedOneCourse ? styles.disabled : ''}`}
@@ -387,7 +400,7 @@ function CourseCourseOfferings(){
                                   courseInfo={getCheckedCourseOfferings()[0]}/>}
               
               <div className={`${styles.iconButton} ${styles.mergeIcon} ${!canMergeCourses() ? styles.disabled : ''}` } 
-                   onClick={() => {setOpenMergeModal(true)}}
+                    onClick={() => {setOpenMergeModal(true)}}
               >
                     <img src="/img/icons/merge.png" alt="merge"></img>
               </div>
@@ -395,9 +408,6 @@ function CourseCourseOfferings(){
                                   setOpenMergeModal={setOpenMergeModal} 
                                   openMergeModal={openMergeModal} 
                                   courseList={checkedCourseOfferings}/>}
-              
-              <div className={`${styles.iconButton} ${styles.splitIcon}`} onClick={() => {setOpenSplitModal(true)}}><img src="/img/icons/split.png" alt="split"></img></div>
-              {openSplitModal && (<SplitModal closeModal={setOpenSplitModal} />)}
               
               <div 
                 className={`${styles.iconButton} ${styles.deleteIcon} ${!canRemoveTakers() ? styles.disabled : ''}`}
