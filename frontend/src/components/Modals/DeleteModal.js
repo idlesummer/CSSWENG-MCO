@@ -74,22 +74,30 @@ function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
   }, [begin2, timeMapping]);
 
   const deleteProgram = async (takerId, programName, batch, count) => {
-    const courseId = courseInfo._id
-    const program = {
-      courseId,
-      takerId,
-      programName,
-      batch,
-      count
+  
+    const message = `Remove ${programCode}-${batch} from ${code}-${section}`;
+
+    var result = window.confirm(message);
+
+    if(result) {
+      const courseId = courseInfo._id
+      const program = {
+        courseId,
+        takerId,
+        programName,
+        batch,
+        count
+      }
+      console.log("program", program)
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(program),
+      });
+      removeTakerById(takerId)
+      console.log(currentTakers)
     }
-    console.log("program", program)
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(program),
-    });
-    removeTakerById(takerId)
-    console.log(currentTakers)
+
   }
 
   // let programLists

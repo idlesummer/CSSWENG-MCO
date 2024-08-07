@@ -145,11 +145,15 @@ function CourseCourseOfferings(){
               <button
                 className={styles.snackBarButton}
                 onClick={() => {
+                  handleUncheckAll()
                   setHighlightedMerges(
                     currentSnackbar.map((course) => course._id)
                   );
+                  currentSnackbar.map((course) => (handleCheckboxChange(course._id)))
+                  
+                  
                   closeSnackbar(key);
-                  removeSnackbarFromQueue(); 
+                  removeSnackbarFromQueue();
                 }}
               >
                 Highlight Merges
@@ -219,11 +223,23 @@ function CourseCourseOfferings(){
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
   const handleCheckboxChange = (id) => {
     setCheckedRows((prevCheckedRows) =>({
       ...prevCheckedRows,
       [id]: !prevCheckedRows[id], 
     }));
+  };
+
+  const handleUncheckAll = () => {
+    setCheckedRows((prevCheckedRows) => {
+      const updatedRows = {};
+      for (const id in prevCheckedRows) {
+        updatedRows[id] = false;
+      }
+      return updatedRows;
+    });
   };
 
   // function returns JSON of selected rows
@@ -242,8 +258,7 @@ function CourseCourseOfferings(){
     });
     courseOfferingRows = sortedCourseOfferings.map((courseOffering) => (
       <tr key={courseOffering._id}
-          className={`${checkedRows[courseOffering._id] ? styles.checkedRow : ''}
-                      ${highlightedMerges.includes(courseOffering._id) ? styles.mergeRow : ''}`}
+          className={`${checkedRows[courseOffering._id] ? styles.checkedRow : ''}`}
           onClick={() => handleCheckboxChange(courseOffering._id)} 
       >
         <td>
@@ -254,10 +269,6 @@ function CourseCourseOfferings(){
               e.stopPropagation(); 
               handleCheckboxChange(courseOffering._id);
             }} 
-            style={{
-              visibility: 'hidden', 
-              margin: '0px'
-            }}
           />
         </td>
         <td>
@@ -347,7 +358,7 @@ function CourseCourseOfferings(){
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.content}>
-        <h1>SIS Course CourseOfferings for T3</h1>
+        <h1>SIS Course Offerings</h1>
         <div className={styles.tableWrapper}>
           <div className={styles.controls}>
             <div className={styles.searchBar}>

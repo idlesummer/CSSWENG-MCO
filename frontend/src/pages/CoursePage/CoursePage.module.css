@@ -18,7 +18,7 @@ h1 {
 
 .tableWrapper {
     /* overflow-x: auto; */
-    max-width: 100%; /* 90% */
+    max-width: 80%; /* 90% */
     background-color: #ffffff;
     padding: 10px 0 10px 0;
     border-radius: 8px;
@@ -89,8 +89,7 @@ table {
     overflow-x: scroll;
     border-collapse: collapse;
     margin-top: 20px;
-    min-width: 600px; 
-    max-width: 1750px;
+    max-width: 100%;
     height:100%;
     max-height: 700px;
     overflow-y: scroll;
@@ -152,18 +151,6 @@ thead {
 
 .checkedRow.conflictRow:hover{
     background-color: rgba(229, 255, 0, 0.521);
-}
-
-.mergeRow {
-    background-color: rgba(0, 70, 128, 0.274);
-}
-
-.mergeRow:hover {
-    background-color: rgba(0, 70, 128, 0.349);
-}
-
-.checkedRow.mergeRow {
-    background-color: rgba(4, 128, 0, 0.274);
 }
 
 .snackBarButton {
