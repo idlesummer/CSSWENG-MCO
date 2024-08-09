@@ -1,5 +1,3 @@
-Certainly! Here's the README.md file content, ready for you to copy and paste into your project:
-
 # Course Scheduling App
 
 This application streamlines the process of scheduling courses at DLSU-SIS, optimizing resource allocation and minimizing conflicts. It is designed to assist Academic Programming Officers (APOs) in efficiently managing course offerings, merging sections, assigning faculty, and generating schedules.
