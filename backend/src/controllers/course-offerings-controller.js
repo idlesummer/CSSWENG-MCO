@@ -131,7 +131,7 @@ async function createMergedCourseOffering(req, res) {
     await courseOffering1.save();
 
     // Delete courseOffering2
-    await CourseOfferings.findByIdAndDelete(mergeFromId);
+    // await CourseOfferings.findByIdAndDelete(mergeFromId);
     res.status(200).json({ courseOffering1 });
   
   } catch (error) {
