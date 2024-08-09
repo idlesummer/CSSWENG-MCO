@@ -59,10 +59,16 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
     return () => {}
   }, [begin2, timeMapping]);
 
+  useEffect(() => {
+    if (timeMapping[begin1]) {
+      setEnd1(timeMapping[begin1][0]);
+    }
+  }, [begin1, timeMapping])
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    console.log('end1', end1);
     const offering = {
       _id: courseID,
 
@@ -85,6 +91,7 @@ function EditModal({setOpenEditModal, openEditModal, courseInfo}) {
       remarks,
     };
 
+    console.log("offering", offering)
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
       method: "PATCH",
       body: JSON.stringify(offering),
