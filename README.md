@@ -47,4 +47,4 @@ This application streamlines the process of scheduling courses at [Your Universi
    ```bash
    npm start
    ```
-5. **Access the Application:** Open your web browser and navigate to ``http://localhost:3000`
+5. **Access the Application:** Open your web browser and navigate to `http://localhost:3000` (or the port you've configured).
