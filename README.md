@@ -1,6 +1,6 @@
 Certainly! Here's the README.md file content, ready for you to copy and paste into your project:
 
-# Course Scheduling Optimization App
+# Course Scheduling App
 
 This application streamlines the process of scheduling courses at [Your University/Institution Name], optimizing resource allocation and minimizing conflicts. It is designed to assist Academic Programming Officers (APOs) in efficiently managing course offerings, merging sections, assigning faculty, and generating schedules.
 
@@ -22,7 +22,7 @@ This application streamlines the process of scheduling courses at [Your Universi
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://your-repository-url.git
+   git clone https://github.com/idlesummer/CSSWENG-MCO/tree/improvements
    ```
 2. **Install Dependencies (Frontend):**
    ```bash
