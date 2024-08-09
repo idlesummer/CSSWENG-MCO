@@ -8,8 +8,10 @@ import styles from '../CoursePage/CoursePage.module.css';
 import EditModal from '../../components/Modals/EditModal.js';
 import MergeModal from '../../components/Modals/MergeModal.js';
 import SplitModal from '../../components/Modals/SplitModal.js';
-import AddModal from '../../components/Modals/AddModal.js';
+import AddProgramModal from '../../components/Modals/AddProgramModal.js';
 import DeleteModal from '../../components/Modals/DeleteModal.js';
+import AddCourseModal from '../../components/Modals/AddCourseModal.js';
+
 
 
 
@@ -25,8 +27,8 @@ function CourseCourseOfferings(){
 
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openMergeModal, setOpenMergeModal] = useState(false);
-  const [openSplitModal, setOpenSplitModal] = useState (false);
-  const [openAddModal, setOpenAddModal] = useState(false);
+  const [openAddCourseModal, setOpenAddCourseModal] = useState (false);
+  const [openAddProgramModal, setOpenAddProgramModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const [possibleMerges, setPossibleMerges] = useState([]);
@@ -67,59 +69,6 @@ function CourseCourseOfferings(){
   }, []);
 
   console.log('possibleMerges', possibleMerges)
-
-  // // merge notif queue
-  // useEffect(() => {
-  //   setMergeNotifs(() => () => {
-  //     possibleMerges.forEach((merge) => 
-  //       enqueueSnackbar( 
-  //         <div>
-  //           {merge.map((course) => ( 
-  //             <span key={course._id}> {course.courseCode} <br/> </span>
-  //           ))}
-  //           {"can be merged."}
-  //         </div>, 
-  //         {
-  //         variant: 'info',
-  //         anchorOrigin: {
-  //           vertical: 'bottom',
-  //           horizontal: 'right',
-  //         },
-  //         action: key => (
-  //           <div style={{ display: 'flex', alignItems: 'center' }}>
-  //             <button
-  //               className={styles.snackBarButton}
-  //               onClick={() => {
-  //                 setHighlightedMerges(merge.map(course => course._id));
-  //                 closeSnackbar(key);
-  //               }}
-  //             >
-  //               Highlight Merges
-  //             </button>
-  //             <span 
-  //               className={styles.snackBarDismiss}
-  //               onClick={() => closeSnackbar(key)}>
-  //               Dismiss
-  //             </span>
-  //           </div>
-  //         ),
-  //         autoHideDuration: null,
-  //       })
-  
-  //     )
-      
-  //   });
-
-  // }, [possibleMerges] );
-
-  // // merge notif call
-  // useEffect(() => {
-  //   if (typeof mergeNotifs === 'function') {
-  //     mergeNotifs(); 
-  //   }
-  // }, [mergeNotifs]);
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const processQueue = useCallback(() => {
     if (snackbarQueue.length > 0) {
@@ -222,7 +171,7 @@ function CourseCourseOfferings(){
     };
   }, [closeSnackbar]);
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
 
   const filteredCourses = useMemo(() => {
     return courseOfferings.filter(courseOffering => {
@@ -378,14 +327,25 @@ function CourseCourseOfferings(){
                 />
             </div>
             <div className={styles.iconButtons}>
-              <div className={`${styles.iconButton} ${styles.addIcon} ${!checkedOneCourse ? styles.disabled : ''}`}
-                   onClick={() => {setOpenAddModal(true)}}
+            <div className={`${styles.iconButton} ${styles.addIcon} ${!checkedOneCourse ? styles.disabled : ''}`}
+                   onClick={() => {setOpenAddCourseModal(true)}}
               >
                 <img src="/img/icons/plus.png" alt="add"></img>
               </div>
-              {openAddModal && <AddModal 
-                                  setOpenAddModal={setOpenAddModal} 
-                                  openAddModal={openAddModal} 
+              {openAddCourseModal && <AddCourseModal 
+                                  setOpenAddCourseModal={setOpenAddCourseModal} 
+                                  openAddCourseModal={openAddCourseModal} 
+                                  fromCourseOfferings={true}
+                                  courseInfo={getCheckedCourseOfferings()[0]}/>}
+
+              <div className={`${styles.iconButton} ${styles.addIcon} ${!checkedOneCourse ? styles.disabled : ''}`}
+                   onClick={() => {setOpenAddProgramModal(true)}}
+              >
+                <img src="/img/icons/add-program.png" alt="add"></img>
+              </div>
+              {openAddProgramModal && <AddProgramModal 
+                                  setOpenAddProgramModal={setOpenAddProgramModal} 
+                                  openAddProgramModal={openAddProgramModal} 
                                   fromCourseOfferings={true}
                                   courseInfo={getCheckedCourseOfferings()[0]}/>}
               

@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar.js';
 import styles from './CoursePage.module.css';
 import EditModal from '../../components/Modals/EditModal.js';
-import AddModal from '../../components/Modals/AddModal.js';
 
 import { useSnackbar } from 'notistack';
 
@@ -17,7 +16,6 @@ function CoursePage({ courseList }){
   const [snackbarQueue, setSnackbarQueue] = useState([]);
 
   const [openEditModal, setOpenEditModal] = useState(false)
-  const [openAddModal, setOpenAddModal] = useState(false)
 
   const [checkedRows, setCheckedRows] = useState({});
   const [isPending, setIsPending] = useState(true);

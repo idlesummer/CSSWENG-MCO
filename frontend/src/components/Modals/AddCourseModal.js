@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './Modal.module.css';
 
 
-function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseInfo }) {
+function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal, fromCourseOfferings, courseInfo }) {
 
   console.log(courseInfo)
   const [programCode, setProgramCode] = useState("");
@@ -110,92 +110,14 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
         <div className={styles.headers}>
-          <h2>Add Program to {code} {section} </h2>
+          <h2>Add a new Course </h2>
         </div>
 
         <form onSubmit={onSubmit}>
-          {fromCourseOfferings && (
-          <div className={styles.formRow5}>
-            <div className={styles.formGroup2}>
-                <label htmlFor="programCode" className={styles.required}>Program Code</label>
-                <select
-                  type="text" 
-                  id="programCode" 
-                  className={styles.inputText}
-                  onChange={e => setProgramCode(e.target.value)}
-                  value={programCode}
-                  required
-                >
-                  <option key="none" value="" disabled></option>
-                  <option key="BSCS-ST" value="BSCS-ST">BSCS-ST</option>
-                  <option key="BSIS" value="BSIS">BSIS</option>
-                  <option key="BSIET-GD" value="BSIET-GD">BSIET-GD</option>
-                  <option key="BSIET-AD" value="BSIET-AD">BSIET-AD</option>
-                </select>
-            </div>
 
-            <div className={styles.formGroup}>
-                <label htmlFor="programName" className={styles.required}>Program Name</label>
-                <input 
-                  type="text" 
-                  id="programName" 
-                  className={styles.inputText2}
-                  onChange={e => setProgramName(e.target.value)}
-                  value={programName}
-                  required
-                />
-            </div>
-
-            <div className={styles.formGroup}>
-                <label htmlFor="batch" className={styles.required}>Batch</label>
-                <select 
-                id="batch" 
-                name="batch"
-                className={styles.inputText2}
-                onChange={e => setBatch(e.target.value)}
-                value={batch}
-                required
-                >
-                  <option key="none" value="" disabled></option>
-                  <option key={120} value={120}>120</option>
-                  <option key={121} value={121}>121</option>
-                  <option key={122} value={122}>122</option>
-                  <option key={123} value={123}>123</option>
-                  <option key={124} value={124}>124</option>
-              </select>
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="takers"className={styles.required}>Takers</label>
-              <input
-                type="number"
-                id="takers"
-                className={styles.inputText2}
-                onChange={e => setTakers(e.target.value)}
-                value={takers}
-                required
-              />
-            </div>
-          </div>
-          )}
-
-          <div className={styles.formButtons}>
-            <button 
-              type="button" 
-              className={styles.cancelButton}
-              onClick={() => setOpenAddModal(false)}
-            >
-                Cancel
-            </button>
-
-            <button type="submit" className={styles.addButton}>Add Program</button>
-            
-          </div>
-        </form>
-        <div className={styles.viewOnly}>
           <div className={styles.formRow1}>
             <div className={styles.formGroup2}>
-                <label htmlFor="name" >Course Code</label>
+                <label htmlFor="name" className={styles.required} >Course Code</label>
                 <input 
                   type="text" 
                   id="name" 
@@ -203,12 +125,12 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                   onChange={e => setCode(e.target.value)}
                   value={code}
                   required
-                  readOnly
+                  
                 />
             </div>
 
             <div className={styles.formGroup}>
-                <label htmlFor="title" >Course Title</label>
+                <label htmlFor="title" className={styles.required}>Course Title</label>
                 <input 
                   type="text" 
                   id="title" 
@@ -216,12 +138,12 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                   onChange={e => setTitle(e.target.value)}
                   value={title}
                   required
-                  readOnly
+                  
                 />
             </div>
 
             <div className={styles.formGroup}>
-                <label htmlFor="section" >Section</label>
+                <label htmlFor="section" className={styles.required}>Section</label>
                 <input 
                   type="text" 
                   id="section" 
@@ -229,14 +151,14 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                   onChange={e => setSection(e.target.value)}
                   value={section}
                   required
-                  readOnly
+                  
                 />
             </div>
           </div>
 
           <div className={styles.formRow4}>
             <div className={styles.formGroup}>
-              <label htmlFor="faculty" >Faculty</label>
+              <label htmlFor="faculty" className={styles.required} >Faculty</label>
               <input 
                 type="text" 
                 id="faculty" 
@@ -244,7 +166,7 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                 onChange={e => setFaculty(e.target.value)}
                 value={faculty}
                 required
-                readOnly
+                
               />
             </div>
 
@@ -252,15 +174,13 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
 
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
-              <label htmlFor="day1" >Day 1</label>
+              <label htmlFor="day1" className={styles.required}>Day 1</label>
               <select 
                 id="day1" 
                 name="day1"
                 onChange={e => setDay1(e.target.value)}
                 value={day1}
                 required
-                readOnly
-                disabled
               >
                 <option key="none" value="" disabled></option>
                 <option key="M" value="M">M</option>
@@ -273,15 +193,13 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
             </div>
 
             <div className={styles.formGroup2} id="beginBox1">
-              <label htmlFor="begin1">Begin 1</label>
+              <label htmlFor="begin1" className={styles.required}>Begin 1</label>
               <select 
                 id="begin1" 
                 name="begin1"
                 onChange={e => setBegin1(e.target.value)}
                 value={begin1}
                 required
-                readOnly
-                disabled
               >
                 <option key="none" value="" disabled></option>
                 <option key="0730" value="730">0730</option>
@@ -295,15 +213,14 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
             </div>
 
             <div className={styles.formGroup2}>
-              <label htmlFor="end1">End 1</label>
+              <label htmlFor="end1" className={styles.required}>End 1</label>
               <select 
                 id="end1" 
                 name="end1"
                 onChange={e => setEnd1(e.target.value)}
                 value={end1}
                 required
-                readOnly
-                disabled
+                
               >
                 <option key="none" value="" disabled></option>
                 {end1Options.map((time) => (
@@ -311,18 +228,12 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                     {time}
                   </option>
                 ))}
-                {/* <option key="0900" value="0900">0900</option>
-                <option key="1045" value="1045">1045</option>
-                <option key="1230" value="1230">1230</option>
-                <option key="1415" value="1415">1415</option>
-                <option key="1600" value="1600">1600</option>
-                <option key="1745" value="1745">1745</option>
-                <option key="1930" value="1930">1930</option> */}
+
               </select>
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="room1" >Room1</label>
+              <label htmlFor="room1" className={styles.required}>Room1</label>
               <input 
                 type="text"
                 id="room1" 
@@ -330,21 +241,19 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                 onChange={e => setRoom1(e.target.value)}
                 value={room1}
                 required
-                readOnly
+                
               />
             </div>
           </div>
 
-          <div className={styles.formRow}>
-            <div className={styles.formGroup}>
-              <label htmlFor="day2">Day 2</label>
+          <div className={styles.formRow} >
+            <div className={styles.formGroup} >
+              <label htmlFor="day2" >Day 2</label>
               <select 
                 id="day2" 
                 name="day2"
                 onChange={e => setDay2(e.target.value)}
-                value={day2}
-                readOnly
-                disabled
+                value={day2}                
               >
                 <option key="none" value=""></option>
                 <option key="Su" value="Su">Su</option>
@@ -364,8 +273,7 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                 name="day2"
                 onChange={e => setBegin2(e.target.value)}
                 value={begin2}
-                readOnly
-                disabled
+                
               >
                 <option key="none" value=""></option>
                 <option key="0730" value="730">0730</option>
@@ -384,9 +292,7 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                 id="end2"
                 name="end2"
                 onChange={e => setEnd2(e.target.value)}
-                value={end2}
-                disabled
-                readOnly
+                value={end2}                
               >
                 <option key="none" value=""></option>
                 {end2Options.map((time) => (
@@ -405,14 +311,14 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                 className={styles.inputText}
                 onChange={e => setRoom2(e.target.value)}  
                 value={room2}
-                readOnly
+                
               />
             </div>
           </div>
 
           <div className={styles.formRow2}>
             <div className={styles.formGroup}>
-              <label htmlFor="enrlCap">Enrl Cap</label>
+              <label htmlFor="enrlCap" className={styles.required}>Enrl Cap</label>
               <input 
                 type="number" 
                 id="enrlCap" 
@@ -420,7 +326,7 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                 onChange={e => setEnrlCap(e.target.value)}  
                 value={enrlCap}
                 required
-                readOnly
+                
               />
             </div>
 
@@ -432,15 +338,29 @@ function AddModal({ setOpenAddModal, openAddModal, fromCourseOfferings, courseIn
                 className={styles.inputText2}
                 onChange={e => setRemarks(e.target.value)}
                 value={remarks}
-                readOnly
+                
               />
             </div>
           </div>
-        </div>
+
+          <div className={styles.formButtons}>
+            <button 
+              type="button" 
+              className={styles.cancelButton}
+              onClick={() => setOpenAddCourseModal(false)}
+            >
+                Cancel
+            </button>
+
+            <button type="submit" className={styles.addButton}>Add Course</button>
+            
+          </div>
+        </form>
+
 
       </div>
     </div>
   );
 }
 
-export default AddModal
+export default AddCourseModal
