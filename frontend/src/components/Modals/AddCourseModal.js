@@ -4,62 +4,53 @@ import { useNavigate } from "react-router-dom";
 import styles from './Modal.module.css';
 
 
-function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal, fromCourseOfferings, courseInfo }) {
+function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal }) {
 
-  console.log(courseInfo)
-  const [programCode, setProgramCode] = useState("");
-  const [programName, setProgramName] = useState("");
-  const [batch, setBatch] = useState("");
-  const [takers, setTakers] = useState("");
+  const [courseCode, setCourseCode] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
+  const [section, setSection] = useState("");
 
-  const [code, setCode] = useState(courseInfo.courseCode);
-  const [title, setTitle] = useState(courseInfo.courseTitle);
-  const [section, setSection] = useState(courseInfo.section);
+  const [faculty, setFaculty] = useState("");
 
-  const [faculty, setFaculty] = useState(courseInfo.faculty);
+  const [day1, setDay1] = useState("");
+  const [begin1, setBegin1] = useState("");
+  const [end1, setEnd1] = useState("");
+  const [room1, setRoom1] = useState("");
 
-  const [day1, setDay1] = useState(courseInfo.day1);
-  const [begin1, setBegin1] = useState(courseInfo.begin1);
-  const [end1, setEnd1] = useState(courseInfo.end1);
-  const [room1, setRoom1] = useState(courseInfo.room1);
+  const [day2, setDay2] = useState("");
+  const [begin2, setBegin2] = useState("");
+  const [end2, setEnd2] = useState("");
+  const [room2, setRoom2] = useState("");
 
-  const [day2, setDay2] = useState(courseInfo.day2);
-  const [begin2, setBegin2] = useState(courseInfo.begin2);
-  const [end2, setEnd2] = useState(courseInfo.end2);
-  const [room2, setRoom2] = useState(courseInfo.room2);
-
-  const [enrlCap, setEnrlCap] = useState(courseInfo.enrlCap);
-  const [remarks, setRemarks] = useState(courseInfo.remarks);
+  const [enrlCap, setEnrlCap] = useState("");
+  const [remarks, setRemarks] = useState("");
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
   const [end1Options, setEnd1Options] = useState([]);
   const [end2Options, setEnd2Options] = useState([]);
 
-  const programMapping = useMemo(
-    () => ({
-      "BSCS-ST": "BS Computer Science Major in Software Technology",
-      "BSIS": "BS Information Systems",
-      "BSIET-GD": "BS Interactive Entertainment major in Game Development",
-      "BSIET-AD": "BS Interactive Entertainment major in Game Design",
-    }),
-    []
-  );
-
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const courseId = courseInfo._id;
     const taker = {
-      courseId,
-      programCode,
-      programName,
-      batch,
-      takers
+      courseCode,
+      courseTitle,
+      section,
+      faculty,
+      day1,
+      begin1,
+      end1,
+      room1,
+      day2,
+      end2,
+      room2,
+      enrlCap,
+      remarks,
     };
 
     console.log(taker);
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings/add-course-offer`, {
       method: "POST",
       body: JSON.stringify(taker),
       headers: {
@@ -75,7 +66,7 @@ function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal, fromCourseO
     console.table(json);
 
     //Close the modal and navigate to /offerings
-    navigate(0);
+    // navigate(0)
   };
 
   const timeMapping = useMemo(
@@ -101,11 +92,6 @@ function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal, fromCourseO
     return () => {}
   }, [begin2, timeMapping]);
 
-  useEffect(() => {
-    setProgramName(programMapping[programCode] || '');
-    return () => {}
-  }, [programCode]);
-
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modalContent}>
@@ -122,8 +108,8 @@ function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal, fromCourseO
                   type="text" 
                   id="name" 
                   className={styles.inputText}
-                  onChange={e => setCode(e.target.value)}
-                  value={code}
+                  onChange={e => setCourseCode(e.target.value)}
+                  value={courseCode}
                   required
                   
                 />
@@ -135,8 +121,8 @@ function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal, fromCourseO
                   type="text" 
                   id="title" 
                   className={styles.inputText2}
-                  onChange={e => setTitle(e.target.value)}
-                  value={title}
+                  onChange={e => setCourseTitle(e.target.value)}
+                  value={courseTitle}
                   required
                   
                 />

@@ -327,7 +327,7 @@ function CourseCourseOfferings(){
                 />
             </div>
             <div className={styles.iconButtons}>
-            <div className={`${styles.iconButton} ${styles.addIcon} `}
+            <div className={`${styles.iconButton} ${styles.addIcon}`}
                    onClick={() => {setOpenAddCourseModal(true)}}
               >
                 <img src="/img/icons/plus.png" alt="add"></img>

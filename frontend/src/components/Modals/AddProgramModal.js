@@ -59,7 +59,7 @@ function AddProgramModal({ setOpenAddProgramModal, openAddProgramModal, fromCour
     };
 
     console.log(taker);
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings/add-course-offer`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings/add-taker`, {
       method: "POST",
       body: JSON.stringify(taker),
       headers: {
