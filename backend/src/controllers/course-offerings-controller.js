@@ -132,6 +132,9 @@ async function createMergedCourseOffering(req, res) {
 
     // Delete courseOffering2
     // await CourseOfferings.findByIdAndDelete(mergeFromId);
+    courseOffering2.takers = []; 
+    await courseOffering2.save();
+    
     res.status(200).json({ courseOffering1 });
   
   } catch (error) {
