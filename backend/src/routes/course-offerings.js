@@ -3,6 +3,7 @@ const { Router } = require('express');
 const {
   getCourseOfferings,
   getPossibleMerges,
+  addCourseOffer,
   addTaker,
   createMergedCourseOffering,
   deleteTaker,
@@ -17,7 +18,8 @@ router.get('/', getCourseOfferings);
 router.get('/find-merges', getPossibleMerges);
 
 // POST
-router.post('/', addTaker);
+router.post('/add-course-offer', addCourseOffer);
+router.post('/add-taker', addTaker);
 
 // DELETE
 router.delete('/', deleteTaker);

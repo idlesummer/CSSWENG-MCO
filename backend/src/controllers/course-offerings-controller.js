@@ -13,6 +13,7 @@ async function getCourseOfferings(req, res) {
   }
 }
 
+
 // Get all possible merges
 async function getPossibleMerges(req, res) {
   try {
@@ -24,6 +25,57 @@ async function getPossibleMerges(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
+
+// Create a course offering
+async function addCourseOffer(req, res) {
+  try {
+    const {  
+      courseCode = null,
+      courseTitle = null,
+      offeredTo = 'X',
+      section = null,
+      faculty = null,
+
+      day1 = null,
+      begin1 = null,
+      end1 = null,
+      room1 = null,
+      day2 = null,
+      begin2 = null,
+      end2 = null,
+      room2 = null,
+
+      enrlCap = null,
+      remarks = null,
+    } = req.body;
+
+    const courseOffer = await CourseOfferings.create({
+      takers: [],
+      courseCode,
+      courseTitle,
+      offeredTo,
+      section,
+      faculty,
+      day1,
+      begin1,
+      end1,
+      room1,
+      day2,
+      begin2,
+      end2,
+      room2,
+      enrlCap,
+      remarks,
+    });
+
+    res.status(200).json(courseOffer);
+
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 
 // Create a course offering taker
 async function addTaker(req, res) {
@@ -150,6 +202,7 @@ async function updateCourseOffering(req, res) {
 module.exports = {
   getCourseOfferings,
   getPossibleMerges,
+  addCourseOffer,
   addTaker,
   createMergedCourseOffering,
   deleteTaker,

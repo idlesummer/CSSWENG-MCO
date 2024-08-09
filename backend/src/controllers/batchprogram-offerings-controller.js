@@ -18,7 +18,6 @@ async function getBatchProgramOfferings(req, res) {
 
 // Get list of course offerings that have conflicting schedules
 async function getScheduleConflicts(req, res) {
-  console.log('aklshdfklahjsd')
   try {
     const { ids } = req.body;
     const courseOfferings = await CourseOfferings.find({ _id: { $in: ids } });
@@ -35,7 +34,6 @@ async function getScheduleConflicts(req, res) {
 async function deleteBatchProgramOfferingTakers(req, res) {
   try {
     const { batch, courseIds, programCode } = req.body;
-    console.log("req.body",req.body)
     const filter = {
       _id: { $in: courseIds },
       takers: {
@@ -43,7 +41,6 @@ async function deleteBatchProgramOfferingTakers(req, res) {
       },
     };
 
-    console.log(filter)
 
     const result = await CourseOfferings.updateMany(
       filter,
