@@ -161,7 +161,7 @@ function DeleteModal({ setOpenDeleteModal, openDeleteModal, courseInfo }) {
       <label style={{visibility:'hidden'}}>OOO</label>
         <div className={styles.iconButton} 
              onClick={(e) => deleteProgram(program._id, program.programName, program.batch, program.count)}>
-                <img src="/img/icons/remove-program.png" alt="delete" /></div>
+                <img src="/img/icons/trash.png" alt="delete" /></div>
         </div>
 
     </div>

@@ -256,37 +256,7 @@ function CourseCourseOfferings(){
       </tr>
     ));
   }
- 
-
-  // const onDelete = async () => {  
-  //   const checkedCourseOfferings = getCheckedCourseOfferings();
-    
-  //   // If no rows are selected
-  //   if (!checkedCourseOfferings.length)
-  //     return;
-
-  //   const courseDetails = checkedCourseOfferings
-  //     .map((course) => `${course.code} ${course.section}`)
-  //     .join("\n");
-
-  //   const message = `Delete the following classes:\n${courseDetails}`;
-
-  //   var result = window.confirm(message);
-  //   if (result) {
-  //     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/course-offerings`, {
-  //       method: "DELETE",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(checkedCourseOfferings),
-  //     });
-      
-  //     const json = await response.json();
-  
-  //     console.table(json);
-  //     navigate(0);
-  //   }
-
-  // }
-  
+   
   const checkedCourseOfferings = getCheckedCourseOfferings();
   const checkedCourse = checkedCourseOfferings.length > 0;
   const checkedOneCourse = checkedCourseOfferings.length === 1;
@@ -373,7 +343,7 @@ function CourseCourseOfferings(){
                 className={`${styles.iconButton} ${styles.deleteIcon} ${!canRemoveTakers() ? styles.disabled : ''}`}
                 onClick={() => {setOpenDeleteModal(true)}}
               >
-                <img src="/img/icons/trash.png" alt="delete"></img>
+                <img src="/img/icons/remove-program.png" alt="delete"></img>
               </div>
               {openDeleteModal && <DeleteModal
                                   setOpenDeleteModal={setOpenDeleteModal} 
