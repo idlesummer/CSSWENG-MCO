@@ -1,6 +1,6 @@
 # Course Scheduling App
 
-This application streamlines the process of scheduling courses at DLSU-SIS, optimizing resource allocation and minimizing conflicts. It is designed to assist Academic Programming Officers (APOs) in efficiently managing course offerings, merging sections, assigning faculty, and generating schedules.
+This application streamlines and minimizing conflicts of the process of scheduling courses at DLSU-SIS. It is designed to assist the Academic Programming Officers (APO) in efficiently managing course offerings, merging sections, assigning faculty, and generating schedules.
 
 ## Features
 
