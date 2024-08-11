@@ -43,6 +43,7 @@ function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal }) {
       end1,
       room1,
       day2,
+      begin2,
       end2,
       room2,
       enrlCap,
@@ -66,7 +67,7 @@ function AddCourseModal({ setOpenAddCourseModal, openAddCourseModal }) {
     console.table(json);
 
     //Close the modal and navigate to /offerings
-    // navigate(0)
+    navigate(0)
   };
 
   const timeMapping = useMemo(
